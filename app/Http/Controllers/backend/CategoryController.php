@@ -66,6 +66,7 @@ class CategoryController extends Controller
         Category::find($id)->update([
             'category_name' => $request->name,
             'category_desc' => $request->description,
+            'category_status' => $request->status
         ]);
         Session::put('success', 'Sửa danh mục sản phẩm thành công');
         return redirect()->route('all_category');

@@ -64,6 +64,7 @@ class BrandController extends Controller
         Brand::find($id)->update([
             'brand_name' => $request->name,
             'brand_desc' => $request->description,
+            'brand_status' => $request->status
         ]);
         Session::put('success', 'Sửa thương hiệu sản phẩm thành công');
         return redirect()->route('all_brand');

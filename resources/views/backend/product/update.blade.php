@@ -1,132 +1,136 @@
 @extends('backend.admin_layout')
 @section('content')
-    <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Trang chủ/</span> Thêm sản phẩm</h4>
-        <style>
-            .bootstrap-tagsinput .tag {
-                margin-right: 2px;
-                color: white;
-            }
-
-            .label-info {
-                background-color: #5bc0de;
-            }
-        </style>
-        <!-- Basic Layout & Basic with Icons -->
-        <div class="row">
-            <!-- Basic Layout -->
-            <div class="col-xxl">
-                <div class="card mb-12">
-                    <div class="card-header d-flex align-items-center justify-content-between">
-                        <h5 class="mb-0">Thêm sản phẩm</h5>
-                    </div>
-                    <div class="card-body">
-                        <form action="{{  route('update_product',['id'=>$product->product_id]) }}" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="basic-default-name">Tên sản phẩm</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" value="{{ $product->product_name }}" id="basic-default-name" name="name"
-                                           />
-                                </div>
+    <section class="pcoded-main-container">
+        <div class="pcoded-content">
+            <!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-12">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">Thêm sản phẩm</h5>
                             </div>
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="basic-default-name">Danh mục sản phẩm</label>
-                                <div class="col-sm-10">
-                                    <select id="defaultSelect" name="category_id" class="form-select">
-                                        <option>---Chọn danh mục---</option>
-                                        @foreach ($category as $category)
-                                            <option
-                                                @php
-                                                    if($product->category_id == $category->category_id) {
-                                                @endphp
-                                                selected
-                                                @php
-                                                    }
-                                                @endphp
-                                                value="{{ $category->category_id }}">{{ $category->category_name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="basic-default-name">Thương hiệu sản phẩm</label>
-                                <div class="col-sm-10">
-                                    <select id="defaultSelect" name="brand_id" class="form-select">
-                                        <option>---Chọn thương hiệu---</option>
-                                        @foreach ($brand as $brand)
-                                            <option
-                                                @php
-                                                    if($product->brand_id == $brand->brand_id) {
-                                                @endphp
-                                                    selected
-                                                @php
-                                                    }
-                                                @endphp
-                                                value="{{ $brand->brand_id }}">{{ $brand->brand_name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="basic-default-name">Tag sản phẩm</label>
-                                <div class="col-sm-10">
-                                    <input type="text" data-role="tagsinput" class="form-control" value="{{$product->product_tags}}" id="product_tags" name="product_tags"
-                                    />
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="basic-default-name">Số lượng</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" value="{{ $product->product_quantity }}" id="basic-default-name" name="product_quantity"
-                                           placeholder="Nhập số lượng"/>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="basic-default-name">Nội dung</label>
-                                <div class="col-sm-10">
-                                    <input type="text" value="{{ $product->product_content }}" class="form-control" id="basic-default-name" name="product_content"
-                                           placeholder="John Doe"/>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="basic-default-name">Giá</label>
-                                <div class="col-sm-10">
-                                    <input type="number" value="{{ $product->product_price }}" class="form-control" id="basic-default-name" name="price"
-                                           placeholder="1.000.000 "/>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="basic-default-name">Ảnh</label>
-                                <div class="col-sm-10">
-                                    <input type="file" class="form-control" id="basic-default-name" name="image"
-                                    />
-                                    <img class="input-rounded mt-2" src="{{ URL::to('/upload/product/'.$product->product_image) }}" height="150" width="150" alt="">
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="basic-default-message">Mô tả</label>
-                                <div class="col-sm-10">
-                                  <textarea
-                                      id="ckeditor"
-                                      class="form-control" name="description"
-                                      placeholder="Mô tả sản phẩm"
-                                  >{{ $product->product_desc }}</textarea>
-                                </div>
-                            </div>
-                            <div class="row justify-content-end">
-                                <div class="col-sm-10">
-                                    <button type="submit" class="btn btn-primary">Sửa</button>
-                                </div>
-                            </div>
-                        </form>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{{route('dashboard')}}"><i
+                                            class="feather icon-home"></i></a></li>
+                                <li class="breadcrumb-item"><a href="#!">sản phẩm</a></li>
+                                <li class="breadcrumb-item"><a href="#!">Thêm sản phẩm</a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
+            <!-- [ breadcrumb ] end -->
+            <!-- [ Main Content ] start -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Thêm mới sản phẩm</h5>
+                        </div>
+                        <div class="card-body">
+                            <form action="{{  route('update_product',['id'=>$product->product_id]) }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="floating-label" for="name">Tên sản phẩm</label>
+                                            <input type="text" class="form-control" required id="name" name="name"
+                                                   placeholder="Nhập tên sản phẩm" value="{{ $product->product_name }}"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="floating-label" for="category_id">Danh mục sản phẩm </label>
+                                            <select id="category_id" name="category_id" class="form-control">
+                                                <option>---Chọn danh mục---</option>
+                                                @foreach ($category as $category)
+                                                    <option @if($product->category_id == $category->category_id) selected @endif
+                                                        value="{{ $category->category_id }}">
+                                                        {{ $category->category_name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="floating-label" for="brand_id">Thương hiệu sản phẩm</label>
+                                            <select id="brand_id" name="brand_id" class="form-control">
+                                                <option>---Chọn thương hiệu---</option>
+                                                @foreach ($brand as $brand)
+                                                    <option @if($product->brand_id == $brand->brand_id) selected @endif
+                                                        value="{{ $brand->brand_id }}">
+                                                        {{ $brand->brand_name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="floating-label" for="name">Giá</label>
+                                            <input type="number" class="form-control"  id="basic-default-name" name="price"
+                                                   placeholder="1.000.000 " value="{{ $product->product_price }}"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="floating-label" for="name">Số lượng</label>
+                                            <input type="text" class="form-control" id="basic-default-name" name="product_quantity"
+                                                   placeholder="Nhập số lượng" value="{{ $product->product_quantity }}"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="floating-label" for="name">Tag sản phẩm</label>
+                                            <input type="text" data-role="tagsinput" class="form-control" id="product_tags" name="product_tags"
+                                                   value="{{$product->product_tags}}"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="floating-label" for="name">Ảnh</label>
+                                            <input type="file" class="form-control" id="basic-default-name" name="image"
+                                            />
+                                            <img class="input-rounded mt-2" src="{{ URL::to('/upload/product/'.$product->product_image) }}" height="150" width="150" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="floating-label" for="name">Nội dung</label>
+                                            <input type="text" class="form-control" id="basic-default-name" name="product_content"
+                                                   placeholder="Nội dung sản phẩm" value="{{ $product->product_content }}"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="floating-label" for="description">Mô tả</label>
+                                            <textarea
+                                                id="ckeditor"
+                                                class="form-control" name="description"
+                                                placeholder="Mô tả sản phẩm"
+                                            >{{ $product->product_desc }}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary">Sửa</button>
+                                            <a href="/admin/product/all_product" class="btn btn-default">Huỷ</a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- [ form-element ] start -->
+            </div>
+            <!-- [ Main Content ] end -->
+
         </div>
-        <!-- Basic with Icons -->
-    </div>
-    </div>
+    </section>
 @endsection
 @section('js')
     <script>

@@ -16,7 +16,7 @@ class CouponController extends Controller
         if($coupon==true){
 
             Session::forget('coupon');
-            return redirect()->back()->with('message','Xóa mã khuyến mãi thành công');
+            return redirect()->back()->with('success','Xóa mã khuyến mãi thành công');
         }
     }
     public function create(){
@@ -26,7 +26,7 @@ class CouponController extends Controller
     public function delete($id){
         $coupon = Coupon::find($id);
         $coupon->delete();
-        Session::put('message','Xóa mã giảm giá thành công');
+        Session::put('success','Xóa mã giảm giá thành công');
         return Redirect::to('admin/coupon/all_coupon');
     }
     public function index(){
