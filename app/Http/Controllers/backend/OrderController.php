@@ -21,8 +21,8 @@ class OrderController extends Controller
     public function index()
     {
         $title = 'Danh sách đặt hàng';
-        $order = Order::orderby('created_at', 'DESC')->get();
-        return view('backend.order.index')->with(compact('order','title'));
+        $orders = Order::orderby('created_at', 'DESC')->paginate(5);
+        return view('backend.order.index')->with(compact('orders','title'));
     }
 
     public function view_order($order_code)

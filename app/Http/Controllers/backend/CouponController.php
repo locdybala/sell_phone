@@ -32,8 +32,8 @@ class CouponController extends Controller
     public function index(){
         $title = 'Danh sách mã giảm giá';
         $today= Carbon::now('Asia/Ho_Chi_Minh')->format('Y-m-d');
-        $coupon = Coupon::orderby('coupon_id','DESC')->get();
-        return view('backend.coupon.index')->with(compact('coupon','today','title'));
+        $coupons = Coupon::orderby('coupon_id','DESC')->paginate(5);
+        return view('backend.coupon.index')->with(compact('coupons','today','title'));
     }
     public function store(Request $request){
         $data = $request->all();

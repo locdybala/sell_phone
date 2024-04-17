@@ -9,7 +9,7 @@
                     <div class="row align-items-center">
                         <div class="col-md-12">
                             <div class="page-header-title">
-                                <h5 class="m-b-10">Danh sách danh mục sản phẩm</h5>
+                                <h5 class="m-b-10">Quản lý danh mục sản phẩm</h5>
                             </div>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{route('dashboard')}}"><i
@@ -28,10 +28,14 @@
                 <!-- [ stiped-table ] start -->
                 <div class="col-xl-12">
                     <div class="card">
-                        @include('backend.components.notification');
+                        @include('backend.components.notification')
                         <div class="card-header">
                             <h5>Danh sách danh mục</h5>
-                            <a href="{{ route('add_category') }}" class="btn btn-success mb-2">Thêm danh mục</a>
+                            <div>
+                                <a href="{{ route('add_category') }}"
+                                   class="btn btn-sm mt-2 btn-primary">
+                                    <i class="fa fa-plus-circle" aria-hidden="true"></i> Thêm danh mục</a>
+                            </div>
                         </div>
                         <div class="card-body table-border-style">
                             <div class="table-responsive">
@@ -58,29 +62,32 @@
                                                 @if ($category->category_status==1)
 
                                                     <td>
-                                                        <a href="{{ route('unactive_category',['id'=>$category->category_id]) }}" class="badge badge-success">Kích hoạt</a>
+                                                        <a href="{{ route('unactive_category',['id'=>$category->category_id]) }}"
+                                                           class="badge badge-success">Kích hoạt</a>
                                                     </td>
                                                 @else
                                                     <td>
-                                                        <a href="{{ route('active_category',['id'=>$category->category_id]) }}" class="badge badge-warning">Không kích hoạt</a>
+                                                        <a href="{{ route('active_category',['id'=>$category->category_id]) }}"
+                                                           class="badge badge-warning">Không kích hoạt</a>
                                                     </td>
 
                                                 @endif
                                                 <td>
 
-
-                                                            <a class="btn btn-sm btn-warning"
-                                                               href="{{ route('updateCategory',['id'=>$category->category_id]) }}"
-                                                            ><i class="bx bx-edit-alt me-1"></i> Sửa</a
-                                                            >
-                                                            <form method="POST" action="">
-                                                                @csrf
-                                                                @method('delete')
-                                                                <a onclick="return confirm('Bạn có muốn xóa danh mục này không?')"
-                                                                   href="{{ route('deleteCategory',['id'=>$category->category_id]) }}"
-                                                                   class="btn btn-sm btn-danger"><i class="bx bx-trash me-1">
-                                                                        Xóa</i></a>
-                                                            </form>
+                                                <div style="display: flex">
+                                                    <a class="btn btn-sm btn-warning"
+                                                       href="{{ route('updateCategory',['id'=>$category->category_id]) }}"
+                                                    ><i class="fa fa-pencil"></i></a
+                                                    >
+                                                    <form method="POST" action="">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <a onclick="return confirm('Bạn có muốn xóa danh mục này không?')"
+                                                           href="{{ route('deleteCategory',['id'=>$category->category_id]) }}"
+                                                           class="btn btn-sm btn-danger ml-2"><i class="fa fa-trash">
+                                                                </i></a>
+                                                    </form>
+                                                </div>
                                                 </td>
                                             </tr>
                                         @endforeach

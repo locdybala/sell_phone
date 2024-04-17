@@ -13,8 +13,8 @@ class PostController extends Controller
     public function index()
     {
         $title = 'Danh sách bài viết';
-        $post = Post::all();
-        return view('backend.post.index', compact('post','title'));
+        $posts = Post::paginate(5);
+        return view('backend.post.index', compact('posts','title'));
 
     }
 
@@ -61,7 +61,7 @@ class PostController extends Controller
         Post::find($id)->update([
             'post_status' => 0
         ]);
-        Session::put('success', 'Không kích hoạt sân thành công');
+        Session::put('success', 'Không kích hoạt bài viết thành công');
         return redirect()->route('all_post');
     }
 
@@ -70,7 +70,7 @@ class PostController extends Controller
         Post::find($id)->update([
             'post_status' => 1
         ]);
-        Session::put('success', 'Kích hoạt sân thành công');
+        Session::put('success', 'Kích hoạt bài viết thành công');
         return redirect()->route('all_post');
 
     }

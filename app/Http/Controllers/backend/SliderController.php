@@ -12,8 +12,8 @@ class SliderController extends Controller
     public function index()
     {
         $title = 'Danh sách sliders';
-        $slider = Slider::all();
-        return view('backend.slider.index', compact('slider','title'));
+        $sliders = Slider::paginate(5);
+        return view('backend.slider.index', compact('sliders','title'));
 
     }
 

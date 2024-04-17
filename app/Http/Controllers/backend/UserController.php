@@ -13,8 +13,8 @@ class UserController extends Controller
     public function index()
     {
         $title = 'Danh sách user';
-        $user = User::paginate(5);
-        return view('backend.users.index')->with(compact('user','title'));
+        $users = User::paginate(5);
+        return view('backend.users.index')->with(compact('users','title'));
     }
 
     public function assign_roles(Request $request)

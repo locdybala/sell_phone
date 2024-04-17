@@ -1,97 +1,103 @@
 @extends('backend.admin_layout')
 @section('content')
-    <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Trang chủ /</span> Danh sách danh mục</h4>
-        @php
-            $message=Session::get('message');
-
-            if($message){
-                echo '<div class="alert alert-danger">
-                          '.$message.'
-                        </div>';
-                Session::put('message', null);
-
-                                 }
-        @endphp
-
-        @php
-            $success=Session::get('success');
-            if($success){
-            echo '<div class="alert alert-success">
-                 '.$success.'
-               </div>';
-            Session::put('success', null);}
-        @endphp
-        {{--        <a href="{{ route('add_order') }}" class="btn btn-success mb-2">Thêm danh mục</a>--}}
-        <div class="card">
-            <h5 class="card-header">Danh sách danh mục</h5>
-            <div class="table-responsive text-nowrap">
-                <table class="table table-hover">
-                    <thead>
-                    <tr>
-
-                        <th>Thứ tự</th>
-                        <th>Mã đơn hàng</th>
-                        <th>Ngày tháng đặt hàng</th>
-                        <th>Tình trạng đơn hàng</th>
-
-                        <th style="width:30px;"></th>
-                    </tr>
-                    </thead>
-                    <tbody class="table-border-bottom-0">
-                    @php
-                        $i = 0;
-                    @endphp
-                    @if ($order)
-                        @foreach ($order as $order)
-                            @php
-                                $i++;
-                            @endphp
-                            <tr>
-                                <td><i>{{$i}}</i></td>
-                                <td>{{ $order->order_code }}</td>
-                                <td>{{ $order->created_at }}</td>
-
-
-                                @if ($order->order_status==1)
-
-                                    <td>
-                                        <span
-                                            class="badge bg-label-primary me-1">Đơn hàng mới</span></td>
-                                @elseif($order->order_status== 3)
-                                    <td>
-                                        <span
-                                            class="badge bg-label-danger me-1">Đơn hàng bị hủy</span></td>
-                                @else
-                                    <td><span
-                                            class="badge bg-label-warning me-1">Đã xử lý</span></td>
-
-                                @endif
-                                <td>
-                                    <div class="dropdown">
-                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                                data-bs-toggle="dropdown">
-                                            <i class="bx bx-dots-vertical-rounded"></i>
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <a href="{{route('view_order',['order_code'=> $order->order_code])}}" class="dropdown-item">
-                                                <i class="bx bx-edit-alt me-1"></i> Chi tiết</a>
-
-                                            <a onclick="return confirm('Bạn có chắc là muốn xóa danh mục này ko?')" href="{{URL::to('/delete-order/'.$order->order_code)}}" class="dropdown-item">
-                                                <i class="bx bx-trash me-1"> Xóa</i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
-                    @else
-                        <td>Không có dữ liệu</td>
-                    @endif
-                    </tbody>
-                </table>
+    <section class="pcoded-main-container">
+        <div class="pcoded-content">
+            <!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-12">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">Quản lý đơn đặt hàng</h5>
+                            </div>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{{route('dashboard')}}"><i
+                                            class="feather icon-home"></i></a></li>
+                                <li class="breadcrumb-item"><a href="#!">Đơn đặt hàng</a></li>
+                                <li class="breadcrumb-item"><a href="#!">Danh sách đơn đặt hàng</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
+            <!-- [ breadcrumb ] end -->
+            <!-- [ Main Content ] start -->
+            <div class="row">
+
+                <!-- [ stiped-table ] start -->
+                <div class="col-xl-12">
+                    <div class="card">
+                        @include('backend.components.notification')
+                        <div class="card-header">
+                            <h5>Danh sách đơn đặt hàng</h5>
+                        </div>
+                        <div class="card-body table-border-style">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Mã đơn hàng</th>
+                                        <th>Ngày tháng đặt hàng</th>
+                                        <th>Tình trạng đơn hàng</th>
+                                        <th style="width:30px;"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @php $i=0; @endphp
+                                    @if ($orders)
+                                        @foreach ($orders as $order)
+                                            @php $i++; @endphp
+                                            <tr>
+                                                <td><i>{{$i}}</i></td>
+                                                <td>{{ $order->order_code }}</td>
+                                                <td>{{ $order->created_at }}</td>
+                                                @if ($order->order_status==1)
+
+                                                    <td>
+                                        <span
+                                            class="badge badge-primary">Đơn hàng mới</span></td>
+                                                @elseif($order->order_status== 3)
+                                                    <td>
+                                        <span
+                                            class="badge badge-danger">Đơn hàng bị hủy</span></td>
+                                                @else
+                                                    <td><span
+                                                            class="badge badge-warning">Đã xử lý</span></td>
+
+                                                @endif
+                                                <td>
+                                                    <div style="display: flex">
+                                                        <a class="btn btn-sm btn-warning"
+                                                           href="{{route('view_order',['order_code'=> $order->order_code])}}"
+                                                        ><i class="fa fa-pencil"></i></a
+                                                        >
+                                                        <form method="POST" action="">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <a onclick="return confirm('Bạn có muốn xóa đơn hàng này không?')"
+                                                               href="{{URL::to('/delete-order/'.$order->order_code)}}"
+                                                               class="btn btn-sm btn-danger ml-2"><i
+                                                                    class="fa fa-trash">
+                                                                </i></a>
+                                                        </form>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @else
+                                        <td>Không có dữ liệu</td>
+                                    @endif
+                                    </tbody>
+                                </table>
+                                @include('backend.components.pagination', ['paginator' => $orders]);
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- [ stiped-table ] end -->
+            </div>
+            <!-- [ Main Content ] end -->
         </div>
-        <!--/ Hoverable Table rows -->
-    </div>
+    </section>
 @endsection

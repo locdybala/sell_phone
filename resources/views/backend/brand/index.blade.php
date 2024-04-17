@@ -30,7 +30,10 @@
                         @include('backend.components.notification');
                         <div class="card-header">
                             <h5>Danh sách thương hiệu</h5>
-                            <a href="{{ route('add_brand') }}" class="btn btn-success mb-2">Thêm thương hiệu</a>
+                            <div>
+                                <a href="{{ route('add_brand') }}" class="btn btn-sm btn-primary mt-2">
+                                    <i class="fa fa-plus-circle" aria-hidden="true"></i> Thêm thương hiệu</a>
+                            </div>
                         </div>
                         <div class="card-body table-border-style">
                             <div class="table-responsive">
@@ -46,8 +49,8 @@
                                     </thead>
                                     <tbody>
                                     @php $i=0; @endphp
-                                    @if ($brand)
-                                        @foreach ($brand as $brand)
+                                    @if ($brands)
+                                        @foreach ($brands as $brand)
                                             @php $i++; @endphp
                                             <tr>
                                                 <td>{{$i}}</td>
@@ -57,29 +60,31 @@
                                                 @if ($brand->brand_status==1)
 
                                                     <td>
-                                                        <a href="{{ route('unactive_brand',['id'=>$brand->brand_id]) }}" class="badge badge-success">Kích hoạt</a>
+                                                        <a href="{{ route('unactive_brand',['id'=>$brand->brand_id]) }}"
+                                                           class="badge badge-success">Kích hoạt</a>
                                                     </td>
                                                 @else
                                                     <td>
-                                                        <a href="{{ route('active_brand',['id'=>$brand->brand_id]) }}" class="badge badge-warning">Không kích hoạt</a>
+                                                        <a href="{{ route('active_brand',['id'=>$brand->brand_id]) }}"
+                                                           class="badge badge-warning">Không kích hoạt</a>
                                                     </td>
 
                                                 @endif
                                                 <td>
-
-
-                                                    <a class="btn btn-sm btn-warning"
-                                                       href="{{ route('updateBrand',['id'=>$brand->brand_id]) }}"
-                                                    ><i class="bx bx-edit-alt me-1"></i> Sửa</a
-                                                    >
-                                                    <form method="POST" action="">
-                                                        @csrf
-                                                        @method('delete')
-                                                        <a onclick="return confirm('Bạn có muốn xóa thương hiệu này không?')"
-                                                           href="{{ route('deleteBrand',['id'=>$brand->brand_id]) }}"
-                                                           class="btn btn-sm btn-danger"><i class="bx bx-trash me-1">
-                                                                Xóa</i></a>
-                                                    </form>
+                                                    <div style="display: flex">
+                                                        <a class="btn btn-sm btn-warning mr-2"
+                                                           href="{{ route('updateBrand',['id'=>$brand->brand_id]) }}"
+                                                        ><i class="fa fa-pencil" aria-hidden="true"></i></a
+                                                        >
+                                                        <form method="POST" action="">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <a onclick="return confirm('Bạn có muốn xóa thương hiệu này không?')"
+                                                               href="{{ route('deleteBrand',['id'=>$brand->brand_id]) }}"
+                                                               class="btn btn-sm btn-danger"><i class="fa fa-trash"
+                                                                                                aria-hidden="true"></i></a>
+                                                        </form>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -88,6 +93,7 @@
                                     @endif
                                     </tbody>
                                 </table>
+                                @include('backend.components.pagination', ['paginator' => $brands]);
                             </div>
                         </div>
                     </div>

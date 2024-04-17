@@ -8,7 +8,7 @@
                     <div class="row align-items-center">
                         <div class="col-md-12">
                             <div class="page-header-title">
-                                <h5 class="m-b-10">Danh sách mã giảm giá</h5>
+                                <h5 class="m-b-10">Quản lý mã giảm giá</h5>
                             </div>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{route('dashboard')}}"><i
@@ -31,7 +31,8 @@
                         <div class="card-header">
                             <h5>Danh sách mã giảm giá</h5>
                             <div>
-                                <a href="{{ route('add_coupon') }}" class="btn mt-2 btn-success mb-2">Thêm mã giảm giá</a>
+                                <a href="{{ route('add_coupon') }}" class="btn mt-2 btn-primary btn-sm">
+                                    <i class="fa fa-plus-circle" aria-hidden="true"></i> Thêm mã giảm giá</a>
                             </div>
                         </div>
                         <div class="card-body table-border-style">
@@ -54,8 +55,8 @@
                                     </thead>
                                     <tbody>
                                     @php $i=0; @endphp
-                                    @if ($coupon)
-                                        @foreach ($coupon as $cou)
+                                    @if ($coupons)
+                                        @foreach ($coupons as $cou)
                                             @php $i++; @endphp
                                             <tr>
                                                 <td>{{$i}}</td>
@@ -98,16 +99,16 @@
 
 
                                                     <a href="{{ route('send_coupon',['id'=> $cou->coupon_id]) }}"
-                                                       class="btn btn-sm btn-xs btn-success mb-2">Gửi mã khách thường</a>
+                                                       class="btn btn-sm btn-xs btn-outline-primary mb-2">Gửi mã khách thường</a>
                                                     <a href="{{ route('send_coupon_vip',['id'=> $cou->coupon_id]) }}"
-                                                       class="btn btn-sm btn-xs btn-success mb-2">Gửi mã khách vip</a>
+                                                       class="btn btn-sm btn-xs btn-outline-primary mb-2">Gửi mã khách vip</a>
                                                     <form method="POST" action="">
                                                         @csrf
                                                         @method('delete')
                                                         <a onclick="return confirm('Bạn có muốn xóa mã giảm giá này không?')"
                                                            href="{{route('deletecoupon',['id'=> $cou->coupon_id])}}"
-                                                           class="btn btn-sm btn-danger"><i class="bx bx-trash me-1">
-                                                                Xóa</i></a>
+                                                           class="btn btn-sm btn-danger"><i class="fa fa-trash ">
+                                                                </i></a>
                                                     </form>
                                                 </td>
                                             </tr>
@@ -117,6 +118,7 @@
                                     @endif
                                     </tbody>
                                 </table>
+                                @include('backend.components.pagination', ['paginator' => $coupons]);
                             </div>
                         </div>
                     </div>

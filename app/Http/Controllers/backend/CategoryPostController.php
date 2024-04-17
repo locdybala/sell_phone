@@ -12,8 +12,8 @@ class CategoryPostController extends Controller
     public function index()
     {
         $title = 'Danh sách danh mục bài viết';
-        $category = CategoryPost::all();
-        return view('backend.category_post.index', compact('category', 'title'));
+        $categories = CategoryPost::paginate(5);
+        return view('backend.category_post.index', compact('categories', 'title'));
     }
 
     public function create()
@@ -32,6 +32,25 @@ class CategoryPostController extends Controller
         ]);
         Session::put('success', 'Thêm danh mục bài viết thành công');
         return redirect()->route('all_category_post');
+    }
+
+    public function unactive_category($id)
+    {
+        CategoryPost::find($id)->update([
+            'cate_post_status' => 0
+        ]);
+        Session::put('success', 'Không kích hoạt danh mục bài viết thành công');
+        return redirect()->route('all_category_post');
+    }
+
+    public function active_category($id)
+    {
+        CategoryPost::find($id)->update([
+            'cate_post_status' => 1
+        ]);
+        Session::put('success', 'Kích hoạt danh mục bài viết thành công');
+        return redirect()->route('all_category_post');
+
     }
 
     public function edit($id)

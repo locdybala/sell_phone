@@ -31,11 +31,12 @@
                         <div class="card-header">
                             <h5>Danh sách sản phẩm</h5>
                             <div style="display: flex">
-                                <a href="{{ route('add_product') }}" class="btn btn-success mt-2 mr-2">Thêm sản phẩm</a>
+                                <a href="{{ route('add_product') }}" class="btn btn-sm btn-primary mt-2 mr-2">
+                                    <i class="fa fa-plus-circle" aria-hidden="true"></i> Thêm sản phẩm</a>
                                 <form action="{{route('export_csv')}}" method="POST">
                                     @csrf
                                     <input type="submit" value="Xuất Excel" name="export_csv"
-                                           class="btn btn-dark mt-2">
+                                           class="btn btn-dark btn-sm mt-2">
                                 </form>
                             </div>
                         </div>
@@ -89,20 +90,19 @@
 
                                                 @endif
                                                 <td>
-
-
-                                                    <a class="btn btn-sm btn-warning"
-                                                       href="{{ route('updateproduct',['id'=>$product->product_id]) }}"
-                                                    ><i class="bx bx-edit-alt me-1"></i> Sửa</a
-                                                    >
-                                                    <form method="POST" action="">
-                                                        @csrf
-                                                        @method('delete')
-                                                        <a onclick="return confirm('Bạn có muốn xóa sản phẩm này không?')"
-                                                           href="{{ route('deleteproduct',['id'=>$product->product_id]) }}"
-                                                           class="btn btn-sm btn-danger"><i class="bx bx-trash me-1">
-                                                                Xóa</i></a>
-                                                    </form>
+                                                    <div style="display: flex">
+                                                        <a class="btn btn-sm btn-warning"
+                                                           href="{{ route('updateproduct',['id'=>$product->product_id]) }}"
+                                                        ><i class="fa fa-pencil"></i></a
+                                                        >
+                                                        <form method="POST" action="">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <a onclick="return confirm('Bạn có muốn xóa sản phẩm này không?')"
+                                                               href="{{ route('deleteproduct',['id'=>$product->product_id]) }}"
+                                                               class="btn btn-sm btn-danger ml-2"><i class="fa fa-trash"></i></a>
+                                                        </form>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         @endforeach

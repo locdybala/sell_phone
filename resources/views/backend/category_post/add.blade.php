@@ -1,70 +1,88 @@
 @extends('backend.admin_layout')
 @section('content')
-    <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Trang chủ/</span> Thêm danh mục bài viết</h4>
-
-        <!-- Basic Layout & Basic with Icons -->
-        <div class="row">
-            <!-- Basic Layout -->
-            <div class="col-xxl">
-                <div class="card mb-6">
-                    <div class="card-header d-flex align-items-center justify-content-between">
-                        <h5 class="mb-0">Thêm danh mục bài viết</h5>
-                    </div>
-                    <div class="card-body">
-                        <form action="{{route('addCategoryPost')}}" method="POST">
-                            @csrf
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="basic-default-name">Tên danh mục bài
-                                    viết</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" onkeyup="ChangeToSlug()"
-                                           id="name_categorypost" name="name" placeholder="Danh mục bài viết"/>
-                                </div>
+    <section class="pcoded-main-container">
+        <div class="pcoded-content">
+            <!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-12">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">Quản lý danh mục bài viết</h5>
                             </div>
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="basic-default-name">Slug</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control"
-                                           id="slug" name="slug" placeholder="......"/>
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="basic-default-message">Mô tả</label>
-                                <div class="col-sm-10">
-                  <textarea
-                      id="ckeditor"
-                      class="form-control" name="description"
-                      placeholder="Mô tả danh mục bài viết"
-                  ></textarea>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="basic-default-name">Trạng thái</label>
-                                <div class="col-sm-10">
-                                    <select id="defaultSelect" name="status" class="form-select">
-                                        <option>---- Trạng thái ----</option>
-                                        <option value="1">Hiển thị</option>
-                                        <option value="2">Ẩn</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="row justify-content-end">
-                                <div class="col-sm-10">
-                                    <button type="submit" class="btn btn-primary">Thêm</button>
-                                </div>
-                            </div>
-                        </form>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{{route('dashboard')}}"><i
+                                            class="feather icon-home"></i></a></li>
+                                <li class="breadcrumb-item"><a href="#!">Danh mục bài viết</a></li>
+                                <li class="breadcrumb-item"><a href="#!">Thêm danh mục bài viết</a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xxl">
+            <!-- [ breadcrumb ] end -->
+            <!-- [ Main Content ] start -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Thêm mới danh mục bài viết</h5>
+                        </div>
+                        <div class="card-body">
+                            <form action="{{route('addCategory')}}" method="POST">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="floating-label" for="name">Tên danh mục bài viết</label>
+                                            <input type="text" class="form-control" onkeyup="ChangeToSlug()"
+                                                   id="name_categorypost" name="name" placeholder="Danh mục bài viết"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="floating-label" for="name">Slug</label>
+                                            <input type="text" class="form-control"
+                                                   id="slug" name="slug" placeholder="......"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="floating-label" for="description">Mô tả</label>
+                                            <textarea
+                                                id="ckeditor"
+                                                class="form-control" name="description"
+                                                placeholder="Mô tả danh mục bài viết" required
+                                            ></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="floating-label" for="status">Trạng thái</label>
+                                            <select id="status" name="status" class="form-control">
+                                                <option value="1">Hiển thị</option>
+                                                <option value="2">Ẩn</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary">Thêm</button>
+                                            <a href="/admin/category_post/all_category_post" class="btn btn-default">Huỷ</a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- [ form-element ] start -->
             </div>
-            <!-- Basic with Icons -->
+            <!-- [ Main Content ] end -->
+
         </div>
-    </div>
+    </section>
 @endsection
 @section('js')
     <script>

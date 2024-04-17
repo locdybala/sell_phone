@@ -208,6 +208,8 @@ Route::prefix('admin')->group(function () {
         Route::get('/all_category_post', [CategoryPostController::class, 'index'])->name('all_category_post')->middleware('auth');
         Route::get('/add_PostCategory', [CategoryPostController::class, 'create'])->name('add_PostCategory')->middleware('auth');
         Route::get('/updatecategory_post/{id}', [CategoryPostController::class, 'edit'])->name('updatecategory_post')->middleware('auth');
+        Route::get('/unactive_category_post/{id}', [CategoryPostController::class, 'unactive_category'])->name('unactive_category_post')->middleware('auth');
+        Route::get('/active_category_post/{id}', [CategoryPostController::class, 'active_category'])->name('active_category_post')->middleware('auth');
         Route::post('/addCategoryPost', [CategoryPostController::class, 'store'])->name('addCategoryPost')->middleware('auth');
         Route::post('/editCategoryPost/{id}', [CategoryPostController::class, 'update'])->name('editCategoryPost')->middleware('auth');
         Route::get('/deleteCategoryPost/{id}', [CategoryPostController::class, 'delete'])->name('deleteCategoryPost')->middleware('auth');
@@ -226,8 +228,12 @@ Route::prefix('admin')->group(function () {
 
     Route::prefix('customer')->group(function () {
         Route::get('/all_customer', [CustomerController::class, 'index'])->name('all_customer');
+        Route::get('/add_Customer', [CustomerController::class, 'create'])->name('add_customer');
+        Route::post('/addCustomer', [CustomerController::class, 'store'])->name('addCustomers');
         Route::get('/update_customer/{id}', [CustomerController::class, 'edit'])->name('update_customer');
         Route::post('/updateCustomer/{id}/{admin}', [CustomerController::class, 'update'])->name('updateCustomer');
+        Route::get('/deleteCustomer/{id}', [CustomerController::class, 'delete'])->name('deletecustomer');
+
     });
 
     Route::post('/export-csv', [ProductController::class, 'export_csv'])->name('export_csv');

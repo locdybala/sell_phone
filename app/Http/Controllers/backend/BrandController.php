@@ -12,8 +12,8 @@ class BrandController extends Controller
     public function index()
     {
         $title = 'Danh sách thương hiệu';
-        $brand = Brand::paginate(10);
-        return view('backend.brand.index', compact('brand','title'));
+        $brands = Brand::paginate(5);
+        return view('backend.brand.index', compact('brands','title'));
     }
 
     public function create()

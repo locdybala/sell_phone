@@ -8,12 +8,12 @@
                     <div class="row align-items-center">
                         <div class="col-md-12">
                             <div class="page-header-title">
-                                <h5 class="m-b-10">Thêm mã giảm giá</h5>
+                                <h5 class="m-b-10">Quản lý mã giảm giá</h5>
                             </div>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{route('dashboard')}}"><i
                                             class="feather icon-home"></i></a></li>
-                                <li class="breadcrumb-item"><a href="#!">mã giảm giá</a></li>
+                                <li class="breadcrumb-item"><a href="#!">Mã giảm giá</a></li>
                                 <li class="breadcrumb-item"><a href="#!">Thêm mã giảm giá</a></li>
                             </ul>
                         </div>
