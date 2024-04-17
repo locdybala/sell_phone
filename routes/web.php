@@ -129,6 +129,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/unactive_comment/{id}', [ProductController::class, 'unactive_comment'])->name('unactive_comment');
     Route::get('/active_comment/{id}', [ProductController::class, 'active_comment'])->name('active_comment');
     Route::post('/updateproduct/{id}', [ProductController::class, 'update'])->name('update_product');
+        Route::get('/deletecomment/{id}', [ProductController::class, 'deleteComment'])->name('deleteComment');
+
     });
 
 

@@ -1,130 +1,132 @@
 @extends('backend.admin_layout')
 @section('content')
-    <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Trang chủ/</span> Sửa bài viết</h4>
-
-        <!-- Basic Layout & Basic with Icons -->
-        <div class="row">
-            <!-- Basic Layout -->
-            <div class="col-xxl">
-                <div class="card mb-12">
-                    <div class="card-header d-flex align-items-center justify-content-between">
-                        <h5 class="mb-0">Thêm bài viết</h5>
-                    </div>
-                    <div class="card-body">
-                        <form action="{{  route('update_Post',['id'=>$post->post_id]) }}" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="basic-default-name">Tên bài viết</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" value="{{$post->post_title}}" onkeyup="ChangeToSlug()" id="name_categorypost" name="title"
-                                           placeholder="John Doe"/>
-                                </div>
+    <section class="pcoded-main-container">
+        <div class="pcoded-content">
+            <!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-12">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">Quản lý bài viết</h5>
                             </div>
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="basic-default-name">Slug</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" value="{{$post->post_slug}}"  id="slug" name="slug"
-                                           placeholder=""/>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="basic-default-name">Danh mục bài viết</label>
-                                <div class="col-sm-10">
-                                    <select name="idCategory" class="form-control input-rounded">
-                                        @foreach ($category as $category)
-                                            <option
-                                                @php
-                                                    if($post->cate_post_id == $category->cate_post_id) {
-                                                @endphp
-                                                selected
-                                                @php
-                                                    }
-                                                @endphp
-                                                value="{{ $category->cate_post_id }}">{{ $category->cate_post_name }}</option>
-
-                                        @endforeach
-
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="basic-default-name">Ảnh</label>
-                                <div class="col-sm-10">
-                                    <input type="file" class="form-control" id="basic-default-name" name="image"
-                                    />
-                                    <img class="input-rounded mt-2" src="{{ URL::to('/upload/post/'.$post->post_image) }}" height="100" width="100" alt="">
-
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="basic-default-message">Tóm tắt</label>
-                                <div class="col-sm-10">
-                                  <textarea
-                                      id="ckeditor1"
-                                      class="form-control" name="description"
-                                      placeholder="Mô tả bài viết"
-                                  >{{$post->post_description}}</textarea>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="basic-default-name">Nội dung</label>
-                                <div class="col-sm-10">
-                                    <textarea
-                                        id="ckeditor2"
-                                        class="form-control" name="contents"
-                                        placeholder="Mô tả bài viết"
-                                    >{{$post->post_content}}</textarea>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="basic-default-name">Meta từ khóa</label>
-                                <div class="col-sm-10">
-                                    <textarea class="form-control  " name="meta_keywords" id="ckeditor3" rows="5" >{{$post->meta_keywords}}</textarea>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="basic-default-name">Meta nội dung</label>
-                                <div class="col-sm-10">
-                                    <textarea class="form-control  " name="meta_desc" id="ckeditor4" rows="5" >{{$post->meta_desc}}</textarea>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="basic-default-name">Trạng thái</label>
-                                <div class="col-sm-10">
-                                    <select id="defaultSelect" name="status" class="form-select">
-                                        @php
-                                            if($post->post_status == 1) {
-                                        @endphp
-                                        <option selected value="1">Hiển thị</option>
-                                        <option value="2">Ẩn</option>
-                                        @php
-                                            }else{
-                                                @endphp
-                                        <option  value="1">Hiển thị</option>
-                                        <option selected value="2">Ẩn</option>
-                                        @php
-                                            }
-                                        @endphp
-                                        <option value="1">Hiển thị</option>
-                                        <option value="2">Ẩn</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="row justify-content-end">
-                                <div class="col-sm-10">
-                                    <button type="submit" class="btn btn-primary">Thêm</button>
-                                </div>
-                            </div>
-                        </form>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{{route('dashboard')}}"><i
+                                            class="feather icon-home"></i></a></li>
+                                <li class="breadcrumb-item"><a href="#!">Bài viết</a></li>
+                                <li class="breadcrumb-item"><a href="#!">Sửa bài viết</a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
+            <!-- [ breadcrumb ] end -->
+            <!-- [ Main Content ] start -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Sửa bài viết</h5>
+                        </div>
+                        <div class="card-body">
+                            <form action="{{  route('update_Post',['id'=>$post->post_id]) }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="floating-label" for="name_categorypost">Tên bài viết</label>
+                                            <input type="text" class="form-control" value="{{$post->post_title}}" onkeyup="ChangeToSlug()" id="name_categorypost" name="title"
+                                                   placeholder="Nhập tên bài viết"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="floating-label" for="slug">Slug</label>
+                                            <input type="text" class="form-control" value="{{$post->post_slug}}"  id="slug" name="slug"
+                                                   placeholder=""/>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="floating-label" for="category_id">Danh mục bài viết</label>
+                                            <select id="category_id" name="category_id" class="form-control">
+                                                <option>---Chọn danh mục---</option>
+                                                @foreach ($category as $category)
+                                                    <option @if($post->cate_post_id == $category->cate_post_id) selected @endif value="{{ $category->cate_post_id }}">{{ $category->cate_post_name }}</option>
+
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="floating-label" for="image">Ảnh</label>
+                                            <input type="file" class="form-control" id="basic-default-name" name="image"
+                                            />
+                                            <img class="input-rounded mt-2" src="{{ URL::to('/upload/post/'.$post->post_image) }}" height="100" width="100" alt="">
+
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="floating-label" for="description">Tóm tắt</label>
+                                            <textarea
+                                                id="ckeditor1"
+                                                class="form-control" name="description"
+                                                placeholder="Mô tả bài viết"
+                                            >{{$post->post_description}}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="floating-label" for="description">Nội dung</label>
+                                            <textarea
+                                                id="ckeditor2"
+                                                class="form-control" name="contents"
+                                                placeholder="Mô tả bài viết"
+                                            >{{$post->post_content}}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="floating-label" for="status">Meta từ khóa</label>
+                                            <textarea class="form-control  " name="meta_keywords" id="ckeditor3" rows="5" >{{$post->meta_keywords}}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="floating-label" for="status">Meta nội dung</label>
+                                            <textarea class="form-control  " name="meta_desc" id="ckeditor4" rows="5" >{{$post->meta_desc}}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="floating-label" for="status">Trạng thái</label>
+                                            <select id="defaultSelect" name="status" class="form-control">
+                                                <option>---- Trạng thái ----</option>
+                                                <option @if($post->post_status == 1) selected @endif value="1">Hiển thị</option>
+                                                <option @if($post->post_status == 2) selected @endif value="2">Ẩn</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary">Sửa</button>
+                                            <a href="/admin/post/all_post" class="btn btn-default">Huỷ</a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- [ form-element ] start -->
+            </div>
+            <!-- [ Main Content ] end -->
+
         </div>
-        <!-- Basic with Icons -->
-    </div>
-    </div>
+    </section>
 @endsection
 @section('js')
     <script>

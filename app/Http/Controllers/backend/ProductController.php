@@ -132,7 +132,7 @@ class ProductController extends Controller
 
     public function index_comment() {
         $title = 'Danh sách nhận xét';
-        $comments = Comment::with('product')->where('comment_parent','0')->orderByDesc('comment_status')->get();
+        $comments = Comment::with('product')->where('comment_parent','0')->orderByDesc('comment_status')->paginate(5);
         $replycoments = Comment::all();
         return view('backend.comment.index',compact('comments','replycoments','title'));
     }

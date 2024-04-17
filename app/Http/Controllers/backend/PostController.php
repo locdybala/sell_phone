@@ -126,7 +126,7 @@ class PostController extends Controller
         $post->delete();
 
 
-        Session::put('success', 'Xóa loại sân thành công');
+        Session::put('success', 'Xóa bài viết thành công');
         return redirect()->route('all_post');
 
     }
