@@ -58,8 +58,8 @@
                                     </thead>
                                     <tbody>
                                     @php $i=0; @endphp
-                                    @if ($product)
-                                        @foreach ($product as $product)
+                                    @if ($products)
+                                        @foreach ($products as $product)
                                             @php $i++; @endphp
                                             <tr>
                                                 <td>{{$i}}</td>
@@ -111,6 +111,7 @@
                                     @endif
                                     </tbody>
                                 </table>
+                                @include('backend.components.pagination', ['paginator' => $products]);
                             </div>
                         </div>
                     </div>

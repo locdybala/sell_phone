@@ -47,8 +47,8 @@
                                     </thead>
                                     <tbody>
                                     @php $i=0; @endphp
-                                    @if ($category)
-                                        @foreach ($category as $category)
+                                    @if ($categories)
+                                        @foreach ($categories as $category)
                                             @php $i++; @endphp
                                             <tr>
                                                 <td>{{$i}}</td>
@@ -89,6 +89,7 @@
                                     @endif
                                     </tbody>
                                 </table>
+                                @include('backend.components.pagination', ['paginator' => $categories]);
                             </div>
                         </div>
                     </div>

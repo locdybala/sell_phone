@@ -14,8 +14,8 @@ class CategoryController extends Controller
     public function index()
     {
         $title = 'Danh sách danh mục';
-        $category = Category::paginate(10);
-        return view('backend.category.index', compact('category','title'));
+        $categories = Category::paginate(5);
+        return view('backend.category.index', compact('categories','title'));
     }
 
     public function create()

@@ -22,8 +22,8 @@ class ProductController extends Controller
 {
     public function index(){
         $title = 'Danh sách sản phẩm';
-        $product=Product::query()->orderByDesc('product_id')->get();
-        return view('backend.product.index',compact('product','title'));
+        $products = Product::orderByDesc('product_id')->paginate(5);
+        return view('backend.product.index',compact('products','title'));
 
     }
 
