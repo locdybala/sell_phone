@@ -1,42 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<!doctype html>
+<html class="no-js" lang="zxx">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>{{$title}}</title>
-    <link href="{{asset('frontend/css/bootstrap.min.css')}}" rel="stylesheet">
-    <link href="{{asset('frontend/css/font-awesome.min.css')}}" rel="stylesheet">
-    <link href="{{asset('frontend/css/prettyPhoto.css')}}" rel="stylesheet">
-    <link href="{{asset('frontend/css/price-range.css')}}" rel="stylesheet">
-    <link href="{{asset('frontend/css/animate.css')}}" rel="stylesheet">
-    <link href="{{asset('frontend/css/main.css')}}" rel="stylesheet">
-    <link href="{{asset('frontend/css/responsive.css')}}" rel="stylesheet">
-    <link href="{{asset('frontend/css/lightslider.css')}}" rel="stylesheet">
-    <link href="{{asset('frontend/css/lightgallery.min.css')}}" rel="stylesheet">
-    <link href="{{asset('frontend/css/prettify.css')}}" rel="stylesheet">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
 
-
-
-    <!--[if lt IE 9]>
-    <script src="{{asset('frontend/js/html5shiv.js')}}"></script>
-    <script src="{{asset('frontend/js/respond.min.js')}}"></script>
-    <![endif]-->
-    <link rel="shortcut icon" href="{{asset('frontend/images/ico/favicon.ico')}}">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144"
-          href="{{asset('frontend/images/ico/apple-touch-icon-144-precomposed.png')}}">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114"
-          href="{{asset('frontend/images/ico/apple-touch-icon-114-precomposed.png')}}">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72"
-          href="{{asset('frontend/images/ico/apple-touch-icon-72-precomposed.png')}}">
-    <link rel="apple-touch-icon-precomposed"
-          href="{{asset('frontend/images/ico/apple-touch-icon-57-precomposed.png')}}">
+    <!-- CSS here -->
+    <link rel="stylesheet" href="{{asset('frontend/assets/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('frontend/assets/css/owl.carousel.min.css')}}">
+    <link rel="stylesheet" href="{{asset('frontend/assets/css/flaticon.css')}}">
+    <link rel="stylesheet" href="{{asset('frontend/assets/css/slicknav.css')}}">
+    <link rel="stylesheet" href="{{asset('frontend/assets/css/animate.min.css')}}">
+    <link rel="stylesheet" href="{{asset('frontend/assets/css/magnific-popup.css')}}">
+    <link rel="stylesheet" href="{{asset('frontend/assets/css/fontawesome-all.min.css')}}">
+    <link rel="stylesheet" href="{{asset('frontend/assets/css/themify-icons.css')}}">
+    <link rel="stylesheet" href="{{asset('frontend/assets/css/slick.css')}}">
+    <link rel="stylesheet" href="{{asset('frontend/assets/css/nice-select.css')}}">
+    <link rel="stylesheet" href="{{asset('frontend/assets/css/style.css')}}">
 </head>
-<!--/head-->
-
 <body>
+<div id="preloader-active">
+    <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="preloader-inner position-relative">
+            <div class="preloader-circle"></div>
+            <div class="preloader-img pere-text">
+                <img src="assets/img/logo/logo.png" alt="">
+            </div>
+        </div>
+    </div>
+</div>
 @include('pages.layout.header')
 
 <section id="slider">
@@ -132,18 +128,48 @@
     </div>
 </section>
 @include('pages.layout.footer')
+<div class="search-model-box">
+    <div class="h-100 d-flex align-items-center justify-content-center">
+        <div class="search-close-btn">+</div>
+        <form class="search-model-form">
+            <input type="text" id="search-input" placeholder="Searching key.....">
+        </form>
+    </div>
+</div>
+</body>
 
+<script src="{{asset('frontend/assets/js/vendor/modernizr-3.5.0.min.js')}}"></script>
+<!-- Jquery, Popper, Bootstrap -->
+<script src="{{asset('frontend/assets/js/vendor/jquery-1.12.4.min.js')}}"></script>
+<script src="{{asset('frontend/assets/js/popper.min.js')}}"></script>
+<script src="{{asset('frontend/assets/js/bootstrap.min.js')}}"></script>
+<!-- Jquery Mobile Menu -->
+<script src="{{asset('frontend/assets/js/jquery.slicknav.min.js')}}"></script>
 
-<script src="{{asset('frontend/js/jquery.js')}}"></script>
-<script src="{{asset('frontend/js/bootstrap.min.js')}}"></script>
-<script src="{{asset('frontend/js/jquery.scrollUp.min.js')}}"></script>
-<script src="{{asset('frontend/js/price-range.js')}}"></script>
-<script src="{{asset('frontend/js/jquery.prettyPhoto.js')}}"></script>
-<script src="{{asset('frontend/js/main.js')}}"></script>
-<script src="{{asset('frontend/js/lightslider.js')}}"></script>
-<script src="{{asset('frontend/js/lightgallery-all.min.js')}}"></script>
-<script src="{{asset('frontend/js/prettify.js')}}"></script>
+<!-- Jquery Slick , Owl-Carousel Plugins -->
+<script src="{{asset('frontend/assets/js/owl.carousel.min.js')}}"></script>
+<script src="./assets/js/slick.min.js')}}"></script>
 
+<!-- One Page, Animated-HeadLin -->
+<script src="{{asset('frontend/assets/js/wow.min.js')}}"></script>
+<script src="{{asset('frontend/assets/js/animated.headline.js')}}"></script>
+<script src="{{asset('frontend/assets/js/jquery.magnific-popup.js')}}"></script>
+
+<!-- Scrollup, nice-select, sticky -->
+<script src="{{asset('frontend/assets/js/jquery.scrollUp.min.js')}}"></script>
+<script src="{{asset('frontend/assets/js/jquery.nice-select.min.js')}}"></script>
+<script src="{{asset('frontend/assets/js/jquery.sticky.js')}}"></script>
+
+<!-- contact js -->
+<script src="{{asset('frontend/assets/js/contact.js')}}"></script>
+<script src="{{asset('frontend/assets/js/jquery.form.js')}}"></script>
+<script src="{{asset('frontend/assets/js/jquery.validate.min.js')}}"></script>
+<script src="{{asset('frontend/assets/js/mail-script.js')}}"></script>
+<script src="{{asset('frontend/assets/js/jquery.ajaxchimp.min.js')}}"></script>
+
+<!-- Jquery Plugins, main Jquery -->
+<script src="{{asset('frontend/assets/js/plugins.js')}}"></script>
+<script src="{{asset('frontend/assets/js/main.js')}}"></script>
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 

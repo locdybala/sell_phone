@@ -21,9 +21,9 @@ class AdminController extends Controller
         $customer_count = Customer::count();
         $user_count = User::count();
         $post_count = Post::count();
-        $post = Post::orderBy('post_view','DESC')->take('10')->get();
-        $product = Product::orderBy('product_view','DESC')->take('10')->get();
-        return view('backend.dashboard',compact('product_count','order_count','customer_count','user_count','post_count','post','product','title'));
+        $posts = Post::orderBy('post_view','DESC')->paginate('5');
+        $products = Product::orderBy('product_view','DESC')->paginate('5');
+        return view('backend.dashboard',compact('product_count','order_count','customer_count','user_count','post_count','posts','products','title'));
     }
 
     public function filter_by_date(Request $request){

@@ -35,10 +35,14 @@
         <div class="navbar-content scroll-div ">
 
             <div class="">
+                @php
+                    // $name = Auth::user('name');
+                    $name = Auth::user()->name;
+                @endphp
                 <div class="main-menu-header">
                     <img class="img-radius" src="{{asset('backend/assets/images/user/avatar-2.jpg')}}" alt="User-Profile-Image">
                     <div class="user-details">
-                        <span>John Doe</span>
+                        <span>{{$name}}</span>
                         <div id="more-details">UX Designer<i class="fa fa-chevron-down m-l-5"></i></div>
                     </div>
                 </div>
@@ -70,24 +74,24 @@
                     <a href="javascript:void(0);" class="nav-link "><span class="pcoded-micon"><i class="feather icon-layout"></i></span><span
                             class="pcoded-mtext">Danh mục sản phẩm</span></a>
                     <ul class="pcoded-submenu">
-                        <li><a href="{{route('add_category')}}" target="_blank">Thêm danh mục</a></li>
-                        <li><a href="{{route('all_category')}}" target="_blank">Danh sách danh mục</a></li>
+                        <li><a href="{{route('add_category')}}" >Thêm danh mục</a></li>
+                        <li><a href="{{route('all_category')}}" >Danh sách danh mục</a></li>
                     </ul>
                 </li>
                 <li class="nav-item pcoded-hasmenu">
                     <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-layout"></i></span><span
                             class="pcoded-mtext">Thương hiệu sản phẩm</span></a>
                     <ul class="pcoded-submenu">
-                        <li><a href="{{route('add_brand')}}" target="_blank">Thêm thương hiệu</a></li>
-                        <li><a href="{{route('all_brand')}}" target="_blank">Danh sách thương hiệu</a></li>
+                        <li><a href="{{route('add_brand')}}" >Thêm thương hiệu</a></li>
+                        <li><a href="{{route('all_brand')}}" >Danh sách thương hiệu</a></li>
                     </ul>
                 </li>
                 <li class="nav-item pcoded-hasmenu">
                     <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-layout"></i></span><span
                             class="pcoded-mtext">Quản lý sản phẩm</span></a>
                     <ul class="pcoded-submenu">
-                        <li><a href="{{route('add_product')}}" target="_blank">Thêm sản phẩm</a></li>
-                        <li><a href="{{ route('all_product') }}" target="_blank">Danh sách sản phẩm</a></li>
+                        <li><a href="{{route('add_product')}}" >Thêm sản phẩm</a></li>
+                        <li><a href="{{ route('all_product') }}" >Danh sách sản phẩm</a></li>
                     </ul>
                 </li>
                 <li class="nav-item pcoded-menu-caption">
@@ -193,10 +197,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="feather icon-user"></i>
                     </a>
-                    @php
-                        // $name = Auth::user('name');
-                        $name = Auth::user()->name;
-                    @endphp
+
                     <div class="dropdown-menu dropdown-menu-right profile-notification">
                         <div class="pro-head">
                             <img src="{{asset('backend/assets/images/user/avatar-1.jpg')}}" class="img-radius" alt="User-Profile-Image">
