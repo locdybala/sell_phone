@@ -6,7 +6,7 @@
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="hero-cap text-center">
-                            <h2>Login</h2>
+                            <h2>Đăng nhập hệ thống</h2>
                         </div>
                     </div>
                 </div>
@@ -46,11 +46,16 @@
                             <form action="{{route('login_customer')}}" method="POST">
                                 {{csrf_field()}}
                                 <div class="col-md-12 form-group p_star">
-                                    <input type="email"  id="email_account" name="email_account"  class="form-control" placeholder="Nhập tài khoản email" value="{{old('email_account')}}">
+                                    <label for="email_account">Họ tên <span class="required">*</span></label>
+                                    <input type="email" id="email_account" name="email_account" class="form-control"
+                                           placeholder="Nhập tài khoản email" value="{{old('email_account')}}">
 
                                 </div>
                                 <div class="col-md-12 form-group p_star">
-                                    <input type="password"  id="password_account" name="password_account" class="form-control"  placeholder="Nhập mật khẩu" value="{{old('password_account')}}">
+                                    <label for="email_account">Mật khẩu <span class="required">*</span></label>
+                                    <input type="password" id="password_account" name="password_account"
+                                           class="form-control" placeholder="Nhập mật khẩu"
+                                           value="{{old('password_account')}}">
 
                                 </div>
                                 <div class="col-md-12 form-group">
@@ -58,7 +63,7 @@
                                         <input type="checkbox" id="f-option" name="selector">
                                         <label for="f-option">Ghi nhớ đăng nhập</label>
                                     </div>
-                                    <button type="submit" value="submit" class="btn_3">
+                                    <button type="submit" value="submit" id="btnSubmit" class="btn_3">
                                         Đăng nhập
                                     </button>
                                     <a class="lost_pass" href="{{route('forgot_pass')}}">Quên mật khẩu?</a>
@@ -67,7 +72,7 @@
                             <ul style="margin: 10px; padding: 0">
                                 <li style="display: inline; margin: 5px" class="list-login">
                                     <a href="{{route('login_customer_google')}}">
-                                        <img width="8%"  src="{{asset('/frontend/images/google.png')}}" alt="">
+                                        <img width="8%" src="{{asset('/frontend/images/google.png')}}" alt="">
                                         <span style="margin-left: 5px">Đăng nhập bằng google</span>
                                     </a>
                                 </li>
@@ -78,4 +83,23 @@
             </div>
         </div>
     </section>
+@endsection
+@section('javascript')
+    <script type="text/javascript">
+
+        $("#btnSubmit").click(function () {
+            var password_account = $("#password_account").val();
+            var email_account = $("#email_account").val();
+
+            if (email_account == '') {
+                toastr["error"]("Không được để trống email đăng nhập");
+                return false;
+            } else if (password_account == '') {
+                toastr["error"]("Không được để trống mật khẩu");
+                return false;
+            }
+            return true;
+        });
+    </script>
+
 @endsection

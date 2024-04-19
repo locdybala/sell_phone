@@ -17,6 +17,7 @@ use App\Models\Slider;
 use App\Models\SocialCustomers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
@@ -77,6 +78,15 @@ class CheckoutController extends Controller
         $data['customer_password'] = md5($request->customer_password);
         $data['customer_birthday'] = $request->customer_birthday;
         $data['customer_address'] = $request->customer_address;
+        $file=$request->file('customer_avatar');
+        $path = 'upload/customer/';
+        if($file){
+            $getnameimage=$file->getClientOriginalName();
+            $nameimage=current(explode('.',$getnameimage));
+            $new_image=$nameimage.rand(0,99).'.'.$file->getClientOriginalExtension();
+            $file->move($path,$new_image);
+            $data['customer_avatar']=$new_image;
+        }
         $customer_id = Customer::insertGetId($data);
 
 

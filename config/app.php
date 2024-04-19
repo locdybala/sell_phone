@@ -199,7 +199,7 @@ return [
         Maatwebsite\Excel\ExcelServiceProvider::class,
         App\Providers\BladeServiceProvider::class,
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
-
+        Brian2694\Toastr\ToastrServiceProvider::class,
     ],
 
     /*
@@ -219,6 +219,7 @@ return [
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'Toastr'  => Brian2694\Toastr\Facades\Toastr::class,
     ])->toArray(),
 
 ];
