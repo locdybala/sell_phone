@@ -10,8 +10,9 @@ use Illuminate\Support\Facades\Session;
 class GalleryController extends Controller
 {
     public function create($product_id) {
+        $title = "Thêm thư viện ảnh sản phẩm";
         $product_id = $product_id;
-        return view('backend.gallery.add',compact('product_id'));
+        return view('backend.gallery.add',compact('product_id', 'title'));
     }
 
     public function select_gallery(Request $request) {

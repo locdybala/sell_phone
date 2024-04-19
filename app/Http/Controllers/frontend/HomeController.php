@@ -20,10 +20,11 @@ class HomeController extends Controller
         $title = 'Trang chủ';
         $category = Category::where('category_status', '1')->orderby('category_id', 'desc')->get();
         $brand = Brand::where('brand_status', '1')->orderby('brand_id', 'desc')->get();
-        $product = Product::where('product_status', '1')->orderby('product_id', 'desc')->limit(8)->get();
+        $products = Product::where('product_status', '1')->limit(6)->get();
+        $productNews = Product::where('product_status', '1')->orderby('product_id', 'desc')->limit(3)->get();
         $slider = Slider::where('slider_status', '1')->take(4)->get();
         $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();
-        return view('pages.home', compact('category', 'brand', 'product', 'slider', 'categorypost','title'));
+        return view('pages.home', compact('category', 'brand', 'products', 'slider', 'categorypost','title', 'productNews'));
     }
 
     public function detailCategory($id)

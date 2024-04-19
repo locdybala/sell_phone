@@ -41,6 +41,7 @@ class CheckoutController extends Controller
 
     public function logout_checkout()
     {
+        $title = 'Đăng nhập';
         $category = Category::where('category_status', '1')->orderby('category_id', 'desc')->get();
         $brand = Brand::where('brand_status', '1')->orderby('brand_id', 'desc')->get();
         $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();
@@ -51,7 +52,7 @@ class CheckoutController extends Controller
         Session::forget('customer_name');
         Session::forget('coupon');
 
-        return view('pages.checkout.login_checkout', compact('category', 'brand', 'categorypost', 'slider'));
+        return view('pages.checkout.login_checkout', compact('category', 'brand', 'categorypost', 'slider', 'title'));
     }
 
     public function register()
