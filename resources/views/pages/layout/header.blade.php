@@ -10,14 +10,14 @@
                 <div class="menu-wrapper">
                     <!-- Logo -->
                     <div class="logo">
-                        <a href="{{URL::to('/')}}"><img src="assets/img/logo/logo.png" alt=""></a>
+                        <a href="{{URL::to('/')}}"><img src="{{asset('frontend/assets/img/logo/logo.png')}}" alt=""></a>
                     </div>
                     <!-- Main-menu -->
                     <div class="main-menu d-none d-lg-block">
                         <nav>
                             <ul id="navigation">
                                 <li><a href="{{URL::to('/')}}">Trang chủ</a></li>
-                                <li class="hot"><a href="#">Danh mục</a>
+                                <li class="hot"><a href="{{route('shop')}}">Danh mục</a>
                                     <ul class="submenu">
                                         @foreach ($category as $category)
                                             <li>

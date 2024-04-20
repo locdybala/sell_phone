@@ -27,6 +27,17 @@ class HomeController extends Controller
         return view('pages.home', compact('category', 'brand', 'products', 'slider', 'categorypost','title', 'productNews'));
     }
 
+    public function shop()
+    {
+        $title = 'Danh sách sản phẩm';
+        $category = Category::where('category_status', '1')->orderby('category_id', 'desc')->get();
+        $brand = Brand::where('brand_status', '1')->orderby('brand_id', 'desc')->get();
+        $products = Product::where('product_status', '1')->get();
+        $slider = Slider::where('slider_status', '1')->take(4)->get();
+        $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();
+        return view('pages.product.index', compact('category', 'brand', 'products', 'slider', 'categorypost','title'));
+    }
+
     public function detailCategory($id)
     {
         $title='Sản phẩm theo danh mục';

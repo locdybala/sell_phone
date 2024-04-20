@@ -46,6 +46,7 @@ Route::post('search', [HomeController::class, 'search'])->name('search');
 
 
 //Frontend
+Route::get('/shop/index', [HomeController::class, 'shop'])->name('shop');
 Route::get('/detailBrand/{id}', [HomeController::class, 'detailBrand'])->name('detailBrand');
 Route::get('/detailCategory/{id}', [HomeController::class, 'detailCategory'])->name('detailCategory');
 Route::get('/detailProduct/{id}', [HomeController::class, 'detailProduct'])->name('detailProduct');
