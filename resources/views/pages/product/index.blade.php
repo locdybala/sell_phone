@@ -52,23 +52,65 @@
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                 <div class="row">
 
-                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                        <div class="single-popular-items mb-50 text-center">
-                            <div class="popular-img">
-                                <img src="assets/img/gallery/popular1.png" alt="">
-                                <div class="img-cap">
-                                    <span>Add to cart</span>
+                    @foreach($products as $product)
+                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                            <form>
+                                @csrf
+                                <input type="hidden" value="{{$product->product_id}}"
+                                       class="cart_product_id_{{$product->product_id}}">
+                                <input type="hidden" value="{{$product->product_name}}"
+                                       class="cart_product_name_{{$product->product_id}}">
+                                <input type="hidden" value="{{$product->product_image}}"
+                                       class="cart_product_image_{{$product->product_id}}">
+                                <input type="hidden" value="{{$product->product_price}}"
+                                       class="cart_product_price_{{$product->product_id}}">
+                                <input type="hidden" value="{{$product->product_quantity}}"
+                                       class="cart_product_quantity_{{$product->product_id}}">
+                                <input type="hidden" value="1" class="cart_product_qty_{{$product->product_id}}">
+                                <div class="single-popular-items mb-50 text-center">
+                                    <div class="popular-img">
+                                        <img style="height: 380px;" src="/upload/product/{{ $product->product_image }}" alt="">
+                                        @php
+                                            $customerId = Session::get('customer_id');
+                                        @endphp
+                                        @if ($customerId)
+                                            <style>.img-cap button a{
+                                                    color: #fff;
+                                                    background: #f81f1f;
+                                                    padding: 20px 0;
+                                                    display: block;
+                                                    cursor: pointer;
+                                                    border: none; /* Loại bỏ viền của button */
+                                                    width: 100%; /* Đảm bảo button chiếm toàn bộ chiều rộng của div */
+                                                }</style>
+
+                                            <div class="img-cap ">
+                                                <button type="button" name="add-to-cart"
+                                                        data-id_product="{{$product->product_id}}"
+                                                        class="add-to-cart ">Thêm giỏ hàng
+                                                </button>
+                                            </div>
+                                        @else
+                                            <div class="img-cap ">
+                                                <a href="{{URL::to('/login-checkout')}}"
+                                                   class="add-to-cart"><span>Thêm
+                                            giỏ hàng</span></a>
+                                            </div>
+                                        @endif
+                                        <div class="favorit-items">
+                                            <span class="flaticon-heart"></span>
+                                        </div>
+                                    </div>
+                                    <div class="popular-caption">
+                                        <h3>
+                                            <a href="{{ route('detailProduct',['id'=>$product->product_id]) }}">{{$product->product_name}}</a>
+                                        </h3>
+                                        <span>{{number_format($product->product_price)}} đ</span>
+                                    </div>
                                 </div>
-                                <div class="favorit-items">
-                                    <span class="flaticon-heart"></span>
-                                </div>
-                            </div>
-                            <div class="popular-caption">
-                                <h3><a href="product_details.html">Thermo Ball Etip Gloves</a></h3>
-                                <span>$ 45,743</span>
-                            </div>
+                            </form>
                         </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
             <!-- Card two -->

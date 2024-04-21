@@ -55,7 +55,7 @@ Route::post('/load-comments', [HomeController::class, 'load_comments'])->name('l
 Route::post('/send-comments', [HomeController::class, 'send_comments'])->name('send-comments');
 
 
-
+Route::get('/categoryPost', [PostFrontendController::class, 'index'])->name('categoryPostIndex');
 Route::get('/detaiCategoryPost/{slug}', [PostFrontendController::class, 'detaiCategoryPost'])->name('detaiCategoryPost');
 Route::get('/postDetail/{slug}', [PostFrontendController::class, 'postDetail'])->name('postDetail');
 

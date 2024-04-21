@@ -36,14 +36,7 @@
                                     </ul>
                                 </li>
 
-                                <li><a href="blog.html">Tin tức</a>
-                                    <ul class="submenu">
-                                        @foreach ($categorypost as $categorypost)
-                                            <li>
-                                                <a href="{{ route('detaiCategoryPost',['slug'=>$categorypost->cate_post_slug]) }}">{{$categorypost->cate_post_name}}</a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
+                                <li><a href="{{route('categoryPostIndex')}}">Tin tức</a>
                                 </li>
                                 <li><a href="{{URL::to('/gio-hang')}}">Giỏ hàng</a></li>
                                 <li><a href="{{route('contact')}}">Liên hệ</a></li>

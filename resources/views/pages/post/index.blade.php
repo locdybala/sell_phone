@@ -7,7 +7,7 @@
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="hero-cap text-center">
-                            <h2>Danh mục bài viết: {{$cate_post_name->cate_post_name}}</h2>
+                            <h2>Danh sách bài viết</h2>
                         </div>
                     </div>
                 </div>
@@ -54,19 +54,20 @@
                         @endforeach
                         <nav class="blog-pagination justify-content-center d-flex">
                             <ul class="pagination">
-                                <li class="page-item">
-                                    <a href="#" class="page-link" aria-label="Previous">
+                                <li class="page-item {{$posts->onFirstPage() ? 'disabled' : ''}}">
+                                    <a href="{{$posts->previousPageUrl()}}" class="page-link" aria-label="Previous">
                                         <i class="ti-angle-left"></i>
                                     </a>
                                 </li>
-                                <li class="page-item">
-                                    <a href="#" class="page-link">1</a>
-                                </li>
-                                <li class="page-item active">
-                                    <a href="#" class="page-link">2</a>
-                                </li>
-                                <li class="page-item">
-                                    <a href="#" class="page-link" aria-label="Next">
+                                @for ($i = 1; $i <= $posts->lastPage(); $i++)
+
+                                    <li class="page-item {{$posts->currentPage() === $i ? 'active' : ''}}">
+                                        <a href="{{$posts->url($i)}}" class="page-link">{{$i}}</a>
+                                    </li>
+                                @endfor
+
+                                <li class="page-item {{$posts->hasMorePages() ? '' : 'disabled'}}">
+                                    <a class="page-link" href="{{$posts->nextPageUrl()}}" aria-label="Next">
                                         <i class="ti-angle-right"></i>
                                     </a>
                                 </li>

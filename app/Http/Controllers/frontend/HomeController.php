@@ -24,7 +24,7 @@ class HomeController extends Controller
         $productNews = Product::where('product_status', '1')->orderby('product_id', 'desc')->limit(3)->get();
         $slider = Slider::where('slider_status', '1')->take(4)->get();
         $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();
-        return view('pages.home', compact('category', 'brand', 'products', 'slider', 'categorypost','title', 'productNews'));
+        return view('pages.home', compact('category', 'brand', 'products', 'slider', 'categorypost', 'title', 'productNews'));
     }
 
     public function shop()
@@ -35,31 +35,31 @@ class HomeController extends Controller
         $products = Product::where('product_status', '1')->get();
         $slider = Slider::where('slider_status', '1')->take(4)->get();
         $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();
-        return view('pages.product.index', compact('category', 'brand', 'products', 'slider', 'categorypost','title'));
+        return view('pages.product.index', compact('category', 'brand', 'products', 'slider', 'categorypost', 'title'));
     }
 
     public function detailCategory($id)
     {
-        $title='Sản phẩm theo danh mục';
+        $title = 'Sản phẩm theo danh mục';
         $slider = Slider::where('slider_status', '1')->take(4)->get();
         $category = Category::where('category_status', '1')->orderby('category_id', 'desc')->get();
         $brand = Brand::where('brand_status', '1')->orderby('brand_id', 'desc')->get();
         $product = Product::where('product_status', '1')->where('category_id', $id)->orderby('product_id', 'desc')->limit(8)->get();
         $category_name = Category::find($id);
         $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();
-        return view('pages.category.show_category', compact('category', 'brand', 'product', 'category_name', 'slider', 'categorypost','title'));
+        return view('pages.category.show_category', compact('category', 'brand', 'product', 'category_name', 'slider', 'categorypost', 'title'));
     }
 
     public function detailBrand($id)
     {
-        $title='Sản phẩm theo thương hiệu';
-
+        $title = 'Sản phẩm theo thương hiệu';
+        $brand_name = Brand::find($id)->brand_name;
         $slider = Slider::where('slider_status', '1')->take(4)->get();
         $category = Category::where('category_status', '1')->orderby('category_id', 'desc')->get();
         $brand = Brand::where('brand_status', '1')->orderby('brand_id', 'desc')->get();
         $product = Product::where('product_status', '1')->where('brand_id', $id)->orderby('product_id', 'desc')->limit(8)->get();
         $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();
-        return view('pages.brand.show_brand', compact('category', 'brand', 'product', 'slider', 'categorypost','title'));
+        return view('pages.brand.show_brand', compact('category', 'brand', 'product', 'brand_name', 'slider', 'categorypost', 'title'));
     }
 
     public function detailProduct($id)
@@ -70,13 +70,13 @@ class HomeController extends Controller
         $brand = Brand::where('brand_status', '1')->orderby('brand_id', 'desc')->get();
         $productDetail = Product::find($id);
         $view = $productDetail->product_view;
-        $productDetail->product_view = $view+1;
+        $productDetail->product_view = $view + 1;
         $productDetail->save();
         $category_id = $productDetail->category_id;
         $related_products = Product::where('category_id', $category_id)->whereNotIn('tbl_product.product_id', [$id])->get();
         $gallery = Gallery::where('product_id', $id)->get();
         $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();
-        return view('pages.product.detail_product', compact('category', 'gallery', 'title' ,'brand', 'productDetail', 'related_products', 'slider', 'categorypost'));
+        return view('pages.product.detail_product', compact('category', 'gallery', 'title', 'brand', 'productDetail', 'related_products', 'slider', 'categorypost'));
     }
 
     public function search(Request $request)
@@ -89,7 +89,7 @@ class HomeController extends Controller
         $product = Product::where('product_name', 'like', '%' . $keywords . '%')->get();
         $slider = Slider::where('slider_status', '1')->take(4)->get();
 
-        return view('pages.product.search', compact('category', 'brand', 'product', 'categorypost','title','slider'));
+        return view('pages.product.search', compact('category', 'brand', 'product', 'categorypost', 'title', 'slider'));
 
     }
 
