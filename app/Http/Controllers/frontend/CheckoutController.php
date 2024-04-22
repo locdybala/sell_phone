@@ -384,11 +384,12 @@ class CheckoutController extends Controller
 
     public function update_new_password(Request $request)
     {
+        $title = 'Lấy lại mật khẩu';
         $category = Category::where('category_status', '1')->orderby('category_id', 'desc')->get();
         $brand = Brand::where('brand_status', '1')->orderby('brand_id', 'desc')->get();
         $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();
         $slider = Slider::where('slider_status', '1')->take(4)->get();
-        return view('pages.customer.newpass', compact('category', 'brand', 'categorypost', 'slider'));
+        return view('pages.customer.newpass', compact('category', 'title','brand', 'categorypost', 'slider'));
     }
 
     public function update_pass(Request $request)

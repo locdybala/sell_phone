@@ -63,7 +63,7 @@ Route::get('/postDetail/{slug}', [PostFrontendController::class, 'postDetail'])-
 
 
 Route::post('/add-cart-ajax', [CartController::class, 'add_cart_ajax'])->name('add-cart-ajax');
-Route::get('/gio-hang', [CartController::class, 'show_cart']);
+Route::get('/cart', [CartController::class, 'show_cart'])->name('cart');
 Route::post('/update_cart', [CartController::class, 'update_cart'])->name('update_cart');
 Route::get('/delete_product_cart/{session_id}', [CartController::class, 'delete_product_cart'])->name('delete_product_cart');
 Route::get('/delete_all_cart', [CartController::class, 'delete_all_cart'])->name('delete_all_cart');

@@ -40,6 +40,7 @@ class PostFrontendController extends Controller
 
     public function postDetail($slug)
     {
+        $title = 'Chi tiết bài viết';
         $slider = Slider::where('slider_status', '1')->take(4)->get();
         $category = Category::where('category_status', '1')->orderby('category_id', 'desc')->get();
         $brand = Brand::where('brand_status', '1')->orderby('brand_id', 'desc')->get();
@@ -51,7 +52,7 @@ class PostFrontendController extends Controller
         $cate_post_id = $post->cate_post_id;
         $related_post = Post::where('cate_post_id', $cate_post_id)->where('post_status', 1)->whereNotIn('tbl_post.post_slug', [$slug])->get();
 
-        return view('pages.post.show_detail_post', compact('category', 'brand', 'post', 'post', 'slider', 'categorypost', 'related_post'));
+        return view('pages.post.show_detail_post', compact('category', 'title','brand', 'post', 'post', 'slider', 'categorypost', 'related_post'));
 
     }
 }

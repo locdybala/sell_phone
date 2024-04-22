@@ -38,7 +38,7 @@
 
                                 <li><a href="{{route('categoryPostIndex')}}">Tin tức</a>
                                 </li>
-                                <li><a href="{{URL::to('/gio-hang')}}">Giỏ hàng</a></li>
+                                <li><a href="{{route('cart')}}">Giỏ hàng</a></li>
                                 <li><a href="{{route('contact')}}">Liên hệ</a></li>
 
                                 @if ($customer_id != NULL)
@@ -79,7 +79,7 @@
                                     <span class="flaticon-search"></span>
                                 </div>
                             </li>
-                            <li><a href="{{URL::to('/gio-hang')}}"><span class="flaticon-shopping-cart"></span></a></li>
+                            <li><a href="{{route('cart')}}"><span class="flaticon-shopping-cart"></span></a></li>
                             @if ($customer_id != NULL)
                                 <li><a href=""><span class="flaticon-user"> {{Session::get('customer_name')}}</span></a>
                                     <ul class="submenu">

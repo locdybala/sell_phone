@@ -20,9 +20,10 @@ class CartController extends Controller
     {
         $title ='Giỏ hàng';
         $category = Category::where('category_status', '1')->orderby('category_id', 'desc')->get();
+        $brand = Brand::where('brand_status', '1')->orderby('brand_id', 'desc')->get();
         $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();
 
-        return view('pages.cart.show_cart',compact('category','categorypost','title'));
+        return view('pages.cart.show_cart',compact('category','categorypost','title', 'brand'));
     }
 
     public function add_cart_ajax(Request $request)

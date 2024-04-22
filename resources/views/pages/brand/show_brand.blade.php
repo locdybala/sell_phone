@@ -366,7 +366,7 @@
                             })
                                 .then((willDelete) => {
                                     if (willDelete) {
-                                        window.location.href = "{{url('/gio-hang')}}";
+                                        window.location.href = "{{url('/cart')}}";
                                     }
                                 });
                         }
