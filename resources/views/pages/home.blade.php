@@ -158,16 +158,6 @@
                                         $customerId = Session::get('customer_id');
                                     @endphp
                                     @if ($customerId)
-                                        <style>.img-cap button a{
-                                                color: #fff;
-                                                background: #f81f1f;
-                                                padding: 20px 0;
-                                                display: block;
-                                                cursor: pointer;
-                                                border: none; /* Loại bỏ viền của button */
-                                                width: 100%; /* Đảm bảo button chiếm toàn bộ chiều rộng của div */
-                                            }</style>
-
                                         <div class="img-cap ">
                                             <button type="button" name="add-to-cart"
                                                     data-id_product="{{$product->product_id}}"

@@ -76,7 +76,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <h5>{{number_format($subtotal,0,',','.')}} đ</h5>
+                                            <h5>{{number_format($subtotal,0,',','.')}}đ</h5>
                                         </td>
                                         <td class="cart_delete">
                                             <a class="cart_quantity_delete"
@@ -88,7 +88,7 @@
                                 <tr class="bottom_button">
                                     <td>
                                         <input type="submit" value="Cập nhật giỏ hàng" name="update_qty"
-                                               class="genric-btn warning small">
+                                               class="genric-btn info small">
                                     </td>
                                     <td>
                                     </td>
@@ -96,10 +96,12 @@
                                     <td></td>
                                     <td>
                                         <div class="cupon_text float-right">
-                                            <a class="genric-btn success small" href="{{route('delete_all_cart')}}">Xóa giỏ
+                                            <a class="genric-btn success small" href="{{route('delete_all_cart')}}">Xóa
+                                                giỏ
                                                 hàng</a>
                                             @if(Session::get('coupon'))
-                                                <a class="genric-btn success small" href="{{route('delete_coupon')}}">Xoá mã khuyến
+                                                <a class="genric-btn success small" href="{{route('delete_coupon')}}">Xoá
+                                                    mã khuyến
                                                     mãi</a>
                                             @endif
                                         </div>
@@ -110,47 +112,48 @@
                                     <td></td>
                                     <td></td>
                                     <td>
-                                        <h5>Subtotal</h5>
+                                        <h5>Tổng tiền sản phẩm</h5>
                                     </td>
                                     <td>
-                                        <h5>$2160.00</h5>
+                                        <h5>{{number_format($total,0,',','.')}}đ</h5>
                                     </td>
                                 </tr>
                                 <tr class="shipping_area">
                                     <td></td>
                                     <td></td>
-                                    <td></td>
                                     <td>
                                         <h5>Shipping</h5>
                                     </td>
+                                    <td></td>
+
                                     <td>
                                         <div class="shipping_box">
                                             <ul class="list">
                                                 <li>
-                                                    Tổng <span>{{number_format($total,0,',','.')}}
+                                                    Tổng: {{number_format($total,0,',','.')}}đ
                                                 </li>
                                                 @if(Session::get('coupon'))
                                                     <li>
                                                         @foreach(Session::get('coupon') as $key =>$value)
                                                             @if($value['coupon_condition'] == 1)
-                                                                Mã giảm: {{$value['coupon_number']}} %
+                                                                Mã giảm: {{$value['coupon_code']}} %
                                                                 @php
                                                                     $totalcoupon = $total*$value['coupon_number']/100;
                                                                     echo '<p><li>Tổng giảm: '.number_format($totalcoupon,0,',','.').' vnđ</li></p>' ;
                                                                 @endphp
                                                                 <p>
-                                                    <li>Tổng tiền đã
-                                                        giảm: {{number_format($total-$totalcoupon,0,',','.')}}vnđ
+                                                    <li>Tổng tiền
+                                                        thanh toán: {{number_format($total-$totalcoupon,0,',','.')}}vnđ
                                                     </li></p>
                                                 @elseif($value['coupon_condition']==2)
-                                                    Mã giảm: {{ number_format($value['coupon_number'],0,',','.')}} vnđ
+                                                    Mã giảm: {{ ($value['coupon_code'])}} vnđ
                                                     @php
                                                         $totalcoupon = $value['coupon_number'];
                                                         echo '<p><li>Tổng giảm: '.number_format($totalcoupon,0,',','.').' vnđ</li></p>' ;
                                                     @endphp
                                                     <p>
-                                                        <li>Tổng tiền đã
-                                                            giảm: {{number_format($total-$totalcoupon,0,',','.')}}vnđ
+                                                        <li>Tổng tiền
+                                                            thanh toán: {{number_format($total-$totalcoupon,0,',','.')}}vnđ
                                                         </li>
                                                     </p>
                                                     @endif

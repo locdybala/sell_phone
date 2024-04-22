@@ -67,7 +67,7 @@
                                     $customerId = Session::get('customer_id');
                                 @endphp
                                 @if ($customerId)
-                                    <input type="button" value="Thêm giỏ hàng" class="btn_3 add-to-cart"
+                                    <input type="button" value="Thêm giỏ hàng" class="genric-btn danger add-to-cart"
                                            data-id_product="{{$productDetail->product_id}}" name="add-to-cart">
                                 @else
                                     <a href="{{URL::to('/login-checkout')}}"
@@ -79,7 +79,7 @@
                             <p><b>Tình trạng:</b> Còn hàng</p>
                             <p><b>Danh mục:</b> {{$productDetail->category->category_name}}</p>
                             <p><b>Thương hiệu:</b> {{$productDetail->brand->brand_name}}</p>
-                            <a href=""><img src="images/product-details/share.png" class="share img-responsive" alt=""/></a>
+                            <a href=""><img src="{{asset('frontend/images/product-details/share.png')}}" class="share img-responsive" alt=""/></a>
                             <style>
                                 a.tags_style {
                                     margin: 3px 2px;
@@ -178,7 +178,6 @@
 										</span>
                                     <textarea name="comment" placeholder="Nội dung commnet" id="comment_content"></textarea>
                                     <div id="notifi_comments"></div>
-                                    <b>Rating: </b> <img src="images/product-details/rating.png" alt=""/>
                                     <button type="button" class="btn btn-default pull-right send-comment">Đánh giá
                                     </button>
                                 </form>
@@ -223,15 +222,7 @@
                                         $customerId = Session::get('customer_id');
                                     @endphp
                                     @if ($customerId)
-                                        <style>.img-cap button a{
-                                                color: #fff;
-                                                background: #f81f1f;
-                                                padding: 20px 0;
-                                                display: block;
-                                                cursor: pointer;
-                                                border: none; /* Loại bỏ viền của button */
-                                                width: 100%; /* Đảm bảo button chiếm toàn bộ chiều rộng của div */
-                                            }</style>
+
 
                                         <div class="img-cap ">
                                             <button type="button" name="add-to-cart"
@@ -266,24 +257,6 @@
     </div>
 @endsection
 @section('javascript')
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#imageGallery').lightSlider({
-                gallery: true,
-                item: 1,
-                loop: true,
-                thumbItem: 3,
-                slideMargin: 0,
-                enableDrag: false,
-                currentPagerPosition: 'left',
-                onSliderLoad: function (el) {
-                    el.lightGallery({
-                        selector: '#imageGallery .lslide'
-                    });
-                }
-            });
-        });
-    </script>
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -329,4 +302,58 @@
         });
     </script>
 
+@endsection
+@section('javascript')
+    <script type="text/javascript">
+        $('.number-increment').click(function (){
+            alert(1);
+        })
+        $(document).ready(function () {
+            $('.add-to-cart').click(function () {
+                debugger;
+                var id = $(this).data('id_product');
+                var cart_product_id = $('.cart_product_id_' + id).val();
+                var cart_product_name = $('.cart_product_name_' + id).val();
+                var cart_product_image = $('.cart_product_image_' + id).val();
+                var cart_product_price = $('.cart_product_price_' + id).val();
+                var cart_product_quantity = $('.cart_product_quantity_' + id).val();
+                var cart_product_qty = $('.cart_product_qty_' + id).val();
+                var _token = $('input[name="_token"]').val();
+                if (cart_product_qty >= cart_product_quantity) {
+                    swal('error', 'Số lượng đặt lớn hơn số lượng còn trong kho, Vui lòng chọn số lượng nhỏ hơn', +cart_product_quantity);
+                } else {
+                    $.ajax({
+                        url: '{{url('/add-cart-ajax')}}',
+                        method: 'POST',
+                        data: {
+                            cart_product_id: cart_product_id,
+                            cart_product_name: cart_product_name,
+                            cart_product_quantity: cart_product_quantity,
+                            cart_product_image: cart_product_image,
+                            cart_product_price: cart_product_price,
+                            cart_product_qty: cart_product_qty,
+                            _token: _token
+                        },
+                        success: function () {
+
+                            swal({
+                                title: "Đã thêm sản phẩm vào giỏ hàng",
+                                text: "Bạn có thể mua hàng tiếp hoặc tới giỏ hàng để tiến hành thanh toán",
+                                cancel: "Xem tiếp",
+                                icon: "success",
+                                buttons: ["Xem tiếp", "Đi đến giỏ hàng"],
+                                dangerMode: true,
+                            })
+                                .then((willDelete) => {
+                                    if (willDelete) {
+                                        window.location.href = "{{url('/cart')}}";
+                                    }
+                                });
+                        }
+
+                    });
+                }
+            })
+        });
+    </script>
 @endsection

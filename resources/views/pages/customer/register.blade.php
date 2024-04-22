@@ -6,7 +6,7 @@
         }
     </style>
     <div class="slider-area ">
-        <div class="single-slider slider-height2 d-flex align-items-center">
+        <div style="min-height: 300px" class="single-slider slider-height2 d-flex align-items-center">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-12">
@@ -20,7 +20,7 @@
     </div>
     <!-- Hero Area End-->
     <!--================login_part Area =================-->
-    <section class="login_part section_padding ">
+    <section style="padding: 100px 0" class="login_part section_padding ">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6 col-md-6">

@@ -38,7 +38,6 @@
 
                                 <li><a href="{{route('categoryPostIndex')}}">Tin tức</a>
                                 </li>
-                                <li><a href="{{route('cart')}}">Giỏ hàng</a></li>
                                 <li><a href="{{route('contact')}}">Liên hệ</a></li>
 
                                 @if ($customer_id != NULL)
@@ -64,16 +63,6 @@
                     <!-- Header Right -->
                     <div class="header-right">
                         <ul>
-                            {{--                            <li>--}}
-                            {{--                                <form action="{{route('search')}}" method="POST">--}}
-                            {{--                                    {{csrf_field()}}--}}
-                            {{--                                    <div class="search_box pull-right">--}}
-                            {{--                                        <input type="text" name="keywords_submit" placeholder="Tìm kiếm sản phẩm"/>--}}
-                            {{--                                        <input type="submit" style="margin-top:0;color:#666" name="search_items"--}}
-                            {{--                                               class="btn btn-primary btn-sm" value="Tìm kiếm">--}}
-                            {{--                                    </div>--}}
-                            {{--                                </form>--}}
-                            {{--                            </li>--}}
                             <li>
                                 <div class="nav-search search-switch">
                                     <span class="flaticon-search"></span>
@@ -81,10 +70,12 @@
                             </li>
                             <li><a href="{{route('cart')}}"><span class="flaticon-shopping-cart"></span></a></li>
                             @if ($customer_id != NULL)
-                                <li><a href=""><span class="flaticon-user"> {{Session::get('customer_name')}}</span></a>
-                                    <ul class="submenu">
-                                        <li><a href="{{route('edit_customer',['id'=>Session::get('customer_id')])}}"><span class="flaticon-user">Thông tin cá nhân</a>
-                                        </li>
+                                <li>
+                                    <a href="">
+                                        <span class="flaticon-user"> {{Session::get('customer_name')}}</span>
+                                    </a>
+                                    <ul class="submenuuser">
+                                        <li><a href="{{route('edit_customer',['id'=>Session::get('customer_id')])}}"><span class="flaticon-user">Thông tin cá nhân</a></li>
                                         <li><a href="{{route('logout_checkout')}}"><span class="flaticon-user"> Đăng xuất</a></li>
                                     </ul>
                                 </li>
