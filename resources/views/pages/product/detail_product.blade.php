@@ -62,6 +62,36 @@
                                            value="{{$productDetail->product_id}}"/>
                                 </div>
                             </div>
+                                <p><b>Tình trạng:</b> Còn hàng</p>
+                                <p><b>Danh mục:</b> {{$productDetail->category->category_name}}</p>
+                                <p><b>Thương hiệu:</b> {{$productDetail->brand->brand_name}}</p>
+                                <a href=""><img src="{{asset('frontend/images/product-details/share.png')}}" class="share img-responsive" alt=""/></a>
+                                <style>
+                                    a.tags_style {
+                                        margin: 3px 2px;
+                                        border: 1px solid;
+                                        height: auto;
+                                        background: #428bca;
+                                        color: #ffffff;
+                                        padding: 0px;
+                                    }
+
+                                    a.tags_style:hover {
+                                        background: black;
+                                    }
+                                </style>
+                                <fieldset>
+                                    <legend>Tags</legend>
+                                    <p><i class="fa fa-tag"></i>
+                                        @php
+                                            $tag = $productDetail->product_tags;
+                                            $tag = explode(",",$tag);
+                                        @endphp
+                                        @foreach($tag as $tag)
+                                            <a href="#" class="tags_style">{{$tag}}</a>
+                                        @endforeach
+                                    </p>
+                                </fieldset>
                             <div class="add_to_cart">
                                 @php
                                     $customerId = Session::get('customer_id');
@@ -71,41 +101,11 @@
                                            data-id_product="{{$productDetail->product_id}}" name="add-to-cart">
                                 @else
                                     <a href="{{URL::to('/login-checkout')}}"
-                                       class="btn_3 add-to-cart">Thêm
+                                       class="genric-btn danger add-to-cart">Thêm
                                         giỏ hàng</a>
                                 @endif
                             </div>
                             </form>
-                            <p><b>Tình trạng:</b> Còn hàng</p>
-                            <p><b>Danh mục:</b> {{$productDetail->category->category_name}}</p>
-                            <p><b>Thương hiệu:</b> {{$productDetail->brand->brand_name}}</p>
-                            <a href=""><img src="{{asset('frontend/images/product-details/share.png')}}" class="share img-responsive" alt=""/></a>
-                            <style>
-                                a.tags_style {
-                                    margin: 3px 2px;
-                                    border: 1px solid;
-                                    height: auto;
-                                    background: #428bca;
-                                    color: #ffffff;
-                                    padding: 0px;
-                                }
-
-                                a.tags_style:hover {
-                                    background: black;
-                                }
-                            </style>
-                            <fieldset>
-                                <legend>Tags</legend>
-                                <p><i class="fa fa-tag"></i>
-                                    @php
-                                        $tag = $productDetail->product_tags;
-                                        $tag = explode(",",$tag);
-                                    @endphp
-                                    @foreach($tag as $tag)
-                                        <a href="#" class="tags_style">{{$tag}}</a>
-                                    @endforeach
-                                </p>
-                            </fieldset>
                         </div>
                     </div>
                 </div>
