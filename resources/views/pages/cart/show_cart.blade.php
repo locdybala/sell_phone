@@ -122,7 +122,7 @@
                                     <td></td>
                                     <td></td>
                                     <td>
-                                        <h5>Shipping</h5>
+
                                     </td>
                                     <td></td>
 
@@ -178,7 +178,7 @@
                             </tbody>
                         </table>
                     </form>
-                    <div class="row">
+                    <div style="padding-bottom: 20px;" class="row">
                         <div class="col-md-6">
                             @if(Session::get('cart'))
 
