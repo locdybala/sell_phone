@@ -89,7 +89,7 @@
                                     @php
                                         $total = 0;
                                     @endphp
-                                    <h2>Your Order</h2>
+                                    <h2>Xem lại đơn hàng</h2>
                                     <ul class="list">
                                         <li>
                                             <a href="#">Sản phẩm
@@ -182,14 +182,14 @@
                                     <div class="payment_item">
                                         <div class="radion_btn">
                                             <input type="radio" id="f-option5" name="selector"/>
-                                            <label for="f-option5">Check payments</label>
+                                            <label for="f-option5">Thanh toán trực tiếp</label>
                                             <div class="check"></div>
                                         </div>
                                     </div>
                                     <div class="payment_item active">
                                         <div class="radion_btn">
                                             <input type="radio" id="f-option6" name="selector"/>
-                                            <label for="f-option6">Paypal </label>
+                                            <label for="f-option6">VNPAY </label>
                                             <img src="{{asset('frontend/img/product/single-product/card.jpg')}}" alt=""/>
                                             <div class="check"></div>
                                         </div>

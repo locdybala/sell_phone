@@ -3,7 +3,7 @@
     @php
         $customerId = Session::get('customer_id');
     @endphp
-    <!-- Hero Area Start-->
+        <!-- Hero Area Start-->
     <div class="slider-area ">
         <div class="single-slider slider-height2 d-flex align-items-center">
             <div class="container">
@@ -25,9 +25,10 @@
                 <div class="col-lg-5">
                     <div class="product_img_slide owl-carousel">
                         @foreach($gallery as $gallery)
-                        <div class="single_product_img">
-                            <img src="{{asset('upload/gallery/'.$gallery->gallery_name)}}" alt="#" class="img-fluid">
-                        </div>
+                            <div class="single_product_img">
+                                <img src="{{asset('upload/gallery/'.$gallery->gallery_name)}}" alt="#"
+                                     class="img-fluid">
+                            </div>
                         @endforeach
                     </div>
                 </div>
@@ -50,22 +51,27 @@
                                        class="cart_product_price_{{$productDetail->product_id}}">
                                 <input type="hidden" value="{{$productDetail->product_quantity}}"
                                        class="cart_product_quantity_{{$productDetail->product_id}}">
-                                <p><b>Giá:</b> <span>{{number_format($productDetail->product_price,0,',','.').'VNĐ'}}</span></p>
-                            <div class="product_count_area" style="justify-content: left !important;">
-                                <p>Số lượng</p>
-                                <div class="product_count d-inline-block">
-                                    <span class="product_count_item inumber-decrement"> <i class="ti-minus"></i></span>
-                                    <input class="product_count_item input-number cart_product_qty_{{$productDetail->product_id}}"
-                                           type="text" value="1" min="0" max="10">
-                                    <span class="product_count_item number-increment"> <i class="ti-plus"></i></span>
-                                    <input name="productid_hidden" type="hidden"
-                                           value="{{$productDetail->product_id}}"/>
+                                <p><b>Giá:</b>
+                                    <span>{{number_format($productDetail->product_price,0,',','.').'VNĐ'}}</span></p>
+                                <div class="product_count_area" style="justify-content: left !important;">
+                                    <p>Số lượng</p>
+                                    <div class="product_count d-inline-block">
+                                        <span class="product_count_item inumber-decrement"> <i
+                                                class="ti-minus"></i></span>
+                                        <input
+                                            class="product_count_item input-number cart_product_qty_{{$productDetail->product_id}}"
+                                            type="text" value="1" min="0" max="10">
+                                        <span class="product_count_item number-increment"> <i
+                                                class="ti-plus"></i></span>
+                                        <input name="productid_hidden" type="hidden"
+                                               value="{{$productDetail->product_id}}"/>
+                                    </div>
                                 </div>
-                            </div>
                                 <p><b>Tình trạng:</b> Còn hàng</p>
                                 <p><b>Danh mục:</b> {{$productDetail->category->category_name}}</p>
                                 <p><b>Thương hiệu:</b> {{$productDetail->brand->brand_name}}</p>
-                                <a href=""><img src="{{asset('frontend/images/product-details/share.png')}}" class="share img-responsive" alt=""/></a>
+                                <a href=""><img src="{{asset('frontend/images/product-details/share.png')}}"
+                                                class="share img-responsive" alt=""/></a>
                                 <style>
                                     a.tags_style {
                                         margin: 3px 2px;
@@ -92,19 +98,19 @@
                                         @endforeach
                                     </p>
                                 </fieldset>
-                            <div class="add_to_cart">
-                                @php
-                                    $customerId = Session::get('customer_id');
-                                @endphp
-                                @if ($customerId)
-                                    <input type="button" value="Thêm giỏ hàng" class="genric-btn danger add-to-cart"
-                                           data-id_product="{{$productDetail->product_id}}" name="add-to-cart">
-                                @else
-                                    <a href="{{URL::to('/login-checkout')}}"
-                                       class="genric-btn danger add-to-cart">Thêm
-                                        giỏ hàng</a>
-                                @endif
-                            </div>
+                                <div class="add_to_cart">
+                                    @php
+                                        $customerId = Session::get('customer_id');
+                                    @endphp
+                                    @if ($customerId)
+                                        <input type="button" value="Thêm giỏ hàng" class="genric-btn danger add-to-cart"
+                                               data-id_product="{{$productDetail->product_id}}" name="add-to-cart">
+                                    @else
+                                        <a href="{{URL::to('/login-checkout')}}"
+                                           class="genric-btn danger add-to-cart">Thêm
+                                            giỏ hàng</a>
+                                    @endif
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -112,82 +118,77 @@
             </div>
         </div>
     </div>
-    <div>
+    <section class="popular-items latest-padding">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="details-tab" data-toggle="tab" href="#details" role="tab" aria-controls="details" aria-selected="true">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="companyprofile-tab" data-toggle="tab" href="#companyprofile" role="tab" aria-controls="companyprofile" aria-selected="false">Profile</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Contact</a>
-                        </li>
-                    </ul>
-                    <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="details" role="tabpanel" aria-labelledby="details-tab">
-                            <div class="col-sm-12">
-                                <p>{!! $productDetail->product_content!!}</p>
-                            </div>
+            <div class="row product-btn justify-content-between mb-40">
+                <div class="properties__button">
+                    <!--Nav Button  -->
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <a class="nav-item nav-link " id="nav-home-tab" data-toggle="tab" href="#details"
+                               role="tab" aria-controls="details" aria-selected="true">Mô tả</a>
+                            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#companyprofile"
+                               role="tab" aria-controls="companyprofile" aria-selected="false">Thông tin chi tiết</a>
+                            <a class="nav-item nav-link active" id="nav-contact-tab" data-toggle="tab" href="#reviews"
+                               role="tab" aria-controls="reviews" aria-selected="false"> Nhận xét </a>
                         </div>
-                        <div class="tab-pane fade" id="companyprofile" role="tabpanel" aria-labelledby="companyprofile-tab">
-                            <div class="col-sm-12">
-                                <p>{!! $productDetail->product_desc!!}</p>
-                            </div>
+                    </nav>
+                    <!--End Nav Button  -->
+                </div>
+            </div>
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade" id="details" role="tabpanel" aria-labelledby="details-tab">
+                    <div class="col-sm-12">
+                        <p>{!! $productDetail->product_content!!}</p>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="companyprofile" role="tabpanel" aria-labelledby="companyprofile-tab">
+                    <div class="col-sm-12">
+                        <p>{!! $productDetail->product_desc!!}</p>
+                    </div>
+                </div>
+                <div class="tab-pane fade show active" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+                    <form>
+                        @csrf
+                    <div class="comments-area">
+                        <h4>Nhận xét</h4>
+                        <input type="text" id="comment_product_id" name="comment_product_id"
+                               value="{{$productDetail->product_id}}"
+                               hidden>
+                        <div id="comment_show">
+
                         </div>
-                        <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
-                            <div class="col-sm-12">
-                                <ul>
-                                    <li><a href=""><i class="fa fa-user"></i>ADMIN</a></li>
-                                    <li><a href=""><i class="fa fa-clock-o"></i>12:41 PM</a></li>
-                                    <li><a href=""><i class="fa fa-calendar-o"></i>31 DEC 2014</a></li>
-                                </ul>
-                                <form>
-                                    @csrf
-                                    <input type="text" id="comment_product_id" name="comment_product_id"
-                                           value="{{$productDetail->product_id}}"
-                                           hidden>
-                                    <div id="comment_show">
 
-                                        {{--                                <div style="border: 1px solid #ddd; border-radius: 10px; background-color: #F0F0E9"--}}
-                                        {{--                                     class="row style_comment">--}}
-                                        {{--                                    <input type="text" name="comment_product_id" value="{{$productDetail->product_id}}"--}}
-                                        {{--                                           hidden>--}}
-                                        {{--                                    <div class="col-md-2">--}}
-                                        {{--                                        <img width="80%" style="border-radius: 50%"--}}
-                                        {{--                                             src="{{asset('frontend/images/man.png')}}"--}}
-                                        {{--                                             class="img img-responsive img-thumbnail" alt="">--}}
-                                        {{--                                    </div>--}}
-                                        {{--                                    <div style="margin-top: 10px;" class="mt-2 col-md-10">--}}
-                                        {{--                                        <span><strong style="color: #1ddf61;">@Đình Lộc</strong></span>--}}
-                                        {{--                                        <p>qưe</p>--}}
-                                        {{--                                    </div>--}}
 
-                                        {{--                                </div>--}}
+                    </div>
+                    </form>
+                    <div class="comment-form">
+                        <h4>Viết đánh giá của bạn</h4>
+                        <form class="form-contact comment_form" action="#" id="commentForm">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <input class="form-control" name="comment_name" id="comment_name" type="text" placeholder="Tên người bình luận">
                                     </div>
-                                </form>
-                                <p><b>Viết đánh giá của bạn</b></p>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                 <textarea class="form-control w-100" name="comment" id="comment_content" cols="30" rows="9"
+                                           placeholder="Nhận xét sản phẩm"></textarea>
+                                    </div>
+                                </div>
 
-                                <form action="#">
-										<span>
-											<input style="width: 100%; margin-left: 0" id="comment_name" type="text"
-                                                   placeholder="Tên bình luận"/>
-										</span>
-                                    <textarea name="comment" placeholder="Nội dung commnet" id="comment_content"></textarea>
-                                    <div id="notifi_comments"></div>
-                                    <button type="button" class="btn btn-default pull-right send-comment">Đánh giá
-                                    </button>
-                                </form>
                             </div>
-                        </div>
+                            <span id="notifi_comments"></span>
+                            <div class="form-group">
+                                <button type="button" class="button button-contactForm send-comment btn_1 boxed-btn">Nhận xét</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
     <!--================End Single Product Area =================-->
     <div class="popular-items section-padding30">
         <div class="container">
@@ -217,12 +218,12 @@
                             <input type="hidden" value="1" class="cart_product_qty_{{$product->product_id}}">
                             <div class="single-popular-items mb-50 text-center">
                                 <div class="popular-img">
-                                    <img style="height: 380px;" src="/upload/product/{{ $product->product_image }}" alt="">
+                                    <img style="height: 380px;" src="/upload/product/{{ $product->product_image }}"
+                                         alt="">
                                     @php
                                         $customerId = Session::get('customer_id');
                                     @endphp
                                     @if ($customerId)
-
 
                                         <div class="img-cap ">
                                             <button type="button" name="add-to-cart"
@@ -291,7 +292,7 @@
                         comment_content: comment_content
                     },
                     success: function (data) {
-                        $('#notifi_comments').html('<span class="text text-success">Thêm bình luận thành công, bình luận đang được ch duyệt</span>');
+                        $('#notifi_comments').html('<span class="text text-success">Thêm bình luận thành công, bình luận đang được chờ duyệt</span>');
                         loadComments();
                         $('#notifi_comments').fadeOut('slow');
                         $('#comment_name').val('');
@@ -305,7 +306,7 @@
 @endsection
 @section('javascript')
     <script type="text/javascript">
-        $('.number-increment').click(function (){
+        $('.number-increment').click(function () {
             alert(1);
         })
         $(document).ready(function () {
