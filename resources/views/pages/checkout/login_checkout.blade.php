@@ -46,7 +46,7 @@
                             <form action="{{route('login_customer')}}" method="POST">
                                 {{csrf_field()}}
                                 <div class="col-md-12 form-group p_star">
-                                    <label for="email_account">Họ tên <span class="required">*</span></label>
+                                    <label for="email_account">Tài khoản email <span class="required">*</span></label>
                                     <input type="email" id="email_account" name="email_account" class="form-control"
                                            placeholder="Nhập tài khoản email" value="{{old('email_account')}}">
 
