@@ -35,14 +35,32 @@ class CustomerController extends Controller
         return redirect()->route('all_customer');
     }
     public function update(Request $request, $id,$admin) {
-        Customer::find($id)->update([
-            'customer_name' => $request->customer_name,
-            'customer_email' => $request->customer_email,
-            'customer_password' => md5($request->customer_password),
-            'customer_birthday' => $request->customer_birthday,
-            'customer_phone' => $request->customer_phone,
-            'customer_address' => $request->customer_address,
-        ]);
+        $data = array();
+        $data['customer_name'] = $request->customer_name;
+        $data['customer_email'] = $request->customer_email;
+        if ($request->customer_password) {
+            $data['customer_password'] = md5($request->customer_password);
+        }
+        $data['customer_birthday'] = $request->customer_birthday;
+        $data['customer_phone'] = $request->customer_phone;
+        $data['customer_address'] = $request->customer_address;
+        $file = $request->file('customer_avatar');
+        if ($file) {
+            $getnameimage = $file->getClientOriginalName();
+            $nameimage = current(explode('.', $getnameimage));
+            $new_image = $nameimage . rand(0, 99) . '.' . $file->getClientOriginalExtension();
+            $file->move('upload/customer', $new_image);
+            $data['customer_avatar'] = $new_image;
+            Customer::find($id)->update($data);
+            Session::put('success', 'Sửa thông tin khách hàng thành công');
+            if ($admin == 1) {
+                return redirect()->route('all_customer');
+            } else{
+                return redirect()->route('edit_customer',['id' =>$id]);
+            }
+
+        }
+        Customer::find($id)->update($data);
         Session::put('success', 'Sửa thông tin khách hàng thành công');
         if ($admin == 1) {
             return redirect()->route('all_customer');

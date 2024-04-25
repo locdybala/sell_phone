@@ -69,7 +69,7 @@
                                 </div>
                                 <div class="col-md-12 form-group p_star">
                                     <label for="customer_name">Avatar</label>
-                                    <input type="file"  id="customer_avatar" name="password_account" class="form-control"  placeholder="Nhập mật khẩu" value="{{old('password_account')}}">
+                                    <input type="file"  id="customer_avatar" name="customer_avatar" class="form-control"  placeholder="Nhập mật khẩu" value="{{old('password_account')}}">
 
                                 </div>
                                 <div class="col-md-12 form-group p_star">

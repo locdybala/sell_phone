@@ -18,19 +18,57 @@
     <section class="checkout_area section_padding">
         <div class="container">
             <div class="cupon_area">
-                <form method="POST" action="{{route('check_coupon')}}">
-                    @csrf
-                    <div class="check_title">
-                        <h2>
-                            Bạn có phiếu giảm giá?
-                            <a href="#">Hãy nhập mã giảm giá tại đây</a>
-                        </h2>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <form method="POST" action="{{route('check_coupon')}}">
+                            @csrf
+                            <div class="check_title">
+                                <h2>
+                                    Bạn có phiếu giảm giá?
+                                    <a href="#">Hãy nhập mã giảm giá tại đây</a>
+                                </h2>
+                            </div>
+                            <input type="text" name="coupon" placeholder="Nhập mã giảm giá"/>
+                            <input style="margin-top: -5px; margin-bottom: 15px;" type="submit"
+                                   class="tp_btn update"
+                                   name="check_coupon" value="Áp dụng">
+                        </form>
                     </div>
-                    <input type="text" name="coupon" placeholder="Nhập mã giảm giá"/>
-                    <input style="margin-top: -5px; margin-bottom: 15px;" type="submit"
-                           class="tp_btn update"
-                           name="check_coupon" value="Áp dụng">
-                </form>
+                    <div class="col-lg-8">
+                            <form>
+                                @csrf
+                                <div class="col-md-12 form-group">
+                                    <label for="exampleInputPassword1">Chọn thành phố</label>
+                                    <select name="city" id="city"
+                                            class="form-control choose city">
+
+                                        <option value="">--Chọn tỉnh thành phố--</option>
+                                        @foreach($city as $key => $ci)
+                                            <option value="{{$ci->matp}}">{{$ci->name_city}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-12 form-group ">
+                                    <label for="exampleInputPassword1">Chọn quận huyện</label>
+                                    <select name="province" id="province"
+                                            class="form-control input-sm m-bot15 province choose">
+                                        <option value="">--Chọn quận huyện--</option>
+
+                                    </select>
+                                </div>
+                                <div class="col-md-12 form-group ">
+                                    <label for="exampleInputPassword1">Chọn xã phường</label>
+                                    <select name="wards" id="wards"
+                                            class="form-control input-sm m-bot15 wards">
+                                        <option value="">--Chọn xã phường--</option>
+                                    </select>
+                                </div>
+                                <input style="margin-top: -5px; margin-bottom: 20px;" type="button"
+                                       value="Tính phí vận chuyển" name="calculate_order"
+                                       class="btn btn-default update calculate_delivery">
+                            </form>
+                    </div>
+                </div>
             </div>
             <div class="billing_details">
                 <div class="row">

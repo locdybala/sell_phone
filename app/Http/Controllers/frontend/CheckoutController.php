@@ -78,14 +78,14 @@ class CheckoutController extends Controller
         $data['customer_password'] = md5($request->password_account);
         $data['customer_birthday'] = $request->customer_birthday;
         $data['customer_address'] = $request->customer_address;
-        $file=$request->file('customer_avatar');
+        $file = $request->file('customer_avatar');
         $path = 'upload/customer/';
-        if($file){
-            $getnameimage=$file->getClientOriginalName();
-            $nameimage=current(explode('.',$getnameimage));
-            $new_image=$nameimage.rand(0,99).'.'.$file->getClientOriginalExtension();
-            $file->move($path,$new_image);
-            $data['customer_avatar']=$new_image;
+        if ($file) {
+            $getnameimage = $file->getClientOriginalName();
+            $nameimage = current(explode('.', $getnameimage));
+            $new_image = $nameimage . rand(0, 99) . '.' . $file->getClientOriginalExtension();
+            $file->move($path, $new_image);
+            $data['customer_avatar'] = $new_image;
         }
         $customer_id = Customer::insertGetId($data);
 
@@ -126,7 +126,7 @@ class CheckoutController extends Controller
 
     public function checkout(Request $request)
     {
-        $title =' Thanh toán';
+        $title = ' Thanh toán';
         $category = Category::where('category_status', '1')->orderby('category_id', 'desc')->get();
         $brand = Brand::where('brand_status', '1')->orderby('brand_id', 'desc')->get();
         $city = City::orderby('matp', 'ASC')->get();
@@ -136,7 +136,7 @@ class CheckoutController extends Controller
         $product = Product::where('product_status', '1')->orderby('product_id', 'desc')->limit(8)->get();
 
         if (Session::get('cart')) {
-            return view('pages.checkout.show_checkout', compact('category', 'title' ,'brand', 'city', 'customer', 'categorypost', 'slider'));
+            return view('pages.checkout.show_checkout', compact('category', 'title', 'brand', 'city', 'customer', 'categorypost', 'slider'));
 
         } else {
             return Redirect::to('/');
@@ -345,7 +345,7 @@ class CheckoutController extends Controller
         Session::forget('customer_id');
         Session::forget('coupon');
 
-        return view('pages.customer.forgot_pass', compact('category', 'brand', 'categorypost', 'slider','title'));
+        return view('pages.customer.forgot_pass', compact('category', 'brand', 'categorypost', 'slider', 'title'));
     }
 
     public function send_mail_forgot_pass(Request $request)
@@ -389,7 +389,7 @@ class CheckoutController extends Controller
         $brand = Brand::where('brand_status', '1')->orderby('brand_id', 'desc')->get();
         $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();
         $slider = Slider::where('slider_status', '1')->take(4)->get();
-        return view('pages.customer.newpass', compact('category', 'title','brand', 'categorypost', 'slider'));
+        return view('pages.customer.newpass', compact('category', 'title', 'brand', 'categorypost', 'slider'));
     }
 
     public function update_pass(Request $request)
@@ -484,12 +484,12 @@ class CheckoutController extends Controller
 
     public function edit_customer($id)
     {
-        $title ='Chỉnh sửa thông tin';
+        $title = 'Chỉnh sửa thông tin';
         $category = Category::where('category_status', '1')->orderby('category_id', 'desc')->get();
         $brand = Brand::where('brand_status', '1')->orderby('brand_id', 'desc')->get();
         $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();
         $slider = Slider::where('slider_status', '1')->take(4)->get();
         $customer = Customer::find($id);
-        return view('pages.customer.edit_customer', compact('category', 'brand', 'categorypost', 'title' ,'slider', 'customer'));
+        return view('pages.customer.edit_customer', compact('category', 'brand', 'categorypost', 'title', 'slider', 'customer'));
     }
 }
