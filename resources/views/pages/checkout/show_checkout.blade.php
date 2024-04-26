@@ -1,5 +1,13 @@
 @extends('home')
 @section('content')
+    <style>
+        .nice-select {
+            display: none !important;
+        }
+        select {
+            display: block !important;
+        }
+    </style>
     <!-- Hero Area Start-->
     <div class="slider-area ">
         <div class="single-slider slider-height2 d-flex align-items-center">
@@ -35,38 +43,37 @@
                         </form>
                     </div>
                     <div class="col-lg-8">
-                            <form>
-                                @csrf
-                                <div class="col-md-12 form-group">
-                                    <label for="exampleInputPassword1">Chọn thành phố</label>
-                                    <select name="city" id="city"
-                                            class="form-control choose city">
+                        <form>
+                            @csrf
+                            <div class="col-md-12 form-group">
+                                <label for="">Chọn thành phố</label>
+                                <select name="city" id="city"
+                                        class="form-select choose city">
+                                    <option value="">--Chọn tỉnh thành phố--</option>
+                                    @foreach($city as $key => $ci)
+                                        <option value="{{$ci->matp}}">{{$ci->name_city}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-12 form-group ">
+                                <label for="exampleInputPassword1">Chọn quận huyện</label>
+                                <select name="province" id="province"
+                                        class="form-select province choose">
+                                    <option value="">--Chọn quận huyện--</option>
 
-                                        <option value="">--Chọn tỉnh thành phố--</option>
-                                        @foreach($city as $key => $ci)
-                                            <option value="{{$ci->matp}}">{{$ci->name_city}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="col-md-12 form-group ">
-                                    <label for="exampleInputPassword1">Chọn quận huyện</label>
-                                    <select name="province" id="province"
-                                            class="form-control input-sm m-bot15 province choose">
-                                        <option value="">--Chọn quận huyện--</option>
-
-                                    </select>
-                                </div>
-                                <div class="col-md-12 form-group ">
-                                    <label for="exampleInputPassword1">Chọn xã phường</label>
-                                    <select name="wards" id="wards"
-                                            class="form-control input-sm m-bot15 wards">
-                                        <option value="">--Chọn xã phường--</option>
-                                    </select>
-                                </div>
-                                <input style="margin-top: -5px; margin-bottom: 20px;" type="button"
-                                       value="Tính phí vận chuyển" name="calculate_order"
-                                       class="btn btn-default update calculate_delivery">
-                            </form>
+                                </select>
+                            </div>
+                            <div class="col-md-12 form-group ">
+                                <label for="exampleInputPassword1">Chọn xã phường</label>
+                                <select name="wards" id="wards"
+                                        class="form-select wards">
+                                    <option value="">--Chọn xã phường--</option>
+                                </select>
+                            </div>
+                            <input type="button"
+                                   value="Tính phí vận chuyển" name="calculate_order"
+                                   class="btn btn-default update calculate_delivery">
+                        </form>
                     </div>
                 </div>
             </div>
@@ -139,12 +146,12 @@
                                                 $subtotal = $cart['product_price']*$cart['product_qty'];
                                                 $total+=$subtotal;
                                             @endphp
-                                        <li>
-                                            <a href="#"> {{substr($cart['product_name'], 0, 18) . '...'}}
-                                                <span class="middle">x {{$cart['product_qty']}}</span>
-                                                <span class="last">{{number_format($subtotal,0,',','.')}}đ</span>
-                                            </a>
-                                        </li>
+                                            <li>
+                                                <a href="#"> {{substr($cart['product_name'], 0, 18) . '...'}}
+                                                    <span class="middle">x {{$cart['product_qty']}}</span>
+                                                    <span class="last">{{number_format($subtotal,0,',','.')}}đ</span>
+                                                </a>
+                                            </li>
                                         @endforeach
                                     </ul>
                                     <ul class="list list_2">
@@ -165,15 +172,15 @@
 
                                                             @endphp
                                                         </span>
-                                                            @php
-                                                                $total_after_coupon = $total-$total_coupon;
-                                                            @endphp
+                                                        @php
+                                                            $total_after_coupon = $total-$total_coupon;
+                                                        @endphp
                                                     @elseif($cou['coupon_condition']==2)
                                                         Mã giảm
                                                         : {{number_format($cou['coupon_number'],0,',','.')}} k
-                                                            @php
-                                                                $total_coupon = $total - $cou['coupon_number'];
-                                                            @endphp
+                                                        @php
+                                                            $total_coupon = $total - $cou['coupon_number'];
+                                                        @endphp
                                                         @php
                                                             $total_after_coupon = $total_coupon;
                                                         @endphp
@@ -189,7 +196,7 @@
                                                         <?php $total_after_fee = $total + Session::get('fee'); ?>
                                                     <span>{{number_format(Session::get('fee'),0,',','.')}}đ</span>
                                                 @else
-                                                <span>Mặc định: 30.000đ</span>
+                                                    <span>Mặc định: 30.000đ</span>
                                                 @endif
 
                                             </a>
@@ -198,41 +205,38 @@
                                             @php
                                                 if(Session::get('fee') && !Session::get('coupon')){
                                                     $total_after = $total_after_fee;
-                                                    echo number_format($total_after,0,',','.').'đ';
                                                 }elseif(!Session::get('fee') && Session::get('coupon')){
                                                     $total_after = $total_after_coupon;
-                                                    echo number_format($total_after,0,',','.').'đ';
                                                 }elseif(Session::get('fee') && Session::get('coupon')){
                                                     $total_after = $total_after_coupon;
                                                     $total_after = $total_after + Session::get('fee');
-                                                    echo number_format($total_after,0,',','.').'đ';
                                                 }elseif(!Session::get('fee') && !Session::get('coupon')){
                                                     $total_after = $total;
-                                                    echo number_format($total_after,0,',','.').'đ';
                                                 }
 
                                             @endphp
-                                            <a href="#">Tổng còn
-                                                <span>{{$total_after}}</span>
+                                            <a href="#">Thành tiền
+                                                <span>{{number_format($total_after,0,',','.')}}đ </span>
                                             </a>
                                         </li>
                                     </ul>
                                     <div class="payment_item">
                                         <div class="radion_btn">
-                                            <input type="radio" id="f-option5" name="selector"/>
+                                            <input type="radio" value="1" id="f-option5" name="payment_select"/>
                                             <label for="f-option5">Thanh toán trực tiếp</label>
                                             <div class="check"></div>
                                         </div>
                                     </div>
                                     <div class="payment_item active">
                                         <div class="radion_btn">
-                                            <input type="radio" id="f-option6" name="selector"/>
+                                            <input type="radio" value="2" id="f-option6" name="payment_select"/>
                                             <label for="f-option6">VNPAY </label>
-                                            <img src="{{asset('frontend/img/product/single-product/card.jpg')}}" alt=""/>
+                                            <img src="{{asset('frontend/img/product/single-product/card.jpg')}}"
+                                                 alt=""/>
                                             <div class="check"></div>
                                         </div>
                                     </div>
-                                    <input class="btn_3" type="button" name="send_order" value="Xác nhận">
+                                    <input class="btn_3 send_order" type="button" name="send_order" value="Xác nhận">
                                 @endif
                             </div>
                         </div>
@@ -443,42 +447,6 @@
                                         </form>
                                     @endif
                                 </div>
-                                <div class="col-md-8">
-                                    <form>
-                                        @csrf
-                                        <ul class="user_info">
-                                            <li class="single_field">
-                                                <label for="exampleInputPassword1">Chọn thành phố</label>
-                                                <select name="city" id="city"
-                                                        class="form-control input-sm m-bot15 choose city">
-
-                                                    <option value="">--Chọn tỉnh thành phố--</option>
-                                                    @foreach($city as $key => $ci)
-                                                        <option value="{{$ci->matp}}">{{$ci->name_city}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </li>
-                                            <li class="single_field">
-                                                <label for="exampleInputPassword1">Chọn quận huyện</label>
-                                                <select name="province" id="province"
-                                                        class="form-control input-sm m-bot15 province choose">
-                                                    <option value="">--Chọn quận huyện--</option>
-
-                                                </select>
-                                            </li>
-                                            <li class="single_field zip-field">
-                                                <label for="exampleInputPassword1">Chọn xã phường</label>
-                                                <select name="wards" id="wards"
-                                                        class="form-control input-sm m-bot15 wards">
-                                                    <option value="">--Chọn xã phường--</option>
-                                                </select>
-                                            </li>
-                                        </ul>
-                                        <input style="margin-top: -5px; margin-bottom: 20px;" type="button"
-                                               value="Tính phí vận chuyển" name="calculate_order"
-                                               class="btn btn-default update calculate_delivery">
-                                    </form>
-                                </div>
                             </div>
 
                         </div>
@@ -559,9 +527,6 @@
                 var ma_id = $(this).val();
                 var _token = $('input[name="_token"]').val();
                 var result = '';
-                // alert(action);
-                //  alert(matp);
-                //   alert(_token);
 
                 if (action == 'city') {
                     result = 'province';
@@ -573,6 +538,7 @@
                     method: 'POST',
                     data: {action: action, ma_id: ma_id, _token: _token},
                     success: function (data) {
+                        console.log(data)
                         $('#' + result).html(data);
                     }
                 });

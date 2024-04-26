@@ -77,7 +77,7 @@
                                         margin: 3px 2px;
                                         border: 1px solid;
                                         height: auto;
-                                        background: #428bca;
+                                        background: #ff3b3b;
                                         color: #ffffff;
                                         padding: 0px;
                                     }
@@ -87,7 +87,7 @@
                                     }
                                 </style>
                                 <fieldset>
-                                    <legend>Tags</legend>
+                                    <legend>Tags:</legend>
                                     <p><i class="fa fa-tag"></i>
                                         @php
                                             $tag = $productDetail->product_tags;
