@@ -64,10 +64,10 @@
                     @endif
                 </p>
                 <p>Hình thức thanh toán:
-                    @if($shipping['shipping_method'] == 0)
-                        Chuyển khoản
-                    @else
+                    @if($shipping['shipping_method'] == 1)
                         Tiền mặt
+                    @else
+                        Thanh toán online
                     @endif
                 </p>
                 <p>Nếu thông tin người nhận hàng không đúng vui lòng liên hệ shop để được hỗ trợ</p>

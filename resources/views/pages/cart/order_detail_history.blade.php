@@ -56,10 +56,10 @@
                             <td>{{$shipping->shipping_phone}}</td>
                             <td>{{$shipping->shipping_email}}</td>
                             <td>{{$shipping->shipping_notes}}</td>
-                            <td>@if($shipping->shipping_method==0)
-                                    Chuyển khoản
-                                @else
+                            <td>@if($shipping->shipping_method==1)
                                     Tiền mặt
+                                @else
+                                    Thanh toán online
                                 @endif</td></tr>
                     </tbody>
                 </table>

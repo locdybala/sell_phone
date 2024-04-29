@@ -265,6 +265,18 @@ class CheckoutController extends Controller
                 'amount' => $data['total_after'],
             ]);
             return response()->json($data1);
+        } elseif ($data['shipping_method'] == "3") {
+            $data = $this->paymentMomo([
+                'order_id' => $order->order_id,
+                'amount' => $data['total_after'],
+            ]);
+            return response()->json($data);
+        } elseif ($data['shipping_method'] == "4") {
+            $data = $this->paymentOnePay([
+                'order_id' => $order->order_id,
+                'amount' => $data['total_after'],
+            ]);
+            return response()->json($data);
         } else {
             Session::forget('coupon');
             Session::forget('fee');
@@ -332,6 +344,106 @@ class CheckoutController extends Controller
         , 'message' => 'success'
         , 'data' => $vnp_Url);
         return $vnp_Url;
+    }
+
+    public function paymentMomo($data)
+    {
+        $endpoint = "https://test-payment.momo.vn/gw_payment/transactionProcessor";
+        $partnerCode = 'MOMOBKUN20180529';
+        $accessKey = 'klm05TvNBzhg7h7j';
+        $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
+        $orderInfo = "Thanh toán qua MoMo";
+        $amount = $data['amount'];
+        $orderId = time() . "";
+        $returnUrl = "http://127.0.0.1:8000/payment-success";
+        $notifyurl = "http://localhost:8000/atm/ipn_momo.php";
+// Lưu ý: link notifyUrl không phải là dạng localhost
+        $bankCode = "SML";
+
+
+        $requestId = time() . "";
+        $requestType = "payWithMoMoATM";
+        $extraData = "";
+        $rawHash = "partnerCode=" . $partnerCode . "&accessKey=" . $accessKey . "&requestId=" . $requestId . "&bankCode=" . $bankCode . "&amount=" . $amount . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&returnUrl=" . $returnUrl . "&notifyUrl=" . $notifyurl . "&extraData=" . $extraData . "&requestType=" . $requestType;
+        $signature = hash_hmac("sha256", $rawHash, $secretKey);
+
+        $data = array('partnerCode' => $partnerCode,
+            'accessKey' => $accessKey,
+            'requestId' => $requestId,
+            'amount' => $amount,
+            'orderId' => $orderId,
+            'orderInfo' => $orderInfo,
+            'returnUrl' => $returnUrl,
+            'bankCode' => $bankCode,
+            'notifyUrl' => $notifyurl,
+            'extraData' => $extraData,
+            'requestType' => $requestType,
+            'signature' => $signature);
+        $result = $this->execPostRequest($endpoint, json_encode($data));
+        $jsonResult = json_decode($result, true);  // decode json
+        return $jsonResult['payUrl'];
+    }
+
+    public function paymentOnePay($dataRequest)
+    {
+        // Khóa bí mật - được cấp bởi OnePAY
+        $SECURE_SECRET = "A3EFDFABA8653DF2342E8DAC29B51AF0";
+
+// add the start of the vpcURL querystring parameters
+// *****************************Lấy giá trị url cổng thanh toán*****************************
+        $vpcURL = 'https://mtf.onepay.vn/onecomm-pay/vpc.op' . "?";
+        $data = array(
+            'vpc_Merchant' => 'ONEPAY',
+            'vpc_AccessCode' => 'D67342C2',
+            'vpc_MerchTxnRef' => $dataRequest['order_id'],
+            'vpc_OrderInfo' => 'JSECURETEST01',
+            'vpc_Amount' => $dataRequest['amount'],
+            'vpc_ReturnURL' => 'http://127.0.0.1:8000/payment-success',
+            'vpc_Version' => '2',
+            'vpc_Command' => 'pay',
+            'vpc_Locale' => 'vn',
+            'vpc_Currency' => 'VND'
+        );
+//$stringHashData = $SECURE_SECRET; *****************************Khởi tạo chuỗi dữ liệu mã hóa trống*****************************
+        $stringHashData = "";
+// sắp xếp dữ liệu theo thứ tự a-z trước khi nối lại
+// arrange array data a-z before make a hash
+        ksort($data);
+
+// set a parameter to show the first pair in the URL
+// đặt tham số đếm = 0
+        $appendAmp = 0;
+
+        foreach ($data as $key => $value) {
+            // create the md5 input and URL leaving out any fields that have no value
+            // tạo chuỗi đầu dữ liệu những tham số có dữ liệu
+            if (strlen($value) > 0) {
+                // this ensures the first paramter of the URL is preceded by the '?' char
+                if ($appendAmp == 0) {
+                    $vpcURL .= urlencode($key) . '=' . urlencode($value);
+                    $appendAmp = 1;
+                } else {
+                    $vpcURL .= '&' . urlencode($key) . "=" . urlencode($value);
+                }
+                //$stringHashData .= $value; *****************************sử dụng cả tên và giá trị tham số để mã hóa*****************************
+                if ((strlen($value) > 0) && ((substr($key, 0, 4) == "vpc_") || (substr($key, 0, 5) == "user_"))) {
+                    $stringHashData .= $key . "=" . $value . "&";
+                }
+            }
+        }
+//*****************************xóa ký tự & ở thừa ở cuối chuỗi dữ liệu mã hóa*****************************
+        $stringHashData = rtrim($stringHashData, "&");
+
+// thêm giá trị chuỗi mã hóa dữ liệu được tạo ra ở trên vào cuối url
+        if (strlen($SECURE_SECRET) > 0) {
+            //$vpcURL .= "&vpc_SecureHash=" . strtoupper(md5($stringHashData));
+            // *****************************Thay hàm mã hóa dữ liệu*****************************
+            $vpcURL .= "&vpc_SecureHash=" . strtoupper(hash_hmac('SHA256', $stringHashData, pack('H*', $SECURE_SECRET)));
+        }
+// chuyển trình duyệt sang cổng thanh toán theo URL được tạo ra
+        return $vpcURL;
+
+
     }
 
     public function forgot_pass()
@@ -491,5 +603,24 @@ class CheckoutController extends Controller
         $slider = Slider::where('slider_status', '1')->take(4)->get();
         $customer = Customer::find($id);
         return view('pages.customer.edit_customer', compact('category', 'brand', 'categorypost', 'title', 'slider', 'customer'));
+    }
+
+    function execPostRequest($url, $data)
+    {
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                'Content-Type: application/json',
+                'Content-Length: ' . strlen($data))
+        );
+        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+        //execute post
+        $result = curl_exec($ch);
+        //close connection
+        curl_close($ch);
+        return $result;
     }
 }

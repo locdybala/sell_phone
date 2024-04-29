@@ -209,6 +209,7 @@ class CartController extends Controller
 
     public function history() {
         $title = 'Lịch sử mua hàng';
+        $brand = Brand::all();
         $customer_id = Session::get('customer_id');
         if($customer_id == null || $customer_id =='') {
             return redirect('/login-checkout')->with('error','Vui lòng đăng nhập để xem lịch sử mua hàng');
@@ -217,13 +218,14 @@ class CartController extends Controller
             $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();
             $orders = Order::where('customer_id',$customer_id)->orderby('created_at', 'DESC')->paginate(5);
 
-            return view('pages.cart.history',compact('category','categorypost','orders','title'));
+            return view('pages.cart.history',compact('category','categorypost','orders','title', 'brand'));
 
         }
     }
 
     public function view_order_history($order_code) {
         $title ="Chi tiết đơn hàng";
+        $brand = Brand::all();
         $category = Category::where('category_status', '1')->orderby('category_id', 'desc')->get();
         $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();
         $order_details = OrderDetails::with('product')->where('order_code', $order_code)->get();
@@ -251,7 +253,7 @@ class CartController extends Controller
             $coupon_number = 0;
         }
 
-        return view('pages.cart.order_detail_history')->with(compact('order_details', 'customer', 'shipping', 'order_details', 'coupon_condition', 'coupon_number', 'order', 'order_status','category','categorypost', 'title'));
+        return view('pages.cart.order_detail_history')->with(compact('order_details', 'customer', 'shipping', 'brand','order_details', 'coupon_condition', 'coupon_number', 'order', 'order_status','category','categorypost', 'title'));
 
     }
 }
