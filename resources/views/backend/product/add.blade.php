@@ -44,14 +44,14 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <label class="floating-label" for="name">Tên sản phẩm</label>
+                                            <label class="floating-label" for="name">Tên sản phẩm <span class="required">(*)</span></label>
                                             <input type="text" class="form-control" required id="name" name="name"
                                                    placeholder="Nhập tên sản phẩm"/>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label class="floating-label" for="category_id">Danh mục sản phẩm </label>
+                                            <label class="floating-label" for="category_id">Danh mục sản phẩm <span class="required">(*)</span></label>
                                             <select id="category_id" name="category_id" class="form-control">
                                                 <option>---Chọn danh mục---</option>
                                                 @foreach ($category as $category)
@@ -62,7 +62,7 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label class="floating-label" for="brand_id">Thương hiệu sản phẩm</label>
+                                            <label class="floating-label" for="brand_id">Thương hiệu sản phẩm <span class="required">(*)</span></label>
                                             <select id="brand_id" name="brand_id" class="form-control">
                                                 <option>---Chọn thương hiệu---</option>
                                                 @foreach ($brand as $brand)
@@ -73,15 +73,15 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label class="floating-label" for="name">Giá</label>
-                                            <input type="number" class="form-control" id="basic-default-name" name="price"
+                                            <label class="floating-label" for="price">Giá <span class="required">(*)</span></label>
+                                            <input type="number" class="form-control" id="price" name="price"
                                                    placeholder="1.000.000 "/>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label class="floating-label" for="name">Số lượng</label>
-                                            <input type="text" class="form-control" id="basic-default-name" name="product_quantity"
+                                            <label class="floating-label" for="product_quantity">Số lượng <span class="required">(*)</span></label>
+                                            <input type="text" class="form-control" id="product_quantity" name="product_quantity"
                                                    placeholder="Nhập số lượng"/>
                                         </div>
                                     </div>
@@ -94,14 +94,14 @@
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <label class="floating-label" for="name">Ảnh</label>
+                                            <label class="floating-label" for="name">Ảnh <span class="required">(*)</span></label>
                                             <input type="file" class="form-control" id="basic-default-name" name="image"
                                             />
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <label class="floating-label" for="name">Nội dung</label>
+                                            <label class="floating-label" for="name">Nội dung <span class="required">(*)</span></label>
                                             <input type="text" class="form-control" id="basic-default-name" name="product_content"
                                                    placeholder="Nội dung sản phẩm"/>
                                         </div>
@@ -118,7 +118,7 @@
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <label class="floating-label" for="status">Trạng thái</label>
+                                            <label class="floating-label" for="status">Trạng thái <span class="required">(*)</span></label>
                                             <select id="status" name="status" class="form-control">
                                                 <option value="1">Hiển thị</option>
                                                 <option value="2">Ẩn</option>
@@ -127,7 +127,7 @@
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <button type="submit" class="btn btn-primary">Thêm</button>
+                                            <button type="submit" id="btnSubmit" class="btn btn-primary">Thêm</button>
                                             <a href="/admin/product/all_product" class="btn btn-default">Huỷ</a>
 
                                         </div>
@@ -147,5 +147,16 @@
 @section('js')
     <script>
         CKEDITOR.replace('ckeditor');
+        $("#btnSubmit").click(function () {
+            var name = $("#name").val();
+            var category_id = $("#category_id").val();
+            var brand_id = $("#brand_id").val();
+
+            if (name == '') {
+                toastr["error"]("Tên thương hiệu không được bỏ trống");
+                return false;
+            }
+            return true;
+        });
     </script>
 @endsection

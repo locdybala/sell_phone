@@ -22,7 +22,9 @@
     <!-- vendor css -->
     <link rel="stylesheet" href="{{asset('backend/assets/css/style.css')}}">
 
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
+          integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
 </head>
 <body class="">
 <div class="loader-bg">
@@ -40,7 +42,8 @@
                     $name = Auth::user()->name;
                 @endphp
                 <div class="main-menu-header">
-                    <img class="img-radius" src="{{asset('backend/assets/images/user/avatar-2.jpg')}}" alt="User-Profile-Image">
+                    <img class="img-radius" src="{{asset('backend/assets/images/user/avatar-2.jpg')}}"
+                         alt="User-Profile-Image">
                     <div class="user-details">
                         <span>{{$name}}</span>
                         <div id="more-details">Chi tiết<i class="fa fa-chevron-down m-l-5"></i></div>
@@ -48,7 +51,8 @@
                 </div>
                 <div class="collapse" id="nav-user-link">
                     <ul class="list-unstyled">
-                        <li class="list-group-item"><a href="user-profile.html"><i class="feather icon-user m-r-5"></i>Thông tin tài khoản</a></li>
+                        <li class="list-group-item"><a href="user-profile.html"><i class="feather icon-user m-r-5"></i>Thông
+                                tin tài khoản</a></li>
                         </li>
                         <li class="list-group-item"><a href="{{route('logout')}}"><i
                                     class="feather icon-log-out m-r-5"></i>Đăng xuất</a></li>
@@ -61,35 +65,38 @@
                     <label>Navigation</label>
                 </li>
                 <li class="nav-item">
-                    <a href="{{route('dashboard')}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span
-                                class="pcoded-mtext">Trang chủ</span></a>
+                    <a href="{{route('dashboard')}}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-home"></i></span><span
+                            class="pcoded-mtext">Trang chủ</span></a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{route('add_infomation')}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span
+                    <a href="{{route('add_infomation')}}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-home"></i></span><span
                             class="pcoded-mtext">Quản lý website</span></a>
                 </li>
                 <li class="nav-item pcoded-hasmenu">
-                    <a href="javascript:void(0);" class="nav-link "><span class="pcoded-micon"><i class="feather icon-layout"></i></span><span
+                    <a href="javascript:void(0);" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-layout"></i></span><span
                             class="pcoded-mtext">Danh mục sản phẩm</span></a>
                     <ul class="pcoded-submenu">
-                        <li><a href="{{route('add_category')}}" >Thêm danh mục</a></li>
-                        <li><a href="{{route('all_category')}}" >Danh sách danh mục</a></li>
+                        <li><a href="{{route('add_category')}}">Thêm danh mục</a></li>
+                        <li><a href="{{route('all_category')}}">Danh sách danh mục</a></li>
                     </ul>
                 </li>
                 <li class="nav-item pcoded-hasmenu">
                     <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-layout"></i></span><span
                             class="pcoded-mtext">Thương hiệu sản phẩm</span></a>
                     <ul class="pcoded-submenu">
-                        <li><a href="{{route('add_brand')}}" >Thêm thương hiệu</a></li>
-                        <li><a href="{{route('all_brand')}}" >Danh sách thương hiệu</a></li>
+                        <li><a href="{{route('add_brand')}}">Thêm thương hiệu</a></li>
+                        <li><a href="{{route('all_brand')}}">Danh sách thương hiệu</a></li>
                     </ul>
                 </li>
                 <li class="nav-item pcoded-hasmenu">
                     <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-layout"></i></span><span
                             class="pcoded-mtext">Quản lý sản phẩm</span></a>
                     <ul class="pcoded-submenu">
-                        <li><a href="{{route('add_product')}}" >Thêm sản phẩm</a></li>
-                        <li><a href="{{ route('all_product') }}" >Danh sách sản phẩm</a></li>
+                        <li><a href="{{route('add_product')}}">Thêm sản phẩm</a></li>
+                        <li><a href="{{ route('all_product') }}">Danh sách sản phẩm</a></li>
                     </ul>
                 </li>
                 <li class="nav-item pcoded-menu-caption">
@@ -97,7 +104,8 @@
                 </li>
                 <li class="nav-item pcoded-hasmenu">
                     <a href="#!" class="nav-link "><span class="pcoded-micon"><i
-                                class="feather icon-box"></i></span><span class="pcoded-mtext">Quản lý mã giảm giá</span></a>
+                                class="feather icon-box"></i></span><span
+                            class="pcoded-mtext">Quản lý mã giảm giá</span></a>
                     <ul class="pcoded-submenu">
                         <li><a href="{{route('add_coupon')}}">Thêm giảm giá</a></li>
                         <li><a href="{{ route('all_coupon') }}">Danh sách giảm giá</a></li>
@@ -105,7 +113,8 @@
                 </li>
                 <li class="nav-item pcoded-hasmenu">
                     <a href="#!" class="nav-link "><span class="pcoded-micon"><i
-                                class="feather icon-box"></i></span><span class="pcoded-mtext">Quản lý phí vận chuyển</span></a>
+                                class="feather icon-box"></i></span><span
+                            class="pcoded-mtext">Quản lý phí vận chuyển</span></a>
                     <ul class="pcoded-submenu">
                         <li><a href="{{route('add_fee')}}">Thêm phí vận chuyển</a></li>
                         <li><a href="{{ route('all_fee') }}">Danh sách phí vận chuyển</a></li>
@@ -124,7 +133,8 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{route('all_order')}}" class="nav-link "><span class="pcoded-micon"><i
-                                class="feather icon-file-text"></i></span><span class="pcoded-mtext">Danh sách đơn hàng</span></a>
+                                class="feather icon-file-text"></i></span><span
+                            class="pcoded-mtext">Danh sách đơn hàng</span></a>
                 </li>
                 @impersonate
                 <li class="nav-item">
@@ -153,7 +163,8 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{route('all_category_post')}}" class="nav-link "><span class="pcoded-micon"><i
-                                class="feather icon-pie-chart"></i></span><span class="pcoded-mtext">Danh mục bài viết</span></a>
+                                class="feather icon-pie-chart"></i></span><span
+                            class="pcoded-mtext">Danh mục bài viết</span></a>
                 </li>
                 <li class="nav-item">
                     <a href="{{route('all_post')}}" class="nav-link "><span class="pcoded-micon"><i
@@ -161,7 +172,8 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{route('index_comment')}}" class="nav-link "><span class="pcoded-micon"><i
-                                class="feather icon-map"></i></span><span class="pcoded-mtext">Quản lý nhận xét</span></a>
+                                class="feather icon-map"></i></span><span
+                            class="pcoded-mtext">Quản lý nhận xét</span></a>
                 </li>
                 @endhasrole
 
@@ -198,7 +210,8 @@
 
                     <div class="dropdown-menu dropdown-menu-right profile-notification">
                         <div class="pro-head">
-                            <img src="{{asset('backend/assets/images/user/avatar-1.jpg')}}" class="img-radius" alt="User-Profile-Image">
+                            <img src="{{asset('backend/assets/images/user/avatar-1.jpg')}}" class="img-radius"
+                                 alt="User-Profile-Image">
                             <span>{{$name}}</span>
                             <a href="{{route('logout')}}" class="dud-logout" title="Logout">
                                 <i class="feather icon-log-out"></i>
@@ -220,8 +233,14 @@
 @yield('content')
 
 <!-- / Layout wrapper -->
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+        integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+        crossOrigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous" referrerpolicy="no-referrer"/>
 <!-- Place this tag in your head or just before your close body tag. -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>

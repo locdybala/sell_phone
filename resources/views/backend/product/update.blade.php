@@ -34,14 +34,14 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <label class="floating-label" for="name">Tên sản phẩm</label>
+                                            <label class="floating-label" for="name">Tên sản phẩm <span class="required">(*)</span></label>
                                             <input type="text" class="form-control" required id="name" name="name"
                                                    placeholder="Nhập tên sản phẩm" value="{{ $product->product_name }}"/>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label class="floating-label" for="category_id">Danh mục sản phẩm </label>
+                                            <label class="floating-label" for="category_id">Danh mục sản phẩm <span class="required">(*)</span></label>
                                             <select id="category_id" name="category_id" class="form-control">
                                                 <option>---Chọn danh mục---</option>
                                                 @foreach ($category as $category)
@@ -55,7 +55,7 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label class="floating-label" for="brand_id">Thương hiệu sản phẩm</label>
+                                            <label class="floating-label" for="brand_id">Thương hiệu sản phẩm <span class="required">(*)</span></label>
                                             <select id="brand_id" name="brand_id" class="form-control">
                                                 <option>---Chọn thương hiệu---</option>
                                                 @foreach ($brand as $brand)
@@ -69,28 +69,28 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label class="floating-label" for="name">Giá</label>
+                                            <label class="floating-label" for="name">Giá <span class="required">(*)</span></label>
                                             <input type="number" class="form-control"  id="basic-default-name" name="price"
                                                    placeholder="1.000.000 " value="{{ $product->product_price }}"/>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label class="floating-label" for="name">Số lượng</label>
+                                            <label class="floating-label" for="name">Số lượng <span class="required">(*)</span></label>
                                             <input type="text" class="form-control" id="basic-default-name" name="product_quantity"
                                                    placeholder="Nhập số lượng" value="{{ $product->product_quantity }}"/>
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <label class="floating-label" for="name">Tag sản phẩm</label>
+                                            <label class="floating-label" for="name">Tag sản phẩm <span class="required">(*)</span></label>
                                             <input type="text" data-role="tagsinput" class="form-control" id="product_tags" name="product_tags"
                                                    value="{{$product->product_tags}}"/>
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <label class="floating-label" for="name">Ảnh</label>
+                                            <label class="floating-label" for="name">Ảnh <span class="required">(*)</span></label>
                                             <input type="file" class="form-control" id="basic-default-name" name="image"
                                             />
                                             <img class="input-rounded mt-2" src="{{ URL::to('/upload/product/'.$product->product_image) }}" height="150" width="150" alt="">
@@ -98,7 +98,7 @@
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <label class="floating-label" for="name">Nội dung</label>
+                                            <label class="floating-label" for="name">Nội dung <span class="required">(*)</span></label>
                                             <input type="text" class="form-control" id="basic-default-name" name="product_content"
                                                    placeholder="Nội dung sản phẩm" value="{{ $product->product_content }}"/>
                                         </div>
@@ -115,7 +115,7 @@
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <button type="submit" class="btn btn-primary">Sửa</button>
+                                            <button type="submit" id="btnSubmit" class="btn btn-primary">Sửa</button>
                                             <a href="/admin/product/all_product" class="btn btn-default">Huỷ</a>
 
                                         </div>

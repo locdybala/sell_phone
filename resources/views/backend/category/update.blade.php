@@ -34,15 +34,15 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <label class="floating-label" for="id-category">Mã danh mục</label>
-                                            <input type="text" class="form-control" required id="id-category" name="id"
+                                            <label class="floating-label" for="id-category">Mã danh mục <span class="required">(*)</span></label>
+                                            <input type="text" class="form-control" disabled required id="id-category" name="id"
                                                    value="{{ $category->category_id }}"/>
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <label class="floating-label" for="name">Tên danh mục</label>
-                                            <input type="text" class="form-control" required id="name" name="name"
+                                            <label class="floating-label" for="name">Tên danh mục <span class="required">(*)</span></label>
+                                            <input type="text" class="form-control" id="name" name="name"
                                                    value="{{ $category->category_name }}"/>
                                         </div>
                                     </div>
@@ -58,7 +58,7 @@
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <label class="floating-label" for="status">Trạng thái</label>
+                                            <label class="floating-label" for="status">Trạng thái <span class="required">(*)</span></label>
                                             <select id="status" name="status" class="form-control">
                                                 <option @if($category->category_status == 1) selected @endif value="1">Hiển thị
                                                 </option>
@@ -69,7 +69,7 @@
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <button type="submit" class="btn btn-primary">Sửa</button>
+                                            <button type="submit" id="btnSubmit" class="btn btn-primary">Sửa</button>
                                             <a href="/admin/category/all_category" class="btn btn-default">Huỷ</a>
                                         </div>
                                     </div>
@@ -89,5 +89,14 @@
 @section('js')
     <script>
         CKEDITOR.replace('ckeditor');
+        $("#btnSubmit").click(function () {
+            var name = $("#name").val();
+
+            if (name == '') {
+                toastr["error"]("Tên danh mục không được bỏ trống");
+                return false;
+            }
+            return true;
+        });
     </script>
 @endsection

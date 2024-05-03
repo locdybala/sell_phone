@@ -30173,4 +30173,8 @@ new-task label input[type=checkbox] {
     border-bottom-right-radius: 2px;
 }
 
+.required {
+    color: red;
+}
+
 /**====== user card css end ======**/

@@ -27,7 +27,7 @@ class LoginController extends Controller
         if(Auth::attempt(['email'=>$request->email,'password'=>$request->password])){
             return Redirect::to('admin/dashboard')->with('message','Đăng nhập thành công');
         }else{
-            return Redirect::to('admin/')->with('message','Tài khoản hoặc mật khẩu không chính xác' .bcrypt('12345678'));
+            return Redirect::to('admin/')->with('message','Tài khoản hoặc mật khẩu không chính xác');
         }
     }
 

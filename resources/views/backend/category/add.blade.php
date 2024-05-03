@@ -34,7 +34,7 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <label class="floating-label" for="name">Tên danh mục</label>
+                                            <label class="floating-label" for="name">Tên danh mục <span class="required">(*)</span></label>
                                             <input type="text" class="form-control" required id="name" name="name"
                                                    placeholder="Nhập tên danh mục"/>
                                         </div>
@@ -51,7 +51,7 @@
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <label class="floating-label" for="status">Trạng thái</label>
+                                            <label class="floating-label" for="status">Trạng thái <span class="required">(*)</span></label>
                                             <select id="status" name="status" class="form-control">
                                                 <option value="1">Hiển thị</option>
                                                 <option value="2">Ẩn</option>
@@ -60,7 +60,7 @@
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <button type="submit" class="btn btn-primary">Thêm</button>
+                                            <button type="submit" id="btnSubmit" class="btn btn-primary">Thêm</button>
                                             <a href="/admin/category/all_category" class="btn btn-default">Huỷ</a>
 
                                         </div>
@@ -81,5 +81,14 @@
 @section('js')
     <script>
         CKEDITOR.replace('ckeditor');
+        $("#btnSubmit").click(function () {
+            var name = $("#name").val();
+
+            if (name == '') {
+                toastr["error"]("Tên danh mục không được bỏ trống");
+                return false;
+            }
+            return true;
+        });
     </script>
 @endsection
