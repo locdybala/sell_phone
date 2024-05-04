@@ -82,7 +82,13 @@ class PagesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Pages::find($id)->update([
+            'name' => $request->name,
+            'content' => $request->contents,
+            'slug' => $request->slug
+        ]);
+        Session::put('success', 'Sửa trang thành công');
+        return redirect()->route('all_pages');
     }
 
     /**
@@ -91,8 +97,10 @@ class PagesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        //
+        Pages::find($id)->delete();
+        Session::put('success', 'Xóa trang thành công');
+        return redirect()->route('all_pages');
     }
 }

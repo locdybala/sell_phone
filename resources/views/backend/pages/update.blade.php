@@ -57,7 +57,7 @@
                                             <label class="floating-label" for="description">Mô tả</label>
                                             <textarea
                                                 id="ckeditor"
-                                                class="form-control" name="content"
+                                                class="form-control" name="contents"
                                                 placeholder="Mô tả trang" required
                                             >{!!  $pages->content  !!}</textarea>
                                         </div>

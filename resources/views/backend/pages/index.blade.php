@@ -59,14 +59,14 @@
                                                 <td>
                                                     <div style="display: flex">
                                                         <a class="btn btn-sm btn-warning mr-2"
-                                                           href="{{ route('updateBrand',['id'=>$page->id]) }}"
+                                                           href="{{ route('updatePages',['id'=>$page->id]) }}"
                                                         ><i class="fa fa-pencil" aria-hidden="true"></i></a
                                                         >
                                                         <form method="POST" action="">
                                                             @csrf
                                                             @method('delete')
                                                             <a onclick="return confirm('Bạn có muốn xóa trang này không?')"
-                                                               href="{{ route('deleteBrand',['id'=>$page->id]) }}"
+                                                               href="{{ route('deletePages',['id'=>$page->id]) }}"
                                                                class="btn btn-sm btn-danger"><i class="fa fa-trash"
                                                                                                 aria-hidden="true"></i></a>
                                                         </form>
