@@ -111,39 +111,39 @@
                     return false;
                 }
             })
-        })
 
-        $(document).on('blur', '.edit_gallery_name',function() {
-            var gallery_id = $(this).data('gallery_id');
-            var gallery_text = $(this).text();
-            var _token = $('input[name="_token"]').val();
-            $.ajax({
-                url: "{{route('update_gallery_name')}}",
-                method: 'POST',
-                data:{gallery_id: gallery_id,gallery_text: gallery_text,_token:_token},
-                success: function(data) {
-                    debugger
-                    $('#error_gallery').html('<span class="text-danger">Cập nhập tên ảnh thành công</span>');
+            $(document).on('blur', '.edit_gallery_name',function() {
+                var gallery_id = $(this).data('gallery_id');
+                var gallery_text = $(this).text();
+                var _token = $('input[name="_token"]').val();
+                $.ajax({
+                    url: "{{route('update_gallery_name')}}",
+                    method: 'POST',
+                    data:{gallery_id: gallery_id,gallery_text: gallery_text,_token:_token},
+                    success: function(data) {
+                        debugger
+                        $('#error_gallery').html('<span class="text-danger">Cập nhập tên ảnh thành công</span>');
 
-                    load_gallery();
+                        load_gallery();
 
-                }
+                    }
+                })
             })
-        })
-        $(document).on('click', '.delete-gallery',function() {
-            var gallery_id = $(this).data('gallery_id');
-            var _token = $('input[name="_token"]').val();
-            $.ajax({
-                url: "{{route('delete_gallery_name')}}",
-                method: 'POST',
-                data:{gallery_id: gallery_id,_token:_token},
-                success: function(data) {
-                    debugger
-                    $('#error_gallery').html('<span class="text-danger">Xóa tên ảnh thành công</span>');
+            $(document).on('click', '.delete-gallery',function() {
+                var gallery_id = $(this).data('gal_id');
+                var _token = $('input[name="_token"]').val();
+                $.ajax({
+                    url: "{{route('delete_gallery_name')}}",
+                    method: 'POST',
+                    data:{gallery_id: gallery_id,_token:_token},
+                    success: function(data) {
+                        debugger
+                        $('#error_gallery').html('<span class="text-danger">Xóa tên ảnh thành công</span>');
 
-                    load_gallery();
+                        load_gallery();
 
-                }
+                    }
+                })
             })
         })
     </script>

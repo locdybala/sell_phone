@@ -95,14 +95,14 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label class="floating-label" for="name">Ảnh <span class="required">(*)</span></label>
-                                            <input type="file" class="form-control" id="basic-default-name" name="image"
+                                            <input type="file" class="form-control" id="image" name="image"
                                             />
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label class="floating-label" for="name">Nội dung <span class="required">(*)</span></label>
-                                            <input type="text" class="form-control" id="basic-default-name" name="product_content"
+                                            <input type="text" class="form-control" id="product_content" name="product_content"
                                                    placeholder="Nội dung sản phẩm"/>
                                         </div>
                                     </div>
@@ -151,9 +151,30 @@
             var name = $("#name").val();
             var category_id = $("#category_id").val();
             var brand_id = $("#brand_id").val();
-
+            var product_quantity = $("#product_quantity").val();
+            var price = $("#price").val();
+            var image = $("#image").val();
+            var product_content = $("#product_content").val();
             if (name == '') {
-                toastr["error"]("Tên thương hiệu không được bỏ trống");
+                toastr["error"]("Tên sản phẩm không được bỏ trống");
+                return false;
+            } else if (category_id == '') {
+                toastr["error"]("Không được bỏ trống danh mục sản phẩm");
+                return false;
+            } else if (brand_id == '') {
+                toastr["error"]("Không được bỏ trống thương hiệu sản phẩm");
+                return false;
+            } else if (product_quantity == '') {
+                toastr["error"]("Không được bỏ trống số lượng sản phẩm");
+                return false;
+            } else if (price == '') {
+                toastr["error"]("Không được bỏ trống giá sản phẩm");
+                return false;
+            } else if (image == '') {
+                toastr["error"]("Không được bỏ trống ảnh sản phẩm");
+                return false;
+            } else if (product_content == '') {
+                toastr["error"]("Không được bỏ trống nội dung sản phẩm");
                 return false;
             }
             return true;
