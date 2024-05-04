@@ -128,6 +128,11 @@
                         <li><a href="{{ route('all_slider') }}">Danh sách slider</a></li>
                     </ul>
                 </li>
+                <li class="nav-item">
+                    <a href="{{route('all_pages')}}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-file-text"></i></span><span
+                            class="pcoded-mtext">Quản lý trang</span></a>
+                </li>
                 <li class="nav-item pcoded-menu-caption">
                     <label>Bán hàng</label>
                 </li>

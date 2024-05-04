@@ -10,7 +10,7 @@
                 <div class="menu-wrapper">
                     <!-- Logo -->
                     <div class="logo">
-                        <a href="{{URL::to('/')}}"><img src="{{asset('frontend/assets/img/logo/logo.png')}}" alt=""></a>
+                        <a  href="{{URL::to('/')}}"><img style="width: 200px; height: 30px;" src="{{asset('frontend/assets/img/logo/logo1.png')}}" alt=""></a>
                     </div>
                     <!-- Main-menu -->
                     <div class="main-menu d-none d-lg-block">
@@ -74,9 +74,9 @@
                                     <a href="">
                                         <span class="flaticon-user"> {{Session::get('customer_name')}}</span>
                                     </a>
-                                    <ul class="submenuuser">
+                                    <ul>
                                         <li><a href="{{route('edit_customer',['id'=>Session::get('customer_id')])}}"><span class="flaticon-user">Thông tin cá nhân</a></li>
-                                        <li><a href="{{route('logout_checkout')}}"><span class="flaticon-user"> Đăng xuất</a></li>
+                                        <li><a href="{{route('logout_checkout')}}"><span class="flaticon-heart"> Đăng xuất</a></li>
                                     </ul>
                                 </li>
                             @else

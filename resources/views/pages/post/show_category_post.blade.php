@@ -81,7 +81,7 @@
                             <ul class="list cat-list">
                                 @foreach($categorypost as $categorypost)
                                     <li>
-                                        <a href="#" class="d-flex">
+                                        <a href="{{route('detaiCategoryPost', ['slug' => $categorypost->cate_post_slug])}}" class="d-flex">
                                             <p>{{$categorypost->cate_post_name}}</p>
                                         </a>
                                     </li>

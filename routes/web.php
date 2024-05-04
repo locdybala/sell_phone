@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\backend\PagesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\frontend\HomeController;
 use App\Http\Controllers\frontend\PostFrontendController;
@@ -241,6 +242,15 @@ Route::prefix('admin')->group(function () {
 
     Route::post('/export-csv', [ProductController::class, 'export_csv'])->name('export_csv');
     Route::post('/import-csv', [ProductController::class, 'import_csv'])->name('import_csv');
+
+    Route::prefix('pages')->group(function () {
+        Route::get('/all_pages', [\App\Http\Controllers\backend\PagesController::class, 'index'])->name('all_pages');
+        Route::get('/add_pages', [PagesController::class, 'create'])->name('add_pages');
+        Route::get('/updatePages/{id}', [PagesController::class, 'edit'])->name('updatePages');
+        Route::post('/addPages', [PagesController::class, 'store'])->name('addPages');
+        Route::post('/updatePages/{id}', [PagesController::class, 'update'])->name('update_pages');
+        Route::get('/deletePages/{id}', [PagesController::class, 'delete'])->name('deletePages');
+    });
 });
 
 // phí vận chuyển

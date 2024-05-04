@@ -22,4 +22,5 @@ class ContactController extends Controller
         $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();
         return view('pages.contact.info',compact('category','brand','slider','categorypost','contact','title'));
     }
+
 }
