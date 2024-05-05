@@ -41,14 +41,24 @@
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <label class="floating-label" for="name">Slug <span class="required">(*)</span></label>
+                                            <label class="floating-label" for="name">Slug <span
+                                                    class="required">(*)</span></label>
                                             <input type="text" class="form-control" required id="slug" name="slug"
                                                    placeholder="Slug"/>
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <label class="floating-label" for="ckeditor">Nội dung <span class="required">(*)</span></label>
+                                            <label class="floating-label" for="title">Tiêu đề <span
+                                                    class="required">(*)</span></label>
+                                            <input type="text" class="form-control" required id="title" name="title"
+                                                   placeholder="Nhập tiêu đề"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="floating-label" for="ckeditor">Nội dung <span
+                                                    class="required">(*)</span></label>
                                             <textarea
                                                 id="ckeditor"
                                                 class="form-control" name="contents"
@@ -83,12 +93,16 @@
             var name = $("#name").val();
             var slug = $("#slug").val();
             var content = $("#content").val();
+            var title = $('#title').val();
 
             if (name == '') {
                 toastr["error"]("Tên trang không được bỏ trống");
                 return false;
             } else if (slug == '') {
                 toastr["error"]("Slug không được bỏ trống");
+                return false;
+            } else if (title == '') {
+                toastr["error"]("Tiêu đề không được bỏ trống");
                 return false;
             } else if (content == '') {
                 toastr["error"]("Nội dung không được bỏ trống");

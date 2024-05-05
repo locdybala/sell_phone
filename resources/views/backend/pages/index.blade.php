@@ -42,6 +42,7 @@
                                     <tr>
                                         <th>STT</th>
                                         <th>Tên trang</th>
+                                        <th>Tiêu đề</th>
                                         <th>Slug</th>
                                         <th>Thao tác</th>
                                     </tr>
@@ -54,6 +55,7 @@
                                             <tr>
                                                 <td>{{$i}}</td>
                                                 <td><strong>{{$page->name}}</strong></td>
+                                                <td>{{$page->title}}</td>
                                                 <td>{!! $page->slug !!}</td>
 
                                                 <td>

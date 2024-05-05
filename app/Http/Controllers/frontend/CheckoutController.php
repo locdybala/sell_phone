@@ -11,6 +11,7 @@ use App\Models\Coupon;
 use App\Models\Customer;
 use App\Models\Order;
 use App\Models\OrderDetails;
+use App\Models\Pages;
 use App\Models\Product;
 use App\Models\Shipping;
 use App\Models\Slider;
@@ -34,10 +35,10 @@ class CheckoutController extends Controller
         $brand = Brand::where('brand_status', '1')->orderby('brand_id', 'desc')->get();
         $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();
         $slider = Slider::where('slider_status', '1')->take(4)->get();
-
+        $pages = Pages::all();
         Session::forget('customer_id');
 
-        return view('pages.checkout.login_checkout', compact('category', 'brand', 'categorypost', 'slider', 'title'));
+        return view('pages.checkout.login_checkout', compact('category', 'brand', 'categorypost', 'slider', 'title', 'pages'));
     }
 
     public function logout_checkout()
@@ -47,13 +48,13 @@ class CheckoutController extends Controller
         $brand = Brand::where('brand_status', '1')->orderby('brand_id', 'desc')->get();
         $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();
         $slider = Slider::where('slider_status', '1')->take(4)->get();
-
+        $pages = Pages::all();
         Session::forget('customer_id');
         Session::forget('customer_picture');
         Session::forget('customer_name');
         Session::forget('coupon');
 
-        return view('pages.checkout.login_checkout', compact('category', 'brand', 'categorypost', 'slider', 'title'));
+        return view('pages.checkout.login_checkout', compact('category', 'brand', 'pages', 'categorypost', 'slider', 'title'));
     }
 
     public function register()
@@ -63,9 +64,9 @@ class CheckoutController extends Controller
         $brand = Brand::where('brand_status', '1')->orderby('brand_id', 'desc')->get();
         $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();
         $slider = Slider::where('slider_status', '1')->take(4)->get();
-
+        $pages = Pages::all();
         Session::forget('customer_id');
-        return view('pages.customer.register', compact('category', 'brand', 'categorypost', 'slider', 'title'));
+        return view('pages.customer.register', compact('category', 'brand', 'categorypost', 'slider', 'title', 'pages'));
     }
 
     public function add_customer(Request $request)
@@ -134,9 +135,10 @@ class CheckoutController extends Controller
         $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();
         $slider = Slider::where('slider_status', '1')->take(4)->get();
         $product = Product::where('product_status', '1')->orderby('product_id', 'desc')->limit(8)->get();
+        $pages = Pages::all();
 
         if (Session::get('cart')) {
-            return view('pages.checkout.show_checkout', compact('category', 'title', 'brand', 'city', 'customer', 'categorypost', 'slider'));
+            return view('pages.checkout.show_checkout', compact('category', 'title', 'brand', 'city', 'pages', 'customer', 'categorypost', 'slider'));
 
         } else {
             return Redirect::to('/');
@@ -453,11 +455,12 @@ class CheckoutController extends Controller
         $brand = Brand::where('brand_status', '1')->orderby('brand_id', 'desc')->get();
         $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();
         $slider = Slider::where('slider_status', '1')->take(4)->get();
+        $pages = Pages::all();
 
         Session::forget('customer_id');
         Session::forget('coupon');
 
-        return view('pages.customer.forgot_pass', compact('category', 'brand', 'categorypost', 'slider', 'title'));
+        return view('pages.customer.forgot_pass', compact('category', 'brand', 'categorypost', 'slider', 'title', 'pages'));
     }
 
     public function send_mail_forgot_pass(Request $request)
@@ -501,7 +504,8 @@ class CheckoutController extends Controller
         $brand = Brand::where('brand_status', '1')->orderby('brand_id', 'desc')->get();
         $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();
         $slider = Slider::where('slider_status', '1')->take(4)->get();
-        return view('pages.customer.newpass', compact('category', 'title', 'brand', 'categorypost', 'slider'));
+        $pages = Pages::all();
+        return view('pages.customer.newpass', compact('category', 'title', 'brand', 'categorypost', 'slider', 'pages'));
     }
 
     public function update_pass(Request $request)
@@ -602,7 +606,8 @@ class CheckoutController extends Controller
         $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();
         $slider = Slider::where('slider_status', '1')->take(4)->get();
         $customer = Customer::find($id);
-        return view('pages.customer.edit_customer', compact('category', 'brand', 'categorypost', 'title', 'slider', 'customer'));
+        $pages = Pages::all();
+        return view('pages.customer.edit_customer', compact('category', 'brand', 'categorypost', 'title', 'slider', 'pages', 'customer'));
     }
 
     function execPostRequest($url, $data)

@@ -42,6 +42,7 @@ class PagesController extends Controller
     {
         Pages::create([
             'name' => $request->name,
+            'title' => $request->title,
             'content' => $request->contents,
             'slug' => $request->slug,
         ]);
@@ -84,6 +85,7 @@ class PagesController extends Controller
     {
         Pages::find($id)->update([
             'name' => $request->name,
+            'title' => $request->title,
             'content' => $request->contents,
             'slug' => $request->slug
         ]);

@@ -9,6 +9,7 @@ use App\Models\CategoryPost;
 use App\Models\Customer;
 use App\Models\Order;
 use App\Models\OrderDetails;
+use App\Models\Pages;
 use App\Models\Shipping;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -22,8 +23,9 @@ class CartController extends Controller
         $category = Category::where('category_status', '1')->orderby('category_id', 'desc')->get();
         $brand = Brand::where('brand_status', '1')->orderby('brand_id', 'desc')->get();
         $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();
+        $pages = Pages::all();
 
-        return view('pages.cart.show_cart',compact('category','categorypost','title', 'brand'));
+        return view('pages.cart.show_cart',compact('category','categorypost','title', 'brand', 'pages'));
     }
 
     public function add_cart_ajax(Request $request)
@@ -210,6 +212,7 @@ class CartController extends Controller
     public function history() {
         $title = 'Lịch sử mua hàng';
         $brand = Brand::all();
+        $pages = Pages::all();
         $customer_id = Session::get('customer_id');
         if($customer_id == null || $customer_id =='') {
             return redirect('/login-checkout')->with('error','Vui lòng đăng nhập để xem lịch sử mua hàng');
@@ -218,7 +221,7 @@ class CartController extends Controller
             $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();
             $orders = Order::where('customer_id',$customer_id)->orderby('created_at', 'DESC')->paginate(5);
 
-            return view('pages.cart.history',compact('category','categorypost','orders','title', 'brand'));
+            return view('pages.cart.history',compact('category','categorypost','orders','title', 'brand', 'pages'));
 
         }
     }
@@ -230,6 +233,7 @@ class CartController extends Controller
         $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();
         $order_details = OrderDetails::with('product')->where('order_code', $order_code)->get();
         $order = Order::where('order_code', $order_code)->get();
+        $pages = Pages::all();
         foreach ($order as $key => $ord) {
             $customer_id = $ord->customer_id;
             $shipping_id = $ord->shipping_id;
@@ -253,7 +257,7 @@ class CartController extends Controller
             $coupon_number = 0;
         }
 
-        return view('pages.cart.order_detail_history')->with(compact('order_details', 'customer', 'shipping', 'brand','order_details', 'coupon_condition', 'coupon_number', 'order', 'order_status','category','categorypost', 'title'));
+        return view('pages.cart.order_detail_history')->with(compact('order_details', 'customer', 'shipping', 'pages','brand','order_details', 'coupon_condition', 'coupon_number', 'order', 'order_status','category','categorypost', 'title'));
 
     }
 }

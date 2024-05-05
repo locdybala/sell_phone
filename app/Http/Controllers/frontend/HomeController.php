@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\CategoryPost;
 use App\Models\Comment;
 use App\Models\Gallery;
+use App\Models\Pages;
 use App\Models\Product;
 use App\Models\Slider;
 use Illuminate\Http\Request;
@@ -24,7 +25,8 @@ class HomeController extends Controller
         $productNews = Product::where('product_status', '1')->orderby('product_id', 'desc')->limit(3)->get();
         $slider = Slider::where('slider_status', '1')->take(1)->first();
         $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();
-        return view('pages.home', compact('category', 'brand', 'products', 'slider', 'categorypost', 'title', 'productNews'));
+        $pages = Pages::all();
+        return view('pages.home', compact('category', 'brand', 'products', 'slider', 'categorypost', 'title', 'productNews', 'pages'));
     }
 
     public function shop()
@@ -35,7 +37,8 @@ class HomeController extends Controller
         $products = Product::where('product_status', '1')->get();
         $slider = Slider::where('slider_status', '1')->take(4)->get();
         $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();
-        return view('pages.product.index', compact('category', 'brand', 'products', 'slider', 'categorypost', 'title'));
+        $pages = Pages::all();
+        return view('pages.product.index', compact('category', 'brand', 'products', 'slider', 'categorypost', 'title', 'pages'));
     }
 
     public function detailCategory($id)
@@ -47,7 +50,8 @@ class HomeController extends Controller
         $product = Product::where('product_status', '1')->where('category_id', $id)->orderby('product_id', 'desc')->limit(8)->get();
         $category_name = Category::find($id);
         $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();
-        return view('pages.category.show_category', compact('category', 'brand', 'product', 'category_name', 'slider', 'categorypost', 'title'));
+        $pages = Pages::all();
+        return view('pages.category.show_category', compact('category', 'brand', 'product', 'category_name', 'slider', 'categorypost', 'title', 'pages'));
     }
 
     public function detailBrand($id)
@@ -59,7 +63,8 @@ class HomeController extends Controller
         $brand = Brand::where('brand_status', '1')->orderby('brand_id', 'desc')->get();
         $product = Product::where('product_status', '1')->where('brand_id', $id)->orderby('product_id', 'desc')->limit(8)->get();
         $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();
-        return view('pages.brand.show_brand', compact('category', 'brand', 'product', 'brand_name', 'slider', 'categorypost', 'title'));
+        $pages = Pages::all();
+        return view('pages.brand.show_brand', compact('category', 'brand', 'product', 'brand_name', 'slider', 'categorypost', 'title', 'pages'));
     }
 
     public function detailProduct($id)
@@ -76,7 +81,8 @@ class HomeController extends Controller
         $related_products = Product::where('category_id', $category_id)->whereNotIn('tbl_product.product_id', [$id])->get();
         $gallery = Gallery::where('product_id', $id)->get();
         $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();
-        return view('pages.product.detail_product', compact('category', 'gallery', 'title', 'brand', 'productDetail', 'related_products', 'slider', 'categorypost'));
+        $pages = Pages::all();
+        return view('pages.product.detail_product', compact('category', 'gallery', 'title', 'brand', 'productDetail', 'related_products', 'slider', 'categorypost', 'pages'));
     }
 
     public function search(Request $request)
@@ -88,8 +94,8 @@ class HomeController extends Controller
         $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();
         $product = Product::where('product_name', 'like', '%' . $keywords . '%')->get();
         $slider = Slider::where('slider_status', '1')->take(4)->get();
-
-        return view('pages.product.search', compact('category', 'brand', 'product', 'categorypost', 'title', 'slider'));
+        $pages = Pages::all();
+        return view('pages.product.search', compact('category', 'brand', 'product', 'categorypost', 'title', 'slider', 'pages'));
 
     }
 
