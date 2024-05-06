@@ -1,4 +1,4 @@
-@extends('home')
+@extends('layout')
 @section('content')
     <div class="slider-area ">
         <div style="min-height:300px;" class="single-slider slider-height2 d-flex align-items-center">

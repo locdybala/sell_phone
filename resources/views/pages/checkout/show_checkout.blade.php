@@ -1,4 +1,4 @@
-@extends('home')
+@extends('layout')
 @section('content')
     <style>
         .nice-select {
@@ -603,6 +603,32 @@
 
         $(document).ready(function () {
             $('.send_order').click(function () {
+                var shipping_email = $('#shipping_email').val();
+                var shipping_name = $('#shipping_name').val();
+                var shipping_address = $('#shipping_address').val();
+                var shipping_phone = $('#shipping_phone').val();
+                var shipping_notes = $('#shipping_notes').val();
+                var shipping_method = $('input[name="payment_select"]:checked').val();
+                var order_fee = $('.order_fee').val();
+                var order_coupon = $('.order_coupon').val();
+                var _token = $('input[name="_token"]').val();
+                var total_after = $('.total_after').val();
+                if (shipping_email == '') {
+                    toastr["error"]("Tài khoản email người nhận không được bỏ trống");
+                    return false;
+                } else if (shipping_name == '') {
+                    toastr["error"]("Tên người đặt không được bỏ trống");
+                    return false;
+                } else if (shipping_address == '') {
+                    toastr["error"]("Địa chỉ nhận hàng không được bỏ trống");
+                    return false;
+                } else if (shipping_phone == '') {
+                    toastr["error"]("Số điện thoại người nhận không được bỏ trống");
+                    return false;
+                } else if (typeof shipping_method === 'undefined' || shipping_method === '') {
+                    toastr["error"]("Phương thức thanh toán không được bỏ trống");
+                    return false;
+                }
                 swal({
                     title: "Xác nhận đơn hàng",
                     text: "Đơn hàng sẽ không được hoàn trả khi đặt,bạn có muốn đặt không?",
@@ -613,18 +639,6 @@
                 })
                     .then((willDelete) => {
                         if (willDelete) {
-                            debugger;
-                            var shipping_email = $('#shipping_email').val();
-                            var shipping_name = $('#shipping_name').val();
-                            var shipping_address = $('#shipping_address').val();
-                            var shipping_phone = $('#shipping_phone').val();
-                            var shipping_notes = $('#shipping_notes').val();
-                            var shipping_method = $('input[name="payment_select"]:checked').val();
-                            var order_fee = $('.order_fee').val();
-                            var order_coupon = $('.order_coupon').val();
-                            var _token = $('input[name="_token"]').val();
-                            var total_after = $('.total_after').val();
-
                             $.ajax({
                                 url: '{{url('/confirm-order')}}',
                                 method: 'POST',
@@ -649,9 +663,9 @@
                                 }
                             });
 
-                            // window.setTimeout(function(){
-                            //     location.reload();
-                            // } ,3000);
+                            window.setTimeout(function(){
+                                location.reload();
+                            } ,3000);
                         } else {
                             swal("Đóng", "Đơn hàng chưa được gửi, làm ơn hoàn tất đơn hàng", "error");
 

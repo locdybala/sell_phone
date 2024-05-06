@@ -1,4 +1,4 @@
-@extends('home')
+@extends('layout')
 @section('content')
     <div class="slider-area ">
         <div style="min-height:300px;" class="single-slider slider-height2 d-flex align-items-center">
@@ -57,6 +57,10 @@
                                         <td>
                                         <span
                                             class="badge badge-primary">Đơn hàng mới</span></td>
+                                    @elseif($order->order_status== 2)
+                                        <td>
+                                        <span
+                                            class="badge badge-secondary">Đơn hàng đã thanh toán</span></td>
                                     @elseif($order->order_status== 3)
                                         <td>
                                         <span
@@ -64,7 +68,6 @@
                                     @else
                                         <td><span
                                                 class="badge badge-success">Đã xử lý</span></td>
-
                                     @endif
                                     <td>
 
@@ -110,7 +113,8 @@
                             <!-- Nút Next -->
                             @if ($orders->hasMorePages())
                                 <li class="page-item">
-                                    <a href="{{ $orders->nextPageUrl() }}" class="page-link" aria-label="Next">&raquo;</a>
+                                    <a href="{{ $orders->nextPageUrl() }}" class="page-link"
+                                       aria-label="Next">&raquo;</a>
                                 </li>
                             @else
                                 <li class="page-item disabled">

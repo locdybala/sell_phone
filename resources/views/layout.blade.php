@@ -39,6 +39,17 @@
             border: none; /* Loại bỏ viền của button */
             width: 100%; /* Đảm bảo button chiếm toàn bộ chiều rộng của div */
         }
+        .latest-padding {
+            padding-top: 50px !important;
+            padding-bottom: 50px !important;
+        }
+        .footer-padding {
+            padding-top: 100px !important;
+            padding-bottom: 50px !important;
+        }
+        .slider-height2 {
+            min-height: 300px !important;
+        }
     </style>
 </head>
 <body>

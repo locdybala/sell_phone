@@ -26,6 +26,10 @@
         .required {
             color: red;
         }
+        .latest-padding {
+            padding-top: 50px !important;
+            padding-bottom: 50px !important;
+        }
     </style>
 </head>
 <body>

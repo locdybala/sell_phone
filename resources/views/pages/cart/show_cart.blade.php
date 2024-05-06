@@ -130,7 +130,7 @@
                                         <div class="shipping_box">
                                             <ul class="list">
                                                 <li>
-                                                    Tổng: {{number_format($total,0,',','.')}}đ
+                                                    Tổng tiền sản phẩm: {{number_format($total,0,',','.')}}đ
                                                 </li>
                                                 @if(Session::get('coupon'))
                                                     <li>
@@ -185,11 +185,11 @@
                                 <form style=" display: flex" method="POST"
                                       action="{{route('check_coupon')}}">
                                     @csrf
-                                    <input style="width: 200px;" type="text" class="form-control "
+                                    <input style="width: 200px; margin-right: 10px;" type="text" class="form-control "
                                            name="coupon"
-                                           placeholder="Nhập mã giảm giá"> <br>
+                                           placeholder="Nhập mã giảm giá">
                                     <input type="submit"
-                                           class="genric-btn info radius" value="Tính mã giảm giá">
+                                           class="genric-btn btn-success radius small" value="Tính mã giảm giá">
                                 </form>
                             @endif
                         </div>

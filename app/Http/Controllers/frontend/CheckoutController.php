@@ -277,11 +277,12 @@ class CheckoutController extends Controller
                 'amount' => $data['total_after'],
             ]);
             return response()->json($data);
-        } else {
-            Session::forget('coupon');
-            Session::forget('fee');
-            Session::forget('cart');
         }
+
+        Session::forget('coupon');
+        Session::forget('fee');
+        Session::forget('cart');
+
 
     }
 
@@ -581,14 +582,14 @@ class CheckoutController extends Controller
     {
         try {
             $data = $request->all();
-            $order = Order::find($data['loc']);
+            $order = Order::find($data['vnp_TxnRef']);
             $order->update([
-                'order_status' => 3,
+                'order_status' => 2,
             ]);
             Session::forget('coupon');
             Session::forget('fee');
             Session::forget('cart');
-            return redirect()->route('home')->with('message', 'Thanh toán sản phẩm thành công!');
+            return redirect()->route('history')->with('message', 'Thanh toán sản phẩm thành công!');
         } catch (\Exception $e) {
             return redirect()->route('home')->with('message', 'Có lỗi xảy ra!');
         }
