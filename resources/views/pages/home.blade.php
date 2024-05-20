@@ -1,5 +1,11 @@
 @extends('layout')
 @section('content')
+    <style>
+        .button_wishlist:hover{
+            border: none !important;
+            background: #fff !important;
+        }
+    </style>
     <!--? slider Area Start -->
     <div class="slider-area ">
         <div class="slider-active">
@@ -137,17 +143,17 @@
                     <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
                         <form>
                             @csrf
-                            <input type="hidden" value="{{$product->product_id}}"
+                            <input type="hidden" id="wishlish_product_id_{{$product->product_id}}" value="{{$product->product_id}}"
                                    class="cart_product_id_{{$product->product_id}}">
-                            <input type="hidden" value="{{$product->product_name}}"
+                            <input type="hidden" id="wishlish_product_name_{{$product->product_id}}" value="{{$product->product_name}}"
                                    class="cart_product_name_{{$product->product_id}}">
-                            <input type="hidden" value="{{$product->product_image}}"
+                            <input type="hidden" id="wishlish_product_image_{{$product->product_id}}" value="{{$product->product_image}}"
                                    class="cart_product_image_{{$product->product_id}}">
-                            <input type="hidden" value="{{$product->product_price}}"
+                            <input type="hidden"  id="wishlish_product_price_{{$product->product_id}}" value="{{$product->product_price}}"
                                    class="cart_product_price_{{$product->product_id}}">
-                            <input type="hidden" value="{{$product->product_quantity}}"
+                            <input type="hidden"  id="wishlish_product_quantity_{{$product->product_id}}" value="{{$product->product_quantity}}"
                                    class="cart_product_quantity_{{$product->product_id}}">
-                            <input type="hidden" value="1" class="cart_product_qty_{{$product->product_id}}">
+                            <input type="hidden" value="1"  id="wishlish_product_qty_{{$product->product_id}}" class="cart_product_qty_{{$product->product_id}}">
                             <div class="single-popular-items mb-50 text-center">
                                 <div class="popular-img">
                                     <img style="height: 380px;" src="/upload/product/{{ $product->product_image }}" alt="">
@@ -169,12 +175,13 @@
                                         </div>
                                     @endif
                                     <div class="favorit-items">
-                                        <span class="flaticon-heart"></span>
+
+                                        <button type="button" class="button-wishlist" id="{{$product->product_id}}" onclick="add_wistlist(this.id);"><span class="flaticon-heart"></span></button>
                                     </div>
                                 </div>
                                 <div class="popular-caption">
                                     <h3>
-                                        <a href="{{ route('detailProduct',['id'=>$product->product_id]) }}">{{$product->product_name}}</a>
+                                        <a id="wishlish_product_url_{{$product->product_id}}" href="{{ route('detailProduct',['id'=>$product->product_id]) }}">{{$product->product_name}}</a>
                                     </h3>
                                     <span>{{number_format($product->product_price)}} đ</span>
                                 </div>
@@ -273,6 +280,32 @@
                 }
             })
         });
+        function add_wistlist(clicked_id) {
+            var id = clicked_id;
+            var name = $("#wishlish_product_name_" +id).val();
+            var price = $("#wishlish_product_price_" +id).val();
+            var image = $("#wishlish_product_image_" +id).val();
+            var url = $("#wishlish_product_url_" +id).attr("href");
+            var newItem = {
+                'url' : url,
+                'image' : image,
+                'price' : price,
+                'name' : name,
+            }
+            if(localStorage.getItem('data') == null) {
+                localStorage.setItem('data', '[]');
+            }
+            var old_data = JSON.parse(localStorage.getItem('data'));
+             var matches = $.grep(old_data, function (obj) {
+              return obj.id == id;
+            })
+            if(matches.length) {
+                alert('Sản phẩm bạn đã yêu thích, nên không thể thêm');
+            } else {
+                old_data.push(newItem);
+            }
+             localStorage.setItem('data', JSON.stringify(old_data));
+        }
     </script>
 
 @endsection
