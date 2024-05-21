@@ -1,7 +1,7 @@
 @extends('layout')
 @section('content')
     <style>
-        .button_wishlist:hover{
+        .button_wishlist:hover {
             border: none !important;
             background: #fff !important;
         }
@@ -15,8 +15,10 @@
                     <div class="row justify-content-between align-items-center">
                         <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
                             <div class="hero__caption">
-                                <h1 data-animation="fadeInLeft" data-delay=".4s" data-duration="2000ms">{{$slider->slider_name}}</h1>
-                                <p data-animation="fadeInLeft" data-delay=".7s" data-duration="2000ms">{!! $slider->slider_desc !!}</p>
+                                <h1 data-animation="fadeInLeft" data-delay=".4s"
+                                    data-duration="2000ms">{{$slider->slider_name}}</h1>
+                                <p data-animation="fadeInLeft" data-delay=".7s"
+                                   data-duration="2000ms">{!! $slider->slider_desc !!}</p>
                                 <!-- Hero-btn -->
                                 <div class="hero__btn" data-animation="fadeInLeft" data-delay=".8s"
                                      data-duration="2000ms">
@@ -26,7 +28,7 @@
                         </div>
                         <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 d-none d-sm-block">
                             <div class="hero__img" data-animation="bounceIn" data-delay=".4s">
-                                <img src="{{asset('frontend/assets/img/hero/watch.png')}}" alt="" class=" heartbeat">
+                                <img src="{{asset('frontend/assets/img/hero/watch.png')}}" alt="" class="heartbeat">
                             </div>
                         </div>
                     </div>
@@ -133,8 +135,6 @@
                 <div class="col-xl-7 col-lg-8 col-md-10">
                     <div class="section-tittle mb-70 text-center">
                         <h2>Danh sách sản phẩm</h2>
-                        <p>Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                            aliqua. Quis ipsum suspendisse ultrices gravida.</p>
                     </div>
                 </div>
             </div>
@@ -143,20 +143,27 @@
                     <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
                         <form>
                             @csrf
-                            <input type="hidden" id="wishlish_product_id_{{$product->product_id}}" value="{{$product->product_id}}"
+                            <input type="hidden" id="wishlish_product_id_{{$product->product_id}}"
+                                   value="{{$product->product_id}}"
                                    class="cart_product_id_{{$product->product_id}}">
-                            <input type="hidden" id="wishlish_product_name_{{$product->product_id}}" value="{{$product->product_name}}"
+                            <input type="hidden" id="wishlish_product_name_{{$product->product_id}}"
+                                   value="{{$product->product_name}}"
                                    class="cart_product_name_{{$product->product_id}}">
-                            <input type="hidden" id="wishlish_product_image_{{$product->product_id}}" value="{{$product->product_image}}"
+                            <input type="hidden" id="wishlish_product_image_{{$product->product_id}}"
+                                   value="{{$product->product_image}}"
                                    class="cart_product_image_{{$product->product_id}}">
-                            <input type="hidden"  id="wishlish_product_price_{{$product->product_id}}" value="{{$product->product_price}}"
+                            <input type="hidden" id="wishlish_product_price_{{$product->product_id}}"
+                                   value="{{$product->product_price}}"
                                    class="cart_product_price_{{$product->product_id}}">
-                            <input type="hidden"  id="wishlish_product_quantity_{{$product->product_id}}" value="{{$product->product_quantity}}"
+                            <input type="hidden" id="wishlish_product_quantity_{{$product->product_id}}"
+                                   value="{{$product->product_quantity}}"
                                    class="cart_product_quantity_{{$product->product_id}}">
-                            <input type="hidden" value="1"  id="wishlish_product_qty_{{$product->product_id}}" class="cart_product_qty_{{$product->product_id}}">
+                            <input type="hidden" value="1" id="wishlish_product_qty_{{$product->product_id}}"
+                                   class="cart_product_qty_{{$product->product_id}}">
                             <div class="single-popular-items mb-50 text-center">
                                 <div class="popular-img">
-                                    <img style="height: 380px;" src="/upload/product/{{ $product->product_image }}" alt="">
+                                    <img style="height: 380px;" src="/upload/product/{{ $product->product_image }}"
+                                         alt="">
                                     @php
                                         $customerId = Session::get('customer_id');
                                     @endphp
@@ -169,19 +176,28 @@
                                         </div>
                                     @else
                                         <div class="img-cap ">
-                                        <a href="{{URL::to('/login-checkout')}}"
-                                           class="add-to-cart"><span>Thêm
+                                            <a href="{{URL::to('/login-checkout')}}"
+                                               class="add-to-cart"><span>Thêm
                                             giỏ hàng</span></a>
                                         </div>
                                     @endif
-                                    <div class="favorit-items">
+                                    <input type="hidden" id="customerId" value="{{$customerId}}">
 
-                                        <button type="button" class="button-wishlist" id="{{$product->product_id}}" onclick="add_wistlist(this.id);"><span class="flaticon-heart"></span></button>
+                                    <div class="favorit-items">
+                                        @if ($customerId)
+                                            <span id="{{$product->product_id}}" onclick="add_wistlist(this.id);"
+                                                  class="flaticon-heart"></span>
+
+                                        @else
+                                            <a href="{{URL::to('/login-checkout')}}"
+                                               class="add-to-cart"><span class="flaticon-heart"></span></a>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="popular-caption">
                                     <h3>
-                                        <a id="wishlish_product_url_{{$product->product_id}}" href="{{ route('detailProduct',['id'=>$product->product_id]) }}">{{$product->product_name}}</a>
+                                        <a id="wishlish_product_url_{{$product->product_id}}"
+                                           href="{{ route('detailProduct',['id'=>$product->product_id]) }}">{{$product->product_name}}</a>
                                     </h3>
                                     <span>{{number_format($product->product_price)}} đ</span>
                                 </div>
@@ -280,31 +296,37 @@
                 }
             })
         });
+
         function add_wistlist(clicked_id) {
+            debugger;
             var id = clicked_id;
-            var name = $("#wishlish_product_name_" +id).val();
-            var price = $("#wishlish_product_price_" +id).val();
-            var image = $("#wishlish_product_image_" +id).val();
-            var url = $("#wishlish_product_url_" +id).attr("href");
+            var name = $("#wishlish_product_name_" + id).val();
+            var price = $("#wishlish_product_price_" + id).val();
+            var image = $("#wishlish_product_image_" + id).val();
+            var url = $("#wishlish_product_url_" + id).attr("href");
+            var customerId = $("#customerId").val();
             var newItem = {
-                'url' : url,
-                'image' : image,
-                'price' : price,
-                'name' : name,
+                'url': url,
+                'id': id,
+                'image': image,
+                'price': price,
+                'name': name,
+                'customerId': customerId
             }
-            if(localStorage.getItem('data') == null) {
+            if (localStorage.getItem('data') == null) {
                 localStorage.setItem('data', '[]');
             }
             var old_data = JSON.parse(localStorage.getItem('data'));
-             var matches = $.grep(old_data, function (obj) {
-              return obj.id == id;
+            var matches = $.grep(old_data, function (obj) {
+                return obj.id == id;
             })
-            if(matches.length) {
-                alert('Sản phẩm bạn đã yêu thích, nên không thể thêm');
+            if (matches.length) {
+                toastr["warning"]('Sản phẩm bạn đã yêu thích, nên không thể thêm');
             } else {
                 old_data.push(newItem);
+                toastr["success"]('Sản phẩm đã được thêm vào danh sách yêu thích');
             }
-             localStorage.setItem('data', JSON.stringify(old_data));
+            localStorage.setItem('data', JSON.stringify(old_data));
         }
     </script>
 

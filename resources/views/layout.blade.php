@@ -10,7 +10,9 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('frontend/assets/img/favicon.ico')}}">
 
     <!-- CSS here -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
+          integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <link rel="stylesheet" href="{{asset('frontend/assets/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('frontend/assets/css/owl.carousel.min.css')}}">
     <link rel="stylesheet" href="{{asset('frontend/assets/css/flaticon.css')}}">
@@ -22,15 +24,20 @@
     <link rel="stylesheet" href="{{asset('frontend/assets/css/slick.css')}}">
     <link rel="stylesheet" href="{{asset('frontend/assets/css/nice-select.css')}}">
     <link rel="stylesheet" href="{{asset('frontend/assets/css/style.css')}}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+          integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <style>
-        .cart_area{
+        .cart_area {
             padding: 100px 0 !important;
         }
+
         .required {
             color: red;
         }
-        .img-cap button{
+
+        .img-cap button {
             color: #fff;
             background: #f81f1f;
             padding: 20px 0;
@@ -66,6 +73,7 @@
     </div>
 </div>
 </body>
+<!-- Toastr JS -->
 
 <script src="{{asset('frontend/assets/js/vendor/modernizr-3.5.0.min.js')}}"></script>
 <!-- Jquery, Popper, Bootstrap -->

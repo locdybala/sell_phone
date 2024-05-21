@@ -26,7 +26,7 @@
                                         @endforeach
                                     </ul>
                                 </li>
-                                <li class="hot"><a href="#">Thương hiệu</a>
+                                <li><a href="#">Thương hiệu</a>
                                     <ul class="submenu">
                                         @foreach ($brand as $brand)
                                             <li>
@@ -39,10 +39,6 @@
                                 <li><a href="{{route('categoryPostIndex')}}">Tin tức</a>
                                 </li>
                                 <li><a href="{{route('contact')}}">Liên hệ</a></li>
-
-                                @if ($customer_id != NULL)
-                                    <li><a href="{{route('history')}}">Lịch sử mua hàng</a></li>
-                                @endif
                                 @if ($customer_id != NULL && $shipping_id == NULL)
 
                                     <li>
@@ -55,6 +51,15 @@
                                     </li>
                                 @else
                                     <li><a href="{{URL::to('/login-checkout')}}"> Thanh toán</a>
+                                    </li>
+                                @endif
+                                @if ($customer_id != NULL)
+                                    <li><a href="#">Tài khoản</a>
+                                        <ul class="submenu">
+                                            <li><a href="{{route('history')}}">Lịch sử mua hàng</a></li>
+                                            <li><a href="{{route('edit_customer',['id'=>Session::get('customer_id')])}}">Thông tin cá nhân</a></li>
+                                            <li><a href="{{route('logout_checkout')}}">Đăng xuất</a></li>
+                                        </ul>
                                     </li>
                                 @endif
                             </ul>
@@ -70,14 +75,12 @@
                             </li>
                             <li><a href="{{route('cart')}}"><span class="flaticon-shopping-cart"></span></a></li>
                             @if ($customer_id != NULL)
+                                <li><a href="{{route('logout_checkout')}}"><span class="flaticon-heart"></span></a></li>
+
                                 <li>
                                     <a href="">
                                         <span class="flaticon-user"> {{Session::get('customer_name')}}</span>
                                     </a>
-                                    <ul>
-                                        <li><a href="{{route('edit_customer',['id'=>Session::get('customer_id')])}}"><span class="flaticon-user">Thông tin cá nhân</a></li>
-                                        <li><a href="{{route('logout_checkout')}}"><span class="flaticon-heart"> Đăng xuất</a></li>
-                                    </ul>
                                 </li>
                             @else
                                 <li><a href="{{URL::to('/login-checkout')}}"><span class="flaticon-user"> Đăng nhập</span></a></li>
