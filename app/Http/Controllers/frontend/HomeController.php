@@ -41,6 +41,17 @@ class HomeController extends Controller
         return view('pages.product.index', compact('category', 'brand', 'products', 'slider', 'categorypost', 'title', 'pages'));
     }
 
+    public function list_wistList($customerId)
+    {
+        $title = 'Sản phẩm yêu thích';
+        $category = Category::where('category_status', '1')->orderby('category_id', 'desc')->get();
+        $brand = Brand::where('brand_status', '1')->orderby('brand_id', 'desc')->get();
+        $slider = Slider::where('slider_status', '1')->take(4)->get();
+        $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();
+        $pages = Pages::all();
+        return view('pages.product.wistlist', compact('category', 'brand', 'slider', 'categorypost', 'title', 'pages', 'customerId'));
+    }
+
     public function detailCategory($id)
     {
         $title = 'Sản phẩm theo danh mục';

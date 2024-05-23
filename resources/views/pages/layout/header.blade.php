@@ -75,7 +75,7 @@
                             </li>
                             <li><a href="{{route('cart')}}"><span class="flaticon-shopping-cart"></span></a></li>
                             @if ($customer_id != NULL)
-                                <li><a href="{{route('logout_checkout')}}"><span class="flaticon-heart"></span></a></li>
+                                <li><a href="{{route('list_wistList', ['customerId' => $customer_id])}}"><span class="flaticon-heart"></span></a></li>
 
                                 <li>
                                     <a href="">
