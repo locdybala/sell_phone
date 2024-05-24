@@ -12,7 +12,7 @@
                             </div>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
-                                <li class="breadcrumb-item"><a href="#!">Thống kê Analytics</a></li>
+                                <li class="breadcrumb-item"><a href="#!">Thống kê trang web</a></li>
                             </ul>
                         </div>
                     </div>
@@ -123,7 +123,7 @@
                                     </form>
                                 </div>
 
-                                <div class="card-body">
+                                <div class="card-body" style="height: 400px;">
                                     <div id="myfirstchart" style="height: 250px;"></div>
                                 </div>
                             </div>

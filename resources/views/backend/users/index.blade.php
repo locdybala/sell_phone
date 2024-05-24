@@ -31,7 +31,7 @@
                         <div class="card-header">
                             <h5>Danh sách tài khoản</h5>
                             <div>
-                                <a href="{{ route('add_category') }}"
+                                <a href="{{ route('add_user') }}"
                                    class="btn btn-sm mt-2 btn-primary">
                                     <i class="fa fa-plus-circle" aria-hidden="true"></i> Thêm tài khoản</a>
                             </div>

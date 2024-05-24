@@ -11,7 +11,7 @@
     </style>
     <!-- Hero Area Start-->
     <div class="slider-area ">
-        <div class="single-slider slider-height2 d-flex align-items-center">
+        <div style="min-height: 300px" class="single-slider slider-height2 d-flex align-items-center">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-12">

@@ -46,6 +46,7 @@ Route::post('search', [HomeController::class, 'search'])->name('search');
 
 //Frontend
 Route::get('/shop/index', [HomeController::class, 'shop'])->name('shop');
+Route::get('/shop/list_wistList/{customerId}', [HomeController::class, 'list_wistList'])->name('list_wistList');
 Route::get('/detailBrand/{id}', [HomeController::class, 'detailBrand'])->name('detailBrand');
 Route::get('/detailCategory/{id}', [HomeController::class, 'detailCategory'])->name('detailCategory');
 Route::get('/detailProduct/{id}', [HomeController::class, 'detailProduct'])->name('detailProduct');
@@ -57,6 +58,7 @@ Route::post('/send-comments', [HomeController::class, 'send_comments'])->name('s
 Route::get('/categoryPost', [PostFrontendController::class, 'index'])->name('categoryPostIndex');
 Route::get('/detaiCategoryPost/{slug}', [PostFrontendController::class, 'detaiCategoryPost'])->name('detaiCategoryPost');
 Route::get('/postDetail/{slug}', [PostFrontendController::class, 'postDetail'])->name('postDetail');
+Route::get('/pages/{slug}', [\App\Http\Controllers\frontend\ContactController::class, 'page'])->name('pages');
 
 
 Route::post('/add-cart-ajax', [CartController::class, 'add_cart_ajax'])->name('add-cart-ajax');
@@ -197,10 +199,11 @@ Route::prefix('admin')->group(function () {
         Route::post('assign-roles', [\App\Http\Controllers\backend\UserController::class, 'assign_roles'])->name('assign_roles');
     });
     Route::get('/all_user', [UserController::class, 'index'])->name('all_user');
+    Route::get('/add_user', [UserController::class, 'create'])->name('add_user');
+    Route::post('/addUsers', [UserController::class, 'store'])->name('addUsers');
 
     Route::post('assign-roles', [UserController::class, 'assign_roles'])->name('assign_roles');
     Route::get('/deleteUser_role/{id}', [UserController::class, 'deleteUser_role'])->name('deleteUser_role');
-    Route::get('/add_user', [UserController::class, 'add_user'])->name('add_user');
     Route::get('/impersonate/{id}', [UserController::class, 'impersonate'])->name('impersonate');
 
 

@@ -49,7 +49,7 @@
                                 <tr>
                                     <td><i>{{$i}}</i></td>
                                     <td>{{ $order->order_code }}</td>
-                                    <td>{{ $order->created_at }}</td>
+                                    <td>{{ $order->order_date }}</td>
 
 
                                     @if ($order->order_status==1)

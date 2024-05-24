@@ -8,8 +8,9 @@
                         <div class="single-footer-caption mb-30">
                             <!-- logo -->
                             <div class="footer-logo">
-                                <a href="{{URL::to('/')}}"><img width="260px" height="60px" src="{{ asset('frontend/assets/img/logo/logo1.png') }}"
-                                                          alt=""></a>
+                                <a href="{{URL::to('/')}}"><img width="260px" height="60px"
+                                                                src="{{ asset('frontend/assets/img/logo/logo1.png') }}"
+                                                                alt=""></a>
                             </div>
                             <div class="footer-tittle">
                                 <div class="footer-pera">
@@ -28,14 +29,9 @@
                         <div class="footer-tittle">
                             <h4>HỖ TRỢ KHÁCH HÀNG</h4>
                             <ul>
-                                <li><a href="#">Giới thiệu</a></li>
-                                <li><a href="#">Điều khoản và điều kiện</a></li>
-                                <li><a href="#">Chính sách thanh toán</a></li>
-                                <li><a href="#">Chính sách vận chuyển</a></li>
-                                <li><a href="#">Chính sách đổi trả sản phẩm</a></li>
-                                <li><a href="#">Thông tin bảo hàng</a></li>
-                                <li><a href="#">Chính sách bảo mật</a></li>
-                                <li><a href="#">Tin tức</a></li>
+                                @foreach($pages as $page)
+                                    <li><a href="{{route('pages', ['slug' => $page->slug])}}">{{$page->name}}</a></li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>
