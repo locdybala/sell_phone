@@ -1,6 +1,6 @@
 (function ($)
   { "use strict"
-  
+
 /* 1. Proloder */
     $(window).on('load', function () {
       $('#preloader-active').delay(450).fadeOut('slow');
@@ -217,8 +217,8 @@
     new WOW().init();
 
 /* 11. Datepicker */
-    
-// 11. ---- Mailchimp js --------//  
+
+// 11. ---- Mailchimp js --------//
     function mailChimp() {
       $('#mc_embed_signup').find('form').ajaxChimp();
     }
@@ -412,16 +412,16 @@
           $('#search_input_box').slideUp(500);
         });
 
-        //------- Mailchimp js --------//  
+        //------- Mailchimp js --------//
         function mailChimp() {
           $('#mc_embed_signup').find('form').ajaxChimp();
         }
         mailChimp();
 
-        //------- makeTimer js --------//  
+        //------- makeTimer js --------//
         function makeTimer() {
 
-          //		var endTime = new Date("29 April 2018 9:56:00 GMT+01:00");	
+          //		var endTime = new Date("29 April 2018 9:56:00 GMT+01:00");
           var endTime = new Date("27 Sep 2019 12:56:00 GMT+01:00");
           endTime = (Date.parse(endTime) / 1000);
           var now = new Date();
@@ -451,50 +451,38 @@
 
         }
       // click counter js
-      (function() {
+    (function() {
         window.inputNumber = function(el) {
+            var min = el.attr('min') || false;
+            var max = el.attr('max') || false;
 
-          var min = el.attr('min') || false;
-          var max = el.attr('max') || false;
+            el.each(function() {
+                var $input = $(this);
+                var $dec = $input.siblings('.input-number-decrement');
+                var $inc = $input.siblings('.input-number-increment');
 
-          var els = {};
+                $dec.on('click', function() {
+                    var value = parseInt($input.val());
+                    if (!isNaN(value) && (!min || value > min)) {
+                        $input.val(value - 1);
+                    }
+                });
 
-          els.dec = el.prev();
-          els.inc = el.next();
-
-          el.each(function() {
-            init($(this));
-          });
-
-          function init(el) {
-
-            els.dec.on('click', decrement);
-            els.inc.on('click', increment);
-
-            function decrement() {
-              var value = el[0].value;
-              value--;
-              if(!min || value >= min) {
-                el[0].value = value;
-              }
-            }
-
-            function increment() {
-              var value = el[0].value;
-              value++;
-              if(!max || value <= max) {
-                el[0].value = value++;
-              }
-            }
-          }
+                $inc.on('click', function() {
+                    var value = parseInt($input.val());
+                    if (!isNaN(value) && (!max || value < max)) {
+                        $input.val(value + 1);
+                    }
+                });
+            });
         }
-      })();
+    })();
 
       inputNumber($('.input-number'));
         setInterval(function () {
           makeTimer();
         }, 1000);
-      
+
 
       $('.select_option_dropdown').hide();
       $(".select_option_list").click(function () {
@@ -510,7 +498,7 @@
 
       $('.controls').on('click', function(){
         $(this).addClass('active').siblings().removeClass('active');
-      }); 
+      });
 
 
 /* ----------------- Other Inner page End ------------------ */
@@ -527,7 +515,7 @@
           $('#search-input').val('');
       });
     });
-    
+
 // Grid view and list View
 
     $(document).ready(function() {

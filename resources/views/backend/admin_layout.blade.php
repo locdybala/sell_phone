@@ -62,7 +62,7 @@
 
             <ul class="nav pcoded-inner-navbar ">
                 <li class="nav-item pcoded-menu-caption">
-                    <label>Navigation</label>
+                    <label>Cửa hàng</label>
                 </li>
                 <li class="nav-item">
                     <a href="{{route('dashboard')}}" class="nav-link "><span class="pcoded-micon"><i
@@ -71,12 +71,12 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{route('add_infomation')}}" class="nav-link "><span class="pcoded-micon"><i
-                                class="feather icon-home"></i></span><span
+                                class="feather icon-settings"></i></span><span
                             class="pcoded-mtext">Quản lý website</span></a>
                 </li>
                 <li class="nav-item pcoded-hasmenu">
                     <a href="javascript:void(0);" class="nav-link "><span class="pcoded-micon"><i
-                                class="feather icon-layout"></i></span><span
+                                class="feather icon-bookmark"></i></span><span
                             class="pcoded-mtext">Danh mục sản phẩm</span></a>
                     <ul class="pcoded-submenu">
                         <li><a href="{{route('add_category')}}">Thêm danh mục</a></li>
@@ -84,7 +84,7 @@
                     </ul>
                 </li>
                 <li class="nav-item pcoded-hasmenu">
-                    <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-layout"></i></span><span
+                    <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span
                             class="pcoded-mtext">Thương hiệu sản phẩm</span></a>
                     <ul class="pcoded-submenu">
                         <li><a href="{{route('add_brand')}}">Thêm thương hiệu</a></li>
@@ -92,19 +92,24 @@
                     </ul>
                 </li>
                 <li class="nav-item pcoded-hasmenu">
-                    <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-layout"></i></span><span
+                    <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-book"></i></span><span
                             class="pcoded-mtext">Quản lý sản phẩm</span></a>
                     <ul class="pcoded-submenu">
                         <li><a href="{{route('add_product')}}">Thêm sản phẩm</a></li>
                         <li><a href="{{ route('all_product') }}">Danh sách sản phẩm</a></li>
                     </ul>
                 </li>
+                <li class="nav-item">
+                    <a href="{{route('index_comment')}}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-map"></i></span><span
+                            class="pcoded-mtext">Quản lý nhận xét</span></a>
+                </li>
                 <li class="nav-item pcoded-menu-caption">
                     <label>Quản lý</label>
                 </li>
                 <li class="nav-item pcoded-hasmenu">
                     <a href="#!" class="nav-link "><span class="pcoded-micon"><i
-                                class="feather icon-box"></i></span><span
+                                class="feather icon-cloud"></i></span><span
                             class="pcoded-mtext">Quản lý mã giảm giá</span></a>
                     <ul class="pcoded-submenu">
                         <li><a href="{{route('add_coupon')}}">Thêm giảm giá</a></li>
@@ -113,7 +118,7 @@
                 </li>
                 <li class="nav-item pcoded-hasmenu">
                     <a href="#!" class="nav-link "><span class="pcoded-micon"><i
-                                class="feather icon-box"></i></span><span
+                                class="feather icon-activity"></i></span><span
                             class="pcoded-mtext">Quản lý phí vận chuyển</span></a>
                     <ul class="pcoded-submenu">
                         <li><a href="{{route('add_fee')}}">Thêm phí vận chuyển</a></li>
@@ -122,7 +127,7 @@
                 </li>
                 <li class="nav-item pcoded-hasmenu">
                     <a href="#!" class="nav-link "><span class="pcoded-micon"><i
-                                class="feather icon-box"></i></span><span class="pcoded-mtext">Quản lý slider</span></a>
+                                class="feather icon-image"></i></span><span class="pcoded-mtext">Quản lý slider</span></a>
                     <ul class="pcoded-submenu">
                         <li><a href="{{route('add_slider')}}">Thêm slider</a></li>
                         <li><a href="{{ route('all_slider') }}">Danh sách slider</a></li>
@@ -130,7 +135,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{route('all_pages')}}" class="nav-link "><span class="pcoded-micon"><i
-                                class="feather icon-file-text"></i></span><span
+                                class="feather icon-package"></i></span><span
                             class="pcoded-mtext">Quản lý trang</span></a>
                 </li>
                 <li class="nav-item pcoded-menu-caption">
@@ -138,7 +143,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{route('all_order')}}" class="nav-link "><span class="pcoded-micon"><i
-                                class="feather icon-file-text"></i></span><span
+                                class="feather icon-shopping-cart"></i></span><span
                             class="pcoded-mtext">Danh sách đơn hàng</span></a>
                 </li>
                 @impersonate
@@ -151,34 +156,29 @@
                 @hasrole('admin')
                 <li class="nav-item">
                     <a href="{{route('all_user')}}" class="nav-link "><span class="pcoded-micon"><i
-                                class="feather icon-align-justify"></i></span><span
+                                class="feather icon-user-check"></i></span><span
                             class="pcoded-mtext">Quản lý tài khoản</span></a>
                 </li>
                 @endhasrole
                 @hasrole('admin','user')
                 <li class="nav-item">
                     <a href="{{route('all_customer')}}" class="nav-link "><span class="pcoded-micon"><i
-                                class="feather icon-align-justify"></i></span><span
+                                class="feather icon-user"></i></span><span
                             class="pcoded-mtext">Quản lý khách hàng</span></a>
                 </li>
                 @endhasrole
                 @hasrole('author')
                 <li class="nav-item pcoded-menu-caption">
-                    <label>Bài viết & Nhận xét</label>
+                    <label>Bài viết</label>
                 </li>
                 <li class="nav-item">
                     <a href="{{route('all_category_post')}}" class="nav-link "><span class="pcoded-micon"><i
-                                class="feather icon-pie-chart"></i></span><span
+                                class="feather icon-bookmark"></i></span><span
                             class="pcoded-mtext">Danh mục bài viết</span></a>
                 </li>
                 <li class="nav-item">
                     <a href="{{route('all_post')}}" class="nav-link "><span class="pcoded-micon"><i
-                                class="feather icon-map"></i></span><span class="pcoded-mtext">Danh sách bài viết</span></a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{route('index_comment')}}" class="nav-link "><span class="pcoded-micon"><i
-                                class="feather icon-map"></i></span><span
-                            class="pcoded-mtext">Quản lý nhận xét</span></a>
+                                class="feather icon-folder"></i></span><span class="pcoded-mtext">Danh sách bài viết</span></a>
                 </li>
                 @endhasrole
 

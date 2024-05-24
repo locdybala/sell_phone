@@ -69,7 +69,7 @@
                                         <td>
                                             <div class="product_count">
                                                 <span class="input-number-decrement"> <i class="ti-minus"></i></span>
-                                                <input class="input-number cart_quantity_" type="text"
+                                                <input class="input-number cart_quantity_{{$cart['session_id']}}" type="text"
                                                        name="cart_qty[{{$cart['session_id']}}]"
                                                        value="{{$cart['product_qty']}}" min="0" max="10">
                                                 <span class="input-number-increment"> <i class="ti-plus"></i></span>
@@ -210,4 +210,26 @@
             </div>
         </div>
     </section>
+    <script src="">
+        $(document).ready(function() {
+            // Khi nhấn nút tăng
+            $('.input-number-increment').click(function() {
+                debugger
+                var $input = $(this).siblings('input');
+                var currentVal = parseInt($input.val());
+                if (!isNaN(currentVal) && currentVal < 10) {
+                    $input.val(currentVal + 1);
+                }
+            });
+
+            // Khi nhấn nút giảm
+            $('.input-number-decrement').click(function() {
+                var $input = $(this).siblings('input');
+                var currentVal = parseInt($input.val());
+                if (!isNaN(currentVal) && currentVal > 0) {
+                    $input.val(currentVal - 1);
+                }
+            });
+        });
+    </script>
 @endsection

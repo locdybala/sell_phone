@@ -60,7 +60,7 @@
     </div>
     <!-- slider Area End-->
     <!-- ? New Product Start -->
-    <section class="new-product-area section-padding30">
+    <section class="new-product-area section-padding2">
         <div class="container">
             <!-- Section tittle -->
             <div class="row">
@@ -90,45 +90,90 @@
         </div>
     </section>
     <!--  New Product End -->
-    <!--? Gallery Area Start -->
-    <div class="gallery-area">
-        <div class="container-fluid p-0 fix">
+    <!-- ? New Product Start -->
+    <div class="popular-items section-paddingt2">
+        <div class="container">
+            <!-- Section tittle -->
+            <div class="row justify-content-center">
+                <div class="col-xl-7 col-lg-8 col-md-10">
+                    <div class="section-tittle mb-70 text-center">
+                        <h2>Sản phẩm bán chạy</h2>
+                    </div>
+                </div>
+            </div>
             <div class="row">
-                <div class="col-xl-6 col-lg-4 col-md-6 col-sm-6">
-                    <div class="single-gallery mb-30">
-                        <div class="gallery-img big-img"
-                             style="background-image: url(frontend/assets/img/gallery/gallery1.png);"></div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-                    <div class="single-gallery mb-30">
-                        <div class="gallery-img big-img"
-                             style="background-image: url(frontend/assets/img/gallery/gallery2.png);"></div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-md-12">
-                    <div class="row">
-                        <div class="col-xl-12 col-lg-12 col-md-6 col-sm-6">
-                            <div class="single-gallery mb-30">
-                                <div class="gallery-img small-img"
-                                     style="background-image: url(frontend/assets/img/gallery/gallery3.png);"></div>
-                            </div>
-                        </div>
-                        <div class="col-xl-12 col-lg-12  col-md-6 col-sm-6">
-                            <div class="single-gallery mb-30">
-                                <div class="gallery-img small-img"
-                                     style="background-image: url(frontend/assets/img/gallery/gallery4.png);"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @foreach($productSolds as $product)
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                        <form>
+                            @csrf
+                            <input type="hidden" id="wishlish_product_id_{{$product->product_id}}"
+                                   value="{{$product->product_id}}"
+                                   class="cart_product_id_{{$product->product_id}}">
+                            <input type="hidden" id="wishlish_product_name_{{$product->product_id}}"
+                                   value="{{$product->product_name}}"
+                                   class="cart_product_name_{{$product->product_id}}">
+                            <input type="hidden" id="wishlish_product_image_{{$product->product_id}}"
+                                   value="{{$product->product_image}}"
+                                   class="cart_product_image_{{$product->product_id}}">
+                            <input type="hidden" id="wishlish_product_price_{{$product->product_id}}"
+                                   value="{{$product->product_price}}"
+                                   class="cart_product_price_{{$product->product_id}}">
+                            <input type="hidden" id="wishlish_product_quantity_{{$product->product_id}}"
+                                   value="{{$product->product_quantity}}"
+                                   class="cart_product_quantity_{{$product->product_id}}">
+                            <input type="hidden" value="1" id="wishlish_product_qty_{{$product->product_id}}"
+                                   class="cart_product_qty_{{$product->product_id}}">
+                            <div class="single-popular-items mb-50 text-center">
+                                <div class="popular-img">
+                                    <img style="height: 380px;" src="/upload/product/{{ $product->product_image }}"
+                                         alt="">
+                                    @php
+                                        $customerId = Session::get('customer_id');
+                                    @endphp
+                                    @if ($customerId)
+                                        <div class="img-cap ">
+                                            <button type="button" name="add-to-cart"
+                                                    data-id_product="{{$product->product_id}}"
+                                                    class="add-to-cart ">Thêm giỏ hàng
+                                            </button>
+                                        </div>
+                                    @else
+                                        <div class="img-cap ">
+                                            <a href="{{URL::to('/login-checkout')}}"
+                                               class="add-to-cart"><span>Thêm
+                                            giỏ hàng</span></a>
+                                        </div>
+                                    @endif
+                                    <input type="hidden" id="customerId" value="{{$customerId}}">
 
+                                    <div class="favorit-items">
+                                        @if ($customerId)
+                                            <span id="{{$product->product_id}}" onclick="add_wistlist(this.id);"
+                                                  class="flaticon-heart"></span>
+
+                                        @else
+                                            <a href="{{URL::to('/login-checkout')}}"
+                                               class="add-to-cart"><span class="flaticon-heart"></span></a>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="popular-caption">
+                                    <h3>
+                                        <a id="wishlish_product_url_{{$product->product_id}}"
+                                           href="{{ route('detailProduct',['id'=>$product->product_id]) }}">{{$product->product_name}}</a>
+                                    </h3>
+                                    <span>{{number_format($product->product_price)}} đ</span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                @endforeach
             </div>
         </div>
-    </div>
-    <!-- Gallery Area End -->
+    </div>>
+    <!--  New Product End -->
     <!--? Popular Items Start -->
-    <div class="popular-items section-padding30">
+    <div class="popular-items section-paddingt2">
         <div class="container">
             <!-- Section tittle -->
             <div class="row justify-content-center">
@@ -209,7 +254,7 @@
             <!-- Button -->
             <div class="row justify-content-center">
                 <div class="room-btn pt-70">
-                    <a href="catagori.html" class="btn view-btn1">Xem thêm sản phẩm</a>
+                    <a href="{{route('shop')}}" class="btn view-btn1">Xem thêm sản phẩm</a>
                 </div>
             </div>
         </div>

@@ -23,10 +23,11 @@ class HomeController extends Controller
         $brand = Brand::where('brand_status', '1')->orderby('brand_id', 'desc')->get();
         $products = Product::where('product_status', '1')->limit(6)->get();
         $productNews = Product::where('product_status', '1')->orderby('product_id', 'desc')->limit(3)->get();
+        $productSolds = Product::where('product_status', '1')->orderby('product_sold', 'desc')->limit(6)->get();
         $slider = Slider::where('slider_status', '1')->take(1)->first();
         $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();
         $pages = Pages::all();
-        return view('pages.home', compact('category', 'brand', 'products', 'slider', 'categorypost', 'title', 'productNews', 'pages'));
+        return view('pages.home', compact('category', 'brand', 'products', 'slider', 'categorypost', 'title', 'productNews', 'pages', 'productSolds'));
     }
 
     public function shop()
