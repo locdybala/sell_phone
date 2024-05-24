@@ -26,8 +26,6 @@ use App\Http\Controllers\backend\MailController;
 use App\Http\Controllers\backend\CustomerController;
 
 
-
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -61,8 +59,6 @@ Route::get('/detaiCategoryPost/{slug}', [PostFrontendController::class, 'detaiCa
 Route::get('/postDetail/{slug}', [PostFrontendController::class, 'postDetail'])->name('postDetail');
 
 
-
-
 Route::post('/add-cart-ajax', [CartController::class, 'add_cart_ajax'])->name('add-cart-ajax');
 Route::get('/cart', [CartController::class, 'show_cart'])->name('cart');
 Route::post('/update_cart', [CartController::class, 'update_cart'])->name('update_cart');
@@ -70,7 +66,7 @@ Route::get('/delete_product_cart/{session_id}', [CartController::class, 'delete_
 Route::get('/delete_all_cart', [CartController::class, 'delete_all_cart'])->name('delete_all_cart');
 Route::post('/check_coupon', [CartController::class, 'check_coupon'])->name('check_coupon');
 Route::get('/delete_coupon', [CartController::class, 'delete_coupon'])->name('delete_coupon');
-Route::get('/history',[CartController::class, 'history'])->name('history');
+Route::get('/history', [CartController::class, 'history'])->name('history');
 Route::get('/view-order-history/{order_code}', [CartController::class, 'view_order_history'])->name('view_order_history');
 Route::get('/payment-success', [CheckoutController::class, 'paymentSuccess'])->name(('payment-success'));
 
@@ -78,10 +74,10 @@ Auth::routes();
 
 //Backend
 Route::prefix('admin')->group(function () {
-    Route::post('/filter-by-date',[AdminController::class,'filter_by_date']);
-    Route::post('/days-order',[AdminController::class,'days_order']);
+    Route::post('/filter-by-date', [AdminController::class, 'filter_by_date']);
+    Route::post('/days-order', [AdminController::class, 'days_order']);
 
-    Route::post('/dashboard-filter',[AdminController::class,'dashboard_filter']);
+    Route::post('/dashboard-filter', [AdminController::class, 'dashboard_filter']);
 
     Route::get('/', [LoginController::class, 'index'])->name('dashboard');
     Route::post('/', [LoginController::class, 'login'])->name('login');
@@ -127,10 +123,10 @@ Route::prefix('admin')->group(function () {
         Route::get('/deletecontact/{id}', [ContactController::class, 'delete'])->name('deletecontact');
     });
     Route::prefix('comment')->group(function () {
-    Route::get('/all_comment', [ProductController::class, 'index_comment'])->name('index_comment');
-    Route::get('/unactive_comment/{id}', [ProductController::class, 'unactive_comment'])->name('unactive_comment');
-    Route::get('/active_comment/{id}', [ProductController::class, 'active_comment'])->name('active_comment');
-    Route::post('/updateproduct/{id}', [ProductController::class, 'update'])->name('update_product');
+        Route::get('/all_comment', [ProductController::class, 'index_comment'])->name('index_comment');
+        Route::get('/unactive_comment/{id}', [ProductController::class, 'unactive_comment'])->name('unactive_comment');
+        Route::get('/active_comment/{id}', [ProductController::class, 'active_comment'])->name('active_comment');
+        Route::post('/updateproduct/{id}', [ProductController::class, 'update'])->name('update_product');
         Route::get('/deletecomment/{id}', [ProductController::class, 'deleteComment'])->name('deleteComment');
 
     });
@@ -194,7 +190,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/logout_auth', [AuthController::class, 'logout_auth'])->name('logout_auth');
     Route::post('/registerAuth', [AuthController::class, 'registerAuth'])->name('registerAuth');
     Route::post('/loginAuth', [AuthController::class, 'loginAuth'])->name('loginAuth');
-    Route::get('/impersonate_destroy',[UserController::class,'impersonate_destroy'])->name('impersonate_destroy');
+    Route::get('/impersonate_destroy', [UserController::class, 'impersonate_destroy'])->name('impersonate_destroy');
 
 
     Route::prefix('users')->group(function () {
@@ -274,7 +270,6 @@ Route::get('/login_customer_google', [CheckoutController::class, 'login_customer
 Route::get('/google_callback', [CheckoutController::class, 'google_callback'])->name('google_callback');
 
 
-
 Route::post('/calculate-fee', [CheckoutController::class, 'calculate_fee']);
 Route::get('/del-fee', [CheckoutController::class, 'del_fee']);
 Route::post('/confirm-order', [CheckoutController::class, 'confirm_order']);
@@ -282,6 +277,6 @@ Route::get('/contact', [\App\Http\Controllers\frontend\ContactController::class,
 
 
 Route::get('/checkout', [CheckoutController::class, 'checkout']);
-Route::get('/edit-customer/{id}',[CheckoutController::class, 'edit_customer'])->name('edit_customer');
+Route::get('/edit-customer/{id}', [CheckoutController::class, 'edit_customer'])->name('edit_customer');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home1');
