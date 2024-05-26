@@ -34,7 +34,7 @@ class MailController extends Controller
             $message->to($data['email'])->subject($title);
             $message->from($data['email'],$title);
         });
-        return redirect()->back()->with('message','Gửi mã khuyến mai thành công');
+        return redirect()->back()->with('success','Gửi mã khuyến mãi thành công');
     }
     public function send_coupon_vip($id) {
         $coupons= Coupon::find($id);
@@ -58,6 +58,6 @@ class MailController extends Controller
            $message->to($data['email'])->subject($title);
            $message->from($data['email'],$title);
         });
-        return redirect()->back()->with('message','Gửi mã khuyến mai thành công');
+        return redirect()->back()->with('success','Gửi mã khuyến mai thành công');
     }
 }

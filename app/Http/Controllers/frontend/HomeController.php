@@ -36,10 +36,14 @@ class HomeController extends Controller
         $category = Category::where('category_status', '1')->orderby('category_id', 'desc')->get();
         $brand = Brand::where('brand_status', '1')->orderby('brand_id', 'desc')->get();
         $products = Product::where('product_status', '1')->get();
+        $price_increases = Product::where('product_status', '1')->orderby('product_price', 'desc')->get();
+        $price_reduces = Product::where('product_status', '1')->orderby('product_price', 'ASC')->get();
+        $product_populars = Product::where('product_status', '1')->orderby('product_view', 'DESC')->get();
+
         $slider = Slider::where('slider_status', '1')->take(4)->get();
         $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();
         $pages = Pages::all();
-        return view('pages.product.index', compact('category', 'brand', 'products', 'slider', 'categorypost', 'title', 'pages'));
+        return view('pages.product.index', compact('price_reduces','price_increases', 'product_populars','category', 'brand', 'products', 'slider', 'categorypost', 'title', 'pages'));
     }
 
     public function list_wistList($customerId)
@@ -60,10 +64,13 @@ class HomeController extends Controller
         $category = Category::where('category_status', '1')->orderby('category_id', 'desc')->get();
         $brand = Brand::where('brand_status', '1')->orderby('brand_id', 'desc')->get();
         $product = Product::where('product_status', '1')->where('category_id', $id)->orderby('product_id', 'desc')->limit(8)->get();
+        $price_increases = Product::where('product_status', '1')->where('category_id', $id)->orderby('product_price', 'desc')->limit(8)->get();
+        $price_reduces = Product::where('product_status', '1')->where('category_id', $id)->orderby('product_price', 'ASC')->limit(8)->get();
+        $product_populars = Product::where('product_status', '1')->where('category_id', $id)->orderby('product_view', 'DESC')->limit(8)->get();
         $category_name = Category::find($id);
         $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();
         $pages = Pages::all();
-        return view('pages.category.show_category', compact('category', 'brand', 'product', 'category_name', 'slider', 'categorypost', 'title', 'pages'));
+        return view('pages.category.show_category', compact('product_populars','category', 'price_increases', 'price_reduces','brand', 'product', 'category_name', 'slider', 'categorypost', 'title', 'pages'));
     }
 
     public function detailBrand($id)
@@ -74,9 +81,13 @@ class HomeController extends Controller
         $category = Category::where('category_status', '1')->orderby('category_id', 'desc')->get();
         $brand = Brand::where('brand_status', '1')->orderby('brand_id', 'desc')->get();
         $product = Product::where('product_status', '1')->where('brand_id', $id)->orderby('product_id', 'desc')->limit(8)->get();
+        $price_increases = Product::where('product_status', '1')->where('brand_id', $id)->orderby('product_price', 'desc')->limit(8)->get();
+        $price_reduces = Product::where('product_status', '1')->where('brand_id', $id)->orderby('product_price', 'ASC')->limit(8)->get();
+        $product_populars = Product::where('product_status', '1')->where('brand_id', $id)->orderby('product_view', 'DESC')->limit(8)->get();
+
         $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();
         $pages = Pages::all();
-        return view('pages.brand.show_brand', compact('category', 'brand', 'product', 'brand_name', 'slider', 'categorypost', 'title', 'pages'));
+        return view('pages.brand.show_brand', compact('price_increases', 'price_reduces', 'product_populars','category', 'brand', 'product', 'brand_name', 'slider', 'categorypost', 'title', 'pages'));
     }
 
     public function detailProduct($id)
