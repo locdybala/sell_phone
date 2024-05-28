@@ -72,7 +72,7 @@
                 <li class="nav-item">
                     <a href="{{route('add_infomation')}}" class="nav-link "><span class="pcoded-micon"><i
                                 class="feather icon-settings"></i></span><span
-                            class="pcoded-mtext">Quản lý website</span></a>
+                            class="pcoded-mtext">Cấu hình website</span></a>
                 </li>
                 <li class="nav-item pcoded-hasmenu">
                     <a href="javascript:void(0);" class="nav-link "><span class="pcoded-micon"><i

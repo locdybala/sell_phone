@@ -16,7 +16,7 @@ class ContactController extends Controller
     }
 
     public function create() {
-        $title = 'Quản lý website';
+        $title = 'Cấu hình website';
         $contact = Contact::find(1);
         return view('backend.contact.update',compact('contact','title'));
     }
