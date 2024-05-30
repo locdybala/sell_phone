@@ -113,9 +113,10 @@ class CheckoutController extends Controller
             Session::put('customer_id', $result->customer_id);
             Session::put('customer_picture', $result->customer_picture);
             Session::put('customer_name', $result->customer_name);
-            if (Session::get('cart')) {
-                return Redirect::to('/checkout');
+            $cart = Session::get('cart');
 
+            if (is_array($cart) && count($cart) > 0) {
+                return Redirect::to('/checkout');
             } else {
                 return Redirect::to('');
             }
