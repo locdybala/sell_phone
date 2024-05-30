@@ -21,13 +21,15 @@ class HomeController extends Controller
         $title = 'Trang chủ';
         $category = Category::where('category_status', '1')->orderby('category_id', 'desc')->get();
         $brand = Brand::where('brand_status', '1')->orderby('brand_id', 'desc')->get();
-        $products = Product::where('product_status', '1')->limit(6)->get();
-        $productNews = Product::where('product_status', '1')->orderby('product_id', 'desc')->limit(3)->get();
-        $productSolds = Product::where('product_status', '1')->orderby('product_sold', 'desc')->limit(6)->get();
-        $slider = Slider::where('slider_status', '1')->take(1)->first();
+        $products = Product::where('product_status', '1')->limit(12)->get();
+        $productNews = Product::where('product_status', '1')->orderby('product_id', 'desc')->limit(6)->get();
+        $productSolds = Product::where('product_status', '1')->orderby('product_sold', 'desc')->limit(9)->get();
+        $productLimit = Product::where('product_status', '1')->orderby('product_price', 'desc')->limit(1)->first();
+        $productView = Product::where('product_status', '1')->orderby('product_view', 'desc')->limit(1)->first();
+        $sliders = Slider::where('slider_status', '1')->get();
         $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();
         $pages = Pages::all();
-        return view('pages.home', compact('category', 'brand', 'products', 'slider', 'categorypost', 'title', 'productNews', 'pages', 'productSolds'));
+        return view('pages.home', compact('category', 'brand', 'products', 'sliders', 'productView', 'productLimit', 'categorypost', 'title', 'productNews', 'pages', 'productSolds'));
     }
 
     public function shop()
@@ -43,7 +45,7 @@ class HomeController extends Controller
         $slider = Slider::where('slider_status', '1')->take(4)->get();
         $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();
         $pages = Pages::all();
-        return view('pages.product.index', compact('price_reduces','price_increases', 'product_populars','category', 'brand', 'products', 'slider', 'categorypost', 'title', 'pages'));
+        return view('pages.product.index', compact('price_reduces', 'price_increases', 'product_populars', 'category', 'brand', 'products', 'slider', 'categorypost', 'title', 'pages'));
     }
 
     public function list_wistList($customerId)
@@ -70,7 +72,7 @@ class HomeController extends Controller
         $category_name = Category::find($id);
         $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();
         $pages = Pages::all();
-        return view('pages.category.show_category', compact('product_populars','category', 'price_increases', 'price_reduces','brand', 'product', 'category_name', 'slider', 'categorypost', 'title', 'pages'));
+        return view('pages.category.show_category', compact('product_populars', 'category', 'price_increases', 'price_reduces', 'brand', 'product', 'category_name', 'slider', 'categorypost', 'title', 'pages'));
     }
 
     public function detailBrand($id)
@@ -87,7 +89,7 @@ class HomeController extends Controller
 
         $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();
         $pages = Pages::all();
-        return view('pages.brand.show_brand', compact('price_increases', 'price_reduces', 'product_populars','category', 'brand', 'product', 'brand_name', 'slider', 'categorypost', 'title', 'pages'));
+        return view('pages.brand.show_brand', compact('price_increases', 'price_reduces', 'product_populars', 'category', 'brand', 'product', 'brand_name', 'slider', 'categorypost', 'title', 'pages'));
     }
 
     public function detailProduct($id)
@@ -145,7 +147,7 @@ class HomeController extends Controller
                                     <div class="d-flex justify-content-between">
                                             <div class="d-flex align-items-center">
                                                 <h5>
-                                                    <a href="#">@' . $comment->comment_name . '</a>
+                                                    <a style="color: black" href="#">@' . $comment->comment_name . '</a>
                                                 </h5>
                                                 <p class="date"> ' . $comment->comment_date . '</p>
                                             </div>
@@ -163,13 +165,13 @@ class HomeController extends Controller
                     $output .= '<div style="margin-left: 40px;"  class="comment-list"><div class="single-comment justify-content-between d-flex">
                                 <div class="user justify-content-between d-flex">
                                     <div class="thumb">
-                                        <img src="' . url('frontend/assets/img/comment/comment_1.png') . '" alt="">
+                                        <img src="' . url('frontend/assets/img/comment/user.png') . '" alt="">
                                     </div>
                                     <div class="desc">
                                     <div class="d-flex justify-content-between">
                                             <div class="d-flex align-items-center">
                                                 <h5>
-                                                    <a href="#"><strong>' . $replycomment->comment_name . '</strong></a>
+                                                    <a style="color: black" href="#"><strong>' . $replycomment->comment_name . '</strong></a>
                                                 </h5>
                                                 <p class="date">' . $replycomment->comment_date . '</p>
                                             </div>

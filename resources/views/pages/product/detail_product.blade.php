@@ -38,7 +38,10 @@
                         <p>
                             Mã ID: {{$productDetail->product_id}}
                         </p>
-                        <div class="card_area">
+                        <p>
+                            Số lượt xem: {{$productDetail->product_view}}
+                        </p>
+                        <div style="margin-top: 10px" class="card_area">
                             <form action="">
                                 @csrf
                                 <input type="hidden" value="{{$productDetail->product_id}}"
