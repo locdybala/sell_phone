@@ -167,7 +167,7 @@
             <a style="margin: 5px;" target="_blank" class="btn btn-primary btn-sm"
                href="{{route('print_order',['order_code' => $details->order_code])}}">In đơn
                 hàng</a>
-            @if($order_status == 1)
+            @if($order_status == 1 || $order_status == 6)
                 <form style="padding: 5px;" method="POST"
                       action="{{route('cancel_order',['order_code' => $details->order_code])}}">
                     @csrf

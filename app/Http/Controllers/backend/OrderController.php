@@ -74,6 +74,8 @@ class OrderController extends Controller
                 'order_status' => 3
             ]);
         }
+        Session::put('message', 'Huỷ đơn hàng thành công');
+        return redirect()->route('history');
     }
 
     public function print_order_convert($checkout_code)
