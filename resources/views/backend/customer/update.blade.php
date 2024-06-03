@@ -84,7 +84,15 @@
                                                    id="basic-default-name" name="customer_address"/>
                                         </div>
                                     </div>
-
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="floating-label" for="customer_vip">Loại khách hàng</label>
+                                            <select name="customer_vip" class="form-control">
+                                                <option @if($customer->customer_vip == 1) selected @endif value="1">Khách hàng Vip</option>
+                                                <option @if($customer->customer_vip == 0) selected @endif value="0">Khách hàng thường</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-primary">Sửa</button>

@@ -44,6 +44,8 @@ class CustomerController extends Controller
         $data['customer_birthday'] = $request->customer_birthday;
         $data['customer_phone'] = $request->customer_phone;
         $data['customer_address'] = $request->customer_address;
+        $data['customer_vip'] = $request->customer_vip;
+
         $file = $request->file('customer_avatar');
         if ($file) {
             $getnameimage = $file->getClientOriginalName();
