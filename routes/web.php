@@ -196,7 +196,7 @@ Route::prefix('admin')->group(function () {
 
 
     Route::prefix('users')->group(function () {
-        Route::post('assign-roles', [\App\Http\Controllers\backend\UserController::class, 'assign_roles'])->name('assign_roles');
+        Route::post('assign-roles', [UserController::class, 'assign_roles'])->name('assign_roles');
     });
     Route::get('/all_user', [UserController::class, 'index'])->name('all_user');
     Route::get('/add_user', [UserController::class, 'create'])->name('add_user');
@@ -204,7 +204,9 @@ Route::prefix('admin')->group(function () {
 
     Route::post('assign-roles', [UserController::class, 'assign_roles'])->name('assign_roles');
     Route::get('/deleteUser_role/{id}', [UserController::class, 'deleteUser_role'])->name('deleteUser_role');
+    Route::get('/editUser/{id}', [UserController::class, 'edit'])->name('editUser');
     Route::get('/impersonate/{id}', [UserController::class, 'impersonate'])->name('impersonate');
+    Route::post('/updateUser/{id}', [UserController::class, 'update'])->name('updateUser');
 
 
     Route::prefix('category_post')->group(function () {

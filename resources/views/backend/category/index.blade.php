@@ -32,9 +32,11 @@
                         <div class="card-header">
                             <h5>Danh sách danh mục</h5>
                             <div>
+                                @hasrole('admin')
                                 <a href="{{ route('add_category') }}"
                                    class="btn btn-sm mt-2 btn-primary">
                                     <i class="fa fa-plus-circle" aria-hidden="true"></i> Thêm danh mục</a>
+                                @endhasrole
                             </div>
                         </div>
                         <div class="card-body table-border-style">
@@ -46,7 +48,9 @@
                                         <th>Tên danh mục</th>
                                         <th>Mô tả</th>
                                         <th>Tình trạng</th>
+                                        @hasrole('admin')
                                         <th>Thao tác</th>
+                                        @endhasrole
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -72,6 +76,7 @@
                                                     </td>
 
                                                 @endif
+                                                @hasrole('admin')
                                                 <td>
 
                                                 <div style="display: flex">
@@ -89,6 +94,7 @@
                                                     </form>
                                                 </div>
                                                 </td>
+                                                @endhasrole
                                             </tr>
                                         @endforeach
                                     @else

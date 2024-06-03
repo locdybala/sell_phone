@@ -57,13 +57,25 @@
                                                     <td>
                                         <span
                                             class="badge badge-primary">Đơn hàng mới</span></td>
+                                                @elseif($order->order_status== 4)
+                                                    <td>
+                                        <span
+                                            class="badge badge-warning">Xác nhận đơn hàng</span></td>
+                                                @elseif($order->order_status== 5)
+                                                    <td>
+                                        <span
+                                            class="badge badge-light">Đang vận chuyển</span></td>
                                                 @elseif($order->order_status== 3)
                                                     <td>
                                         <span
                                             class="badge badge-danger">Đơn hàng bị hủy</span></td>
+                                                @elseif($order->order_status== 6)
+                                                    <td>
+                                        <span
+                                            class="badge badge-primary">Đơn hàng mới - Đã thanh toán</span></td>
                                                 @else
                                                     <td><span
-                                                            class="badge badge-warning">Đã xử lý</span></td>
+                                                            class="badge badge-success">Hoàn thành</span></td>
 
                                                 @endif
                                                 <td>

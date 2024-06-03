@@ -30,10 +30,12 @@
                         @include('backend.components.notification');
                         <div class="card-header">
                             <h5>Danh sách thương hiệu</h5>
+                            @hasrole('admin')
                             <div>
                                 <a href="{{ route('add_brand') }}" class="btn btn-sm btn-primary mt-2">
                                     <i class="fa fa-plus-circle" aria-hidden="true"></i> Thêm thương hiệu</a>
                             </div>
+                            @endhasrole
                         </div>
                         <div class="card-body table-border-style">
                             <div class="table-responsive">
@@ -44,7 +46,9 @@
                                         <th>Tên thương hiệu</th>
                                         <th>Mô tả</th>
                                         <th>Tình trạng</th>
+                                        @hasrole('admin')
                                         <th>Thao tác</th>
+                                        @endhasrole
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -70,6 +74,7 @@
                                                     </td>
 
                                                 @endif
+                                                @hasrole('admin')
                                                 <td>
                                                     <div style="display: flex">
                                                         <a class="btn btn-sm btn-warning mr-2"
@@ -86,6 +91,7 @@
                                                         </form>
                                                     </div>
                                                 </td>
+                                                @endhasrole
                                             </tr>
                                         @endforeach
                                     @else

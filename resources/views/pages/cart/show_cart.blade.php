@@ -136,7 +136,7 @@
                                                     <li>
                                                         @foreach(Session::get('coupon') as $key =>$value)
                                                             @if($value['coupon_condition'] == 1)
-                                                                Mã giảm: {{$value['coupon_code']}} %
+                                                                Mã giảm: {{$value['coupon_code']}}
                                                                 @php
                                                                     $totalcoupon = $total*$value['coupon_number']/100;
                                                                     echo '<p><li>Tổng giảm: '.number_format($totalcoupon,0,',','.').' vnđ</li></p>' ;
@@ -146,7 +146,7 @@
                                                         thanh toán: {{number_format($total-$totalcoupon,0,',','.')}}vnđ
                                                     </li></p>
                                                 @elseif($value['coupon_condition']==2)
-                                                    Mã giảm: {{ ($value['coupon_code'])}} vnđ
+                                                    Mã giảm: {{ ($value['coupon_code'])}}
                                                     @php
                                                         $totalcoupon = $value['coupon_number'];
                                                         echo '<p><li>Tổng giảm: '.number_format($totalcoupon,0,',','.').' vnđ</li></p>' ;

@@ -51,9 +51,6 @@
                 </div>
                 <div class="collapse" id="nav-user-link">
                     <ul class="list-unstyled">
-                        <li class="list-group-item"><a href="user-profile.html"><i class="feather icon-user m-r-5"></i>Thông
-                                tin tài khoản</a></li>
-                        </li>
                         <li class="list-group-item"><a href="{{route('logout')}}"><i
                                     class="feather icon-log-out m-r-5"></i>Đăng xuất</a></li>
                     </ul>
@@ -74,12 +71,15 @@
                                 class="feather icon-settings"></i></span><span
                             class="pcoded-mtext">Cấu hình website</span></a>
                 </li>
+                @if(auth()->user()->hasAnyRoles(['admin', 'user']))
                 <li class="nav-item pcoded-hasmenu">
                     <a href="javascript:void(0);" class="nav-link "><span class="pcoded-micon"><i
                                 class="feather icon-bookmark"></i></span><span
                             class="pcoded-mtext">Danh mục sản phẩm</span></a>
                     <ul class="pcoded-submenu">
+                        @hasrole('admin')
                         <li><a href="{{route('add_category')}}">Thêm danh mục</a></li>
+                        @endhasrole
                         <li><a href="{{route('all_category')}}">Danh sách danh mục</a></li>
                     </ul>
                 </li>
@@ -87,7 +87,9 @@
                     <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span
                             class="pcoded-mtext">Thương hiệu sản phẩm</span></a>
                     <ul class="pcoded-submenu">
+                        @hasrole('admin')
                         <li><a href="{{route('add_brand')}}">Thêm thương hiệu</a></li>
+                        @endhasrole
                         <li><a href="{{route('all_brand')}}">Danh sách thương hiệu</a></li>
                     </ul>
                 </li>
@@ -104,6 +106,8 @@
                                 class="feather icon-map"></i></span><span
                             class="pcoded-mtext">Quản lý nhận xét</span></a>
                 </li>
+                @endif
+                @if(auth()->user()->hasAnyRoles(['admin', 'user']))
                 <li class="nav-item pcoded-menu-caption">
                     <label>Quản lý</label>
                 </li>
@@ -138,14 +142,17 @@
                                 class="feather icon-package"></i></span><span
                             class="pcoded-mtext">Quản lý trang</span></a>
                 </li>
+                @endif
                 <li class="nav-item pcoded-menu-caption">
                     <label>Bán hàng</label>
                 </li>
+                @if(auth()->user()->hasAnyRoles(['admin', 'user']))
                 <li class="nav-item">
                     <a href="{{route('all_order')}}" class="nav-link "><span class="pcoded-micon"><i
                                 class="feather icon-shopping-cart"></i></span><span
                             class="pcoded-mtext">Danh sách đơn hàng</span></a>
                 </li>
+                @endif
                 @impersonate
                 <li class="nav-item">
                     <a href="{{ route('impersonate_destroy') }}" class="nav-link "><span class="pcoded-micon"><i
@@ -160,13 +167,13 @@
                             class="pcoded-mtext">Quản lý tài khoản</span></a>
                 </li>
                 @endhasrole
-                @hasrole('admin','user')
+                @if(auth()->user()->hasAnyRoles(['admin', 'user']))
                 <li class="nav-item">
                     <a href="{{route('all_customer')}}" class="nav-link "><span class="pcoded-micon"><i
                                 class="feather icon-user"></i></span><span
                             class="pcoded-mtext">Quản lý khách hàng</span></a>
                 </li>
-                @endhasrole
+                @endif
                 @hasrole('author')
                 <li class="nav-item pcoded-menu-caption">
                     <label>Bài viết</label>
@@ -222,10 +229,7 @@
                                 <i class="feather icon-log-out"></i>
                             </a>
                         </div>
-                        <ul class="pro-body">
-                            <li><a href="user-profile.html" class="dropdown-item"><i class="feather icon-user"></i>
-                                    Thông tin tài khoản</a></li>
-                        </ul>
+
                     </div>
                 </div>
             </li>

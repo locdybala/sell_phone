@@ -61,31 +61,42 @@
                                     @if ($users)
                                         @foreach($users as $key => $user)
                                             @php $i++; @endphp
-                                            <tr>
-                                                <td><label class="i-checks m-b-none"><input type="checkbox"
-                                                                                            name="post[]"><i></i></label></td>
-                                                <td>{{$i}}</td>
-                                                <td>{{ $user->name }}</td>
-                                                <td>{{ $user->email }} <input type="hidden" name="admin_email"
-                                                                              value="{{ $user->email }}"></td>
-                                                <td><input type="checkbox"
-                                                           name="author_role" {{$user->hasRole('author') ? 'checked' : ''}}></td>
-                                                <td><input type="checkbox"
-                                                           name="admin_role" {{$user->hasRole('admin') ? 'checked' : ''}}></td>
-                                                <td><input type="checkbox"
-                                                           name="user_role" {{$user->hasRole('user') ? 'checked' : ''}}></td>
+                                            <form action="{{ route('assign_roles') }}" method="POST">
+                                                @csrf
+                                                <tr>
+                                                    <td><label class="i-checks m-b-none"><input type="checkbox"
+                                                                                                name="post[]"><i></i></label>
+                                                    </td>
+                                                    <td>{{$i}}</td>
+                                                    <td>{{ $user->name }}</td>
+                                                    <input type="hidden" name="id" value="{{ $user->id }}">
+                                                    <td>{{ $user->email }} <input type="hidden" name="admin_email"
+                                                                                  value="{{ $user->email }}"></td>
+                                                    <td><input type="checkbox"
+                                                               name="author_role" {{$user->hasRole('author') ? 'checked' : ''}}>
+                                                    </td>
+                                                    <td><input type="checkbox"
+                                                               name="admin_role" {{$user->hasRole('admin') ? 'checked' : ''}}>
+                                                    </td>
+                                                    <td><input type="checkbox"
+                                                               name="user_role" {{$user->hasRole('user') ? 'checked' : ''}}>
+                                                    </td>
 
-                                                <td>
-                                                    <input type="submit" value="Phân quyền" class="btn btn-sm btn-outline-secondary">
-                                                    <a onclick="return confirm('Bạn có muốn xóa user này không')"
-                                                       href="{{ url('/admin/deleteUser_role/'.$user->id) }}"
-                                                       class="btn btn-sm btn-outline-dark">Xóa</a>
-                                                    <br>
-                                                    <a href="{{ url('/admin/impersonate/'.$user->id) }}"
-                                                       class="btn btn-sm mt-2 btn-outline-primary">Chuyển quyền</a>
-                                                </td>
+                                                    <td>
+                                                        <input type="submit" value="Phân quyền"
+                                                               class="btn btn-sm btn-outline-secondary">
+                                                        <a onclick="return confirm('Bạn có muốn xóa user này không')"
+                                                           href="{{ url('/admin/deleteUser_role/'.$user->id) }}"
+                                                           class="btn btn-sm btn-outline-dark">Xóa</a>
+                                                        <br>
+                                                        <a href="{{ route('editUser', ['id' => $user->id]) }}"
+                                                           class="btn btn-sm mt-2 btn-outline-warning">Sửa</a>
+                                                        <a href="{{ url('/admin/impersonate/'.$user->id) }}"
+                                                           class="btn btn-sm mt-2 btn-outline-primary">Chuyển quyền</a>
+                                                    </td>
 
-                                            </tr>
+                                                </tr>
+                                            </form>
                                         @endforeach
                                     @else
                                         <td>Không có dữ liệu</td>

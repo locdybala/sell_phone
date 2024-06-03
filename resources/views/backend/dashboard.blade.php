@@ -255,24 +255,7 @@
                         </div>
                     </div>
                 </div>
-                    <!-- Order Statistics -->
-                    <div class="col-md-6 col-lg-4 col-xl-4 order-0 mb-4">
-                        <div class="card h-100">
-                            <div class="card-header d-flex align-items-center justify-content-between pb-0">
-                                <div class="card-title mb-0">
-                                    <h5 class="m-0 me-2">Thống kê tổng bài viết, sản phẩm, đơn hàng</h5>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <input type="hidden" id="product_count" value="{{$product_count}}">
-                                <input type="hidden" id="post_count" value="{{$post_count}}">
-                                <input type="hidden" id="order_count" value="{{$order_count}}">
-                                <input type="hidden" id="customer_count" value="{{$customer_count}}">
-                                <div style="" id="orderStatisticsChart"></div>
-                            </div>
-                        </div>
-                    </div>
-                <!-- prject ,team member start -->
+
 
             </div>
             <!-- [ Main Content ] end -->
@@ -312,9 +295,10 @@
                 xkey: 'period',
                 ykeys: ['order', 'sales', 'profit', 'quantity'],
                 behaveLikeLine: true,
-                labels: ['đơn hàng', 'doanh số', 'lợi nhuận', 'số lượng']
+                labels: ['đơn hàng', 'doanh số', 'tiền hàng', 'số lượng']
             });
             $('#btn-dashboard-filter').click(function() {
+                debugger;
                 var _token = $('input[name="_token"]').val();
                 var form_date = $('#datepicker').val();
                 var to_date = $('#datepicker2').val();

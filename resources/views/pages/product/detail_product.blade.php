@@ -324,7 +324,7 @@
                 var cart_product_qty = $('.cart_product_qty_' + id).val();
                 var _token = $('input[name="_token"]').val();
                 if (cart_product_qty >= cart_product_quantity) {
-                    swal('error', 'Số lượng đặt lớn hơn số lượng còn trong kho, Vui lòng chọn số lượng nhỏ hơn', +cart_product_quantity);
+                    toastr["error"]( 'Số lượng đặt lớn hơn số lượng còn trong kho, Vui lòng chọn số lượng nhỏ hơn', +cart_product_quantity);
                 } else {
                     $.ajax({
                         url: '{{url('/add-cart-ajax')}}',

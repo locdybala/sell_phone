@@ -364,6 +364,8 @@ class OrderController extends Controller
                 $statistic_new->total_order = $total_order;
                 $statistic_new->save();
             }
+            return 1;
+            die();
         } elseif ($order->order_status != 2 && $order->order_status != 3) {
             foreach ($data['order_product_id'] as $key => $product_id) {
 

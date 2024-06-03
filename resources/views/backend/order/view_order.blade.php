@@ -158,7 +158,8 @@
 
                                                 <input type="number" min="1"
                                                        {{$order_status==2 ? 'disabled' : ''}} class="order_qty_{{$details->product_id}}"
-                                                       value="{{$details->product_sales_quantity}}" name="product_sales_quantity">
+                                                       value="{{$details->product_sales_quantity}}"
+                                                       name="product_sales_quantity">
 
                                                 <input type="hidden" name="order_qty_storage"
                                                        class="order_qty_storage_{{$details->product_id}}"
@@ -170,10 +171,11 @@
                                                 <input type="hidden" name="order_product_id" class="order_product_id"
                                                        value="{{$details->product_id}}">
 
-                                                @if($order_status!=2 && $order_status !=3 )
+                                                @if($order_status==1 )
 
                                                     <button class="btn btn-danger btn-sm update_quantity_order"
-                                                            data-product_id="{{$details->product_id}}" name="update_quantity_order">Cập
+                                                            data-product_id="{{$details->product_id}}"
+                                                            name="update_quantity_order">Cập
                                                         nhật
                                                     </button>
 
@@ -210,40 +212,27 @@
                                     <tr>
                                         <td colspan="6">
                                             @foreach($order as $key => $or)
-                                                @if($or->order_status==1)
-                                                    <form>
-                                                        @csrf
-                                                        <select class="form-control order_details">
-                                                            <option value="">----Chọn hình thức đơn hàng-----</option>
-                                                            <option id="{{$or->order_id}}" selected value="1">Chưa xử lý</option>
-                                                            <option id="{{$or->order_id}}" value="2">Đã xử lý-Đã giao hàng</option>
-                                                            {{--                                            <option id="{{$or->order_id}}" value="3">Hủy đơn hàng-tạm giữ</option>--}}
-                                                        </select>
-                                                    </form>
-                                                @elseif($or->order_status==2)
-                                                    <form>
-                                                        @csrf
-                                                        <select disabled class="form-control order_details">
-                                                            <option value="">----Chọn hình thức đơn hàng-----</option>
-                                                            <option id="{{$or->order_id}}" value="1">Chưa xử lý</option>
-                                                            <option id="{{$or->order_id}}" selected value="2">Đã xử lý-Đã giao hàng
-                                                            </option>
-                                                            {{--                                            <option id="{{$or->order_id}}" value="3">Hủy đơn hàng-tạm giữ</option>--}}
-                                                        </select>
-                                                    </form>
 
-                                                @else
-                                                    <form>
-                                                        @csrf
-                                                        <select class="form-control order_details" disabled>
-                                                            <option value="">----Chọn hình thức đơn hàng-----</option>
-                                                            <option id="{{$or->order_id}}" value="1">Chưa xử lý</option>
-                                                            <option id="{{$or->order_id}}" value="2">Đã xử lý-Đã giao hàng</option>
-                                                            <option id="{{$or->order_id}}" selected value="3">Hủy đơn hàng-tạm giữ
-                                                            </option>
-                                                        </select>
-                                                    </form>
-                                                @endif
+                                                <form>
+                                                    @csrf
+                                                    <select @if($or->order_status==2) disabled @endif class="form-control order_details">
+                                                        <option value="">----Chọn hình thức đơn hàng-----</option>
+                                                        <option @if($or->order_status==1 || $or->order_status== 6) selected @endif id="{{$or->order_id}}"  value="1">Chưa xử
+                                                            lý
+                                                        </option>
+                                                        <option @if($or->order_status==4) selected @endif id="{{$or->order_id}}" value="4">Xác nhận đơn hàng
+                                                        </option>
+                                                        <option @if($or->order_status==5) selected @endif id="{{$or->order_id}}" value="5">Đang giao hàng
+                                                        </option>
+                                                        <option @if($or->order_status==2) selected @endif id="{{$or->order_id}}" value="2">Đã xử lý-Đã giao
+                                                            hàng
+                                                        </option>
+                                                        <option @if($or->order_status==3) selected @endif id="{{$or->order_id}}" value="3">Hủy đơn hàng-tạm
+                                                            giữ
+                                                        </option>
+
+                                                    </select>
+                                                </form>
 
                                             @endforeach
 
@@ -253,9 +242,9 @@
                                     </tbody>
                                 </table>
                                 <div>
-                                <a class="btn btn-outline-secondary btn-sm m-2" target="_blank"
-                                   href="{{route('print_order',['order_code' => $details->order_code])}}">In đơn
-                                    hàng</a>
+                                    <a class="btn btn-outline-secondary btn-sm m-2" target="_blank"
+                                       href="{{route('print_order',['order_code' => $details->order_code])}}">In đơn
+                                        hàng</a>
                                     <a href="/admin/order/all_order" class="btn btn-sm btn-secondary">Quay lại</a>
                                 </div>
                             </div>

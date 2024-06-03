@@ -96,20 +96,27 @@
 
                                                 @endif
                                                 <td>
-
-
-                                                    <a href="{{ route('send_coupon',['id'=> $cou->coupon_id]) }}"
-                                                       class="btn btn-sm btn-xs btn-outline-primary mb-2">Gửi mã khách thường</a>
-                                                    <a href="{{ route('send_coupon_vip',['id'=> $cou->coupon_id]) }}"
-                                                       class="btn btn-sm btn-xs btn-outline-primary mb-2">Gửi mã khách vip</a>
+                                                    <div class="mb-2" style="display: flex">
+                                                    <a class="btn btn-sm btn-warning mr-2"
+                                                       href="{{ route('updatecoupon',['id'=>$cou->coupon_id]) }}"
+                                                    ><i class="fa fa-pencil"></i></a
+                                                    >
                                                     <form method="POST" action="">
                                                         @csrf
                                                         @method('delete')
                                                         <a onclick="return confirm('Bạn có muốn xóa mã giảm giá này không?')"
                                                            href="{{route('deletecoupon',['id'=> $cou->coupon_id])}}"
                                                            class="btn btn-sm btn-danger"><i class="fa fa-trash ">
-                                                                </i></a>
+                                                            </i></a>
                                                     </form>
+                                                    </div>
+
+                                                    <a href="{{ route('send_coupon',['id'=> $cou->coupon_id]) }}"
+                                                       class="btn btn-sm btn-xs btn-outline-primary mb-2">Gửi mã khách thường</a>
+                                                    <a href="{{ route('send_coupon_vip',['id'=> $cou->coupon_id]) }}"
+                                                       class="btn btn-sm btn-xs btn-outline-primary mb-2">Gửi mã khách vip</a>
+                                                    <br>
+
                                                 </td>
                                             </tr>
                                         @endforeach

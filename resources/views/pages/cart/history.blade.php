@@ -60,14 +60,22 @@
                                     @elseif($order->order_status== 2)
                                         <td>
                                         <span
-                                            class="badge badge-secondary">Đơn hàng đã thanh toán</span></td>
+                                            class="badge badge-success">Hoàn thành</span></td>
                                     @elseif($order->order_status== 3)
                                         <td>
                                         <span
                                             class="badge badge-secondary">Đơn hàng đã hủy</span></td>
+                                    @elseif($order->order_status== 4)
+                                        <td>
+                                        <span
+                                                class="badge badge-dark">Đơn hàng đã được xác nhận</span></td>
+                                    @elseif($order->order_status== 5)
+                                        <td>
+                                        <span
+                                            class="badge badge-warning">Đang trên đường vận chuyển</span></td>
                                     @else
                                         <td><span
-                                                class="badge badge-success">Đã xử lý</span></td>
+                                                class="badge badge-success">Đơn hàng mới - Đã thanh toán</span></td>
                                     @endif
                                     <td>
 

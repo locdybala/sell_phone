@@ -228,7 +228,7 @@
                                     </ul>
                                     <div class="payment_item">
                                         <div class="radion_btn">
-                                            <input type="radio" value="1" id="f-option5" name="payment_select"/>
+                                            <input checked type="radio" value="1" id="f-option5" name="payment_select"/>
                                             <label for="f-option5">Thanh toán trực tiếp</label>
                                             <div class="check"></div>
                                         </div>
@@ -248,26 +248,26 @@
                                             <div class="check"></div>
                                         </div>
                                     </div>
-                                    <div class="payment_item">
-                                        <div class="radion_btn">
-                                            <input type="radio" value="3" id="f-option7" name="payment_select"/>
-                                            <label for="f-option7">Thanh toán momo</label>
-                                            <img style="width: 25px; height: 25px; right: 120px !important; top: -3px !important;"
-                                                 src="{{asset('frontend/images/home/momo.jpg')}}"
-                                                 alt=""/>
-                                            <div class="check"></div>
-                                        </div>
-                                    </div>
-                                    <div class="payment_item">
-                                        <div class="radion_btn">
-                                            <input type="radio" value="4" id="f-option8" name="payment_select"/>
-                                            <label for="f-option8">Thanh toán OnePay</label>
-                                            <img style="width: 50px; height: 20px; right: 88px !important; top: 1px !important;"
-                                                 src="{{asset('frontend/images/home/onepay.jpg')}}"
-                                                 alt=""/>
-                                            <div class="check"></div>
-                                        </div>
-                                    </div>
+{{--                                    <div class="payment_item">--}}
+{{--                                        <div class="radion_btn">--}}
+{{--                                            <input type="radio" value="3" id="f-option7" name="payment_select"/>--}}
+{{--                                            <label for="f-option7">Thanh toán momo</label>--}}
+{{--                                            <img style="width: 25px; height: 25px; right: 120px !important; top: -3px !important;"--}}
+{{--                                                 src="{{asset('frontend/images/home/momo.jpg')}}"--}}
+{{--                                                 alt=""/>--}}
+{{--                                            <div class="check"></div>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="payment_item">--}}
+{{--                                        <div class="radion_btn">--}}
+{{--                                            <input type="radio" value="4" id="f-option8" name="payment_select"/>--}}
+{{--                                            <label for="f-option8">Thanh toán OnePay</label>--}}
+{{--                                            <img style="width: 50px; height: 20px; right: 88px !important; top: 1px !important;"--}}
+{{--                                                 src="{{asset('frontend/images/home/onepay.jpg')}}"--}}
+{{--                                                 alt=""/>--}}
+{{--                                            <div class="check"></div>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
                                     <input class="btn_3 send_order" type="button" name="send_order" value="Xác nhận">
                                 @endif
                             </div>
@@ -655,7 +655,6 @@
                                     shipping_method: shipping_method
                                 },
                                 success: function (data) {
-                                    debugger
                                     swal("Đơn hàng", "Đơn hàng của bạn đã được gửi thành công", "success");
                                     if (data) {
                                         window.location.replace(data);

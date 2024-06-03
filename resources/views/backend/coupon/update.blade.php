@@ -26,44 +26,44 @@
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5>Thêm mới mã giảm giá</h5>
+                            <h5>Sửa mã giảm giá</h5>
                         </div>
                         <div class="card-body">
-                            <form action="{{route('addcoupon')}}" method="POST" enctype="multipart/form-data">
+                            <form action="{{route('update_coupon', ['id' => $coupon->coupon_id])}}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="floating-label" for="coupon_name">Tên mã giảm giá</label>
-                                            <input type="text" class="form-control" required id="coupon_name" name="coupon_name"
+                                            <input type="text" class="form-control" value="{{$coupon->coupon_name}}" required id="coupon_name" name="coupon_name"
                                                    placeholder="Nhập tên mã giảm giá"/>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="floating-label" for="coupon_code">Mã code giảm giá</label>
-                                            <input type="text" class="form-control" required id="coupon_code" name="coupon_code"
+                                            <input type="text" class="form-control" value="{{$coupon->coupon_code}}" required id="coupon_code" name="coupon_code"
                                                    placeholder="Nhập mã giảm giá"/>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="floating-label" for="stardate">Ngày bắt đầu</label>
-                                            <input type="date" class="form-control" id="stardate" name="stardate"
+                                            <input type="date" class="form-control" value="{{$coupon->coupon_date_start}}" id="stardate" name="stardate"
                                                    placeholder="SD20021"/>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="floating-label" for="enddate">Ngày kết thúc</label>
-                                            <input type="date" class="form-control" id="enddate" name="enddate"
+                                            <input type="date" class="form-control" value="{{$coupon->coupon_date_end}}" id="enddate" name="enddate"
                                                    placeholder="SD20021"/>
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label class="floating-label" for="coupon_time">Số lượng mã</label>
-                                            <input type="text" class="form-control" id="coupon_time" name="coupon_time"
+                                            <input type="text" class="form-control" value="{{$coupon->coupon_time}}" id="coupon_time" name="coupon_time"
                                                    placeholder="10"/>
                                         </div>
                                     </div>
@@ -72,8 +72,8 @@
                                             <label class="floating-label" for="coupon_condition">Tính năng mã</label>
                                             <select id="coupon_condition" name="coupon_condition" class="form-control">
                                                 <option>---Chọn loại giảm giá---</option>
-                                                <option value="1">Giảm theo phần trăm</option>
-                                                <option value="2">Giảm theo số tiền</option>
+                                                <option @if($coupon->coupon_condition == 1) selected @endif  value="1">Giảm theo phần trăm</option>
+                                                <option @if($coupon->coupon_condition == 2) selected @endif value="2">Giảm theo số tiền</option>
 
                                             </select>
                                         </div>
@@ -81,13 +81,13 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label class="floating-label" for="coupon_time">Nhập số % hoặc tiền giảm</label>
-                                            <input type="number" class="form-control" id="coupon_number" name="coupon_number"
+                                            <input type="number" class="form-control" value="{{$coupon->coupon_number}}" id="coupon_number" name="coupon_number"
                                                    placeholder="10"/>
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <button type="submit" class="btn btn-primary">Thêm</button>
+                                            <button type="submit" class="btn btn-primary">Sửa</button>
                                             <a href="/admin/coupon/all_coupon" class="btn btn-default">Huỷ</a>
 
                                         </div>

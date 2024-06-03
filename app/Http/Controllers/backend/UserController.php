@@ -21,6 +21,9 @@ class UserController extends Controller
 
     public function assign_roles(Request $request)
     {
+        if(Auth::id()==$request->id){
+            return redirect()->back()->with('message','Không được phân quyền chính mình');
+        }
         $data = $request->all();
         $user = User::where('email', $data['admin_email'])->first();
         $user->roles()->detach();
@@ -33,7 +36,7 @@ class UserController extends Controller
         if ($request['admin_role']) {
             $user->roles()->attach(Roles::where('name', 'admin')->first());
         }
-        return redirect()->back();
+        return redirect()->back()->with('success','Cấp quyền thành công');
     }
 
     public function deleteUser_role($id){
@@ -91,7 +94,7 @@ class UserController extends Controller
         $user = new User();
         $user->name = $data['name'];
         $user->email = $data['email'];
-        $user->password = md5($data['password']);
+        $user->password = ($data['password']);
         $user->phone = $data['phone'];
         $user->birthday = $data['birthday'];
         $user->address = $data['address'];
@@ -99,6 +102,39 @@ class UserController extends Controller
         $user->save();
         $user->roles()->attach(Roles::where('name','user')->first());
         Session::put('success', 'Thêm tài khoản thành công');
+        return redirect()->route('all_user');
+    }
+
+    public function edit($id)
+    {
+        $title = 'Sửa tài khoản';
+        $user = User::find($id);
+        return view('backend.users.update', compact('user', 'title'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $user = User::find($id);
+        $data = array();
+        $data['name'] = $request->name;
+        $data['email'] = $request->email;
+        if ($request->password) {
+            $data['password'] = md5($request->password);
+        }
+        $data['phone'] = $request->phone;
+        $data['birthday'] = $request->birthday;
+        $data['address'] = $request->address;
+
+        $user->name = $data['name'];
+        $user->email = $data['email'];
+        if ($request->password) {
+            $user->password = md5($data['password']);
+        }
+        $user->phone = $data['phone'];
+        $user->birthday = $data['birthday'];
+        $user->address = $data['address'];
+        $user->update();
+        Session::put('success', 'Sửa tài khoản thành công');
         return redirect()->route('all_user');
     }
 }

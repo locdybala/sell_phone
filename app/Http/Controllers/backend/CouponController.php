@@ -19,6 +19,32 @@ class CouponController extends Controller
             return redirect()->back()->with('success','Xóa mã khuyến mãi thành công');
         }
     }
+
+    public function edit($id)
+    {
+        $title = 'Sửa mã giảm giá';
+        $coupon = Coupon::find($id);
+        return view('backend.coupon.update', compact('title', 'coupon'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $data = $request->all();
+
+        $coupon = Coupon::find($id);
+
+        $coupon->coupon_name = $data['coupon_name'];
+        $coupon->coupon_date_start = $data['stardate'];
+        $coupon->coupon_date_end = $data['enddate'];
+        $coupon->coupon_number = $data['coupon_number'];
+        $coupon->coupon_code = $data['coupon_code'];
+        $coupon->coupon_time = $data['coupon_time'];
+        $coupon->coupon_condition = $data['coupon_condition'];
+        $coupon->update();
+
+        Session::put('success','Sửa mã giảm giá thành công');
+        return Redirect::to('admin/coupon/all_coupon');
+    }
     public function create(){
         $title = 'Thêm mã giảm giá';
         return view('backend.coupon.add',compact('title'));

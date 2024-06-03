@@ -186,4 +186,11 @@ class ProductController extends Controller
         $comment->save();
     }
 
+    public function deleteComment($id)
+    {
+
+        Comment::find($id)->delete();
+        Session::put('success', 'Xóa nhận xét thành công');
+        return redirect()->route('index_comment');
+    }
 }

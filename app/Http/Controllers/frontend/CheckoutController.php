@@ -496,6 +496,8 @@ class CheckoutController extends Controller
                 });
                 return redirect()->back()->with('success', 'Gửi mail thành công, vui lòng truy cập vào email để đổi lại mật khẩu');
             }
+        } else {
+            return redirect()->back()->with('success', 'Tài khoản gmail chưa được đăng ký');
         }
     }
 
@@ -589,7 +591,7 @@ class CheckoutController extends Controller
             $data = $request->all();
             $order = Order::find($data['vnp_TxnRef']);
             $order->update([
-                'order_status' => 2,
+                'order_status' => 6,
             ]);
             Session::forget('coupon');
             Session::forget('fee');
