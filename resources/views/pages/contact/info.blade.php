@@ -1,67 +1,43 @@
 @extends('layout')
 @section('content')
-    <!--? Hero Area Start-->
-    <div class="slider-area ">
-        <div style="min-height: 300px" class="single-slider slider-height2 d-flex align-items-center">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-12">
-                        <div class="hero-cap text-center">
-                            <h2>Liên hệ</h2>
+    <div class="container-fluid page-header py-5">
+        <h1 class="text-center text-white display-6">Liên hệ</h1>
+        <ol class="breadcrumb justify-content-center mb-0">
+            <li class="breadcrumb-item"><a href="{{URL::to('/')}}">Trang chủ</a></li>
+            <li class="breadcrumb-item active text-white">Liên hệ</li>
+        </ol>
+    </div>
+    <!-- Contact Start -->
+    <div class="container-fluid contact py-5">
+        <div class="container py-5">
+            <div class="p-5 bg-light rounded">
+                <div class="row g-4">
+                    <div class="col-12">
+                        <div class="text-center mx-auto" style="max-width: 700px;">
+                            <h1 class="text-primary">Hãy liên lạc</h1>
+                            <p class="mb-4">Xem địa chỉ trực tiếp của shop
+                                <a href="https://s.net.vn/MlVv">Xem ngay</a>.</p>
                         </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="h-100 rounded">
+                            {!! $contact->info_map!!}
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <form action="" class="">
+                            <input type="text" class="w-100 form-control border-0 py-3 mb-4" placeholder="Họ và tên">
+                            <input type="email" class="w-100 form-control border-0 py-3 mb-4" placeholder="Địa chỉ email">
+                            <textarea class="w-100 form-control border-0 mb-4" rows="5" cols="10" placeholder="Viết phản hồi"></textarea>
+                            <button class="w-100 btn form-control border-secondary py-3 bg-white text-primary " type="submit">Gửi</button>
+                        </form>
+                    </div>
+                    <div class="col-lg-5">
+                        {!! $contact->info_contact !!}
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!--? Hero Area End-->
-    <!-- ================ contact section start ================= -->
-    <section class="contact-section">
-        <div class="container">
-            <div class="d-none d-sm-block mb-5 pb-4">
-                {!! $contact->info_map!!}
-            </div>
-
-
-            <div class="row">
-                <div class="col-12">
-                    <h2 class="contact-title">Phản hồi với cửa hàng</h2>
-                </div>
-                <div class="col-lg-8">
-                    <form class="form-contact contact_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <textarea class="form-control w-100" name="message" id="message" cols="30" rows="9" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Viết phản hồi'" placeholder=" Viết phản hồi"></textarea>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <input class="form-control valid" name="name" id="name" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Nhập tên'" placeholder="Nhập tên">
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <input class="form-control valid" name="email" id="email" type="email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Địa chỉ email'" placeholder="Địa chỉ email">
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <input class="form-control" name="subject" id="subject" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Nhập chủ đề'" placeholder="Nhập chủ đề">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group mt-3">
-                            <button type="submit" class="button button-contactForm boxed-btn">Gửi</button>
-                        </div>
-                    </form>
-                </div>
-                <div class="col-lg-3 offset-lg-1">
-                    {!! $contact->info_contact !!}
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- ================ contact section end ================= -->
 @endsection
 

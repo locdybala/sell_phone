@@ -65,14 +65,11 @@ class HomeController extends Controller
         $slider = Slider::where('slider_status', '1')->take(4)->get();
         $category = Category::where('category_status', '1')->orderby('category_id', 'desc')->get();
         $brand = Brand::where('brand_status', '1')->orderby('brand_id', 'desc')->get();
-        $product = Product::where('product_status', '1')->where('category_id', $id)->orderby('product_id', 'desc')->limit(8)->get();
-        $price_increases = Product::where('product_status', '1')->where('category_id', $id)->orderby('product_price', 'desc')->limit(8)->get();
-        $price_reduces = Product::where('product_status', '1')->where('category_id', $id)->orderby('product_price', 'ASC')->limit(8)->get();
-        $product_populars = Product::where('product_status', '1')->where('category_id', $id)->orderby('product_view', 'DESC')->limit(8)->get();
+        $products = Product::where('product_status', '1')->where('category_id', $id)->orderby('product_id', 'desc')->limit(8)->get();
         $category_name = Category::find($id);
         $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();
         $pages = Pages::all();
-        return view('pages.category.show_category', compact('product_populars', 'category', 'price_increases', 'price_reduces', 'brand', 'product', 'category_name', 'slider', 'categorypost', 'title', 'pages'));
+        return view('pages.category.show_category', compact('category','brand', 'products', 'category_name', 'slider', 'categorypost', 'title', 'pages'));
     }
 
     public function detailBrand($id)
