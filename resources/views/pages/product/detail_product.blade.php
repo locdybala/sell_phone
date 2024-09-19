@@ -19,19 +19,39 @@
     <div class="container-fluid py-5 mt-5">
         <div class="container py-5">
             <div class="row g-4 mb-5">
-                <div class="col-lg-12 col-xl-9">
+                <div class="col-lg-12 col-xl-12">
                     <div class="row g-4">
-                        <div class="col-lg-6">
-                            <div class="border rounded">
-                                <a href="#">
-                                    <img src="img/single-item.jpg" class="img-fluid rounded" alt="Image">
-                                </a>
+                        <div class="col-lg-5">
+                            <div class="product_img_slide owl-carousel">
+                                <div id="carouselId" class="carousel slide position-relative" data-bs-ride="carousel">
+                                    <div class="carousel-inner" role="listbox">
+                                        @foreach($gallery as $gallery)
+                                            <div class="carousel-item {{ $loop->first ? 'active' : '' }} rounded">
+                                                <img src="{{asset('upload/gallery/'.$gallery->gallery_name)}}"
+                                                     class="img-fluid w-100 h-100 bg-secondary rounded"
+                                                     alt="Slide {{ $loop->index + 1 }}">
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselId" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button" data-bs-target="#carouselId" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </button>
+                                </div>
                             </div>
+
                         </div>
-                        <div class="col-lg-6">
-                            <h4 class="fw-bold mb-3">Brocoli</h4>
-                            <p class="mb-3">Category: Vegetables</p>
-                            <h5 class="fw-bold mb-3">3,35 $</h5>
+                        <div class="col-lg-7">
+                            <h4 class="fw-bold mb-3">{{$productDetail->product_name}}</h4>
+                            <p class="mb-3 fw-bold">Mã ID: {{$productDetail->product_id}}</p>
+                            <p class="mb-3 fw-bold">Danh mục: {{$productDetail->category->category_name}}</p>
+                            <p class="mb-3 fw-bold">Số lượt xem: {{$productDetail->product_view}}</p>
+                            <h5 class="fw-bold mb-3"><b>Giá:</b>
+                                <span>{{number_format($productDetail->product_price,0,',','.').'đ'}}</span></h5>
                             <div class="d-flex mb-4">
                                 <i class="fa fa-star text-secondary"></i>
                                 <i class="fa fa-star text-secondary"></i>
@@ -274,12 +294,7 @@
             <div class="row justify-content-center">
                 <div class="col-lg-5">
                     <div class="product_img_slide owl-carousel">
-                        @foreach($gallery as $gallery)
-                            <div class="single_product_img">
-                                <img src="{{asset('upload/gallery/'.$gallery->gallery_name)}}" alt="#"
-                                     class="img-fluid">
-                            </div>
-                        @endforeach
+
                     </div>
                 </div>
                 <div class="col-lg-7">
