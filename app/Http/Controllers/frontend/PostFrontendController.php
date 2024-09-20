@@ -35,7 +35,7 @@ class PostFrontendController extends Controller
         $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();
         $cate_post_name = CategoryPost::where('cate_post_slug', $slug)->first();
         $cate_id = $cate_post_name->cate_post_id;
-        $posts = Post::where('post_status', '1')->where('tbl_post.cate_post_id', $cate_id)->orderby('post_id', 'desc')->limit(8)->get();
+        $posts = Post::where('post_status', '1')->where('tbl_post.cate_post_id', $cate_id)->orderby('post_id', 'desc')->paginate(4);
         $pages = Pages::all();
         return view('pages.post.show_category_post', compact('category', 'brand', 'posts', 'cate_post_name', 'title', 'slider', 'categorypost', 'pages'));
 

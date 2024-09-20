@@ -52,7 +52,7 @@
                                         <th>Hình ảnh</th>
                                         <th>Số lượng</th>
                                         <th>Danh mục</th>
-                                        <th>Thương hiệu</th>
+{{--                                        <th>Thương hiệu</th>--}}
                                         <th>Tình trạng</th>
                                         <th>Thao tác</th>
                                     </tr>
@@ -74,7 +74,7 @@
                                                          style="width:150px;height:100px;" alt=""></td>
                                                 <td>{{$product->product_quantity}}</td>
                                                 <td>{{ optional($product->category)->category_name }}</td>
-                                                <td>{{ optional($product->brand)->brand_name }}</td>
+{{--                                                <td>{{ optional($product->brand)->brand_name }}</td>--}}
 
                                                 @if ($product->product_status==1)
 

@@ -83,16 +83,16 @@
                         <li><a href="{{route('all_category')}}">Danh sách danh mục</a></li>
                     </ul>
                 </li>
-                <li class="nav-item pcoded-hasmenu">
-                    <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span
-                            class="pcoded-mtext">Thương hiệu sản phẩm</span></a>
-                    <ul class="pcoded-submenu">
-                        @hasrole('admin')
-                        <li><a href="{{route('add_brand')}}">Thêm thương hiệu</a></li>
-                        @endhasrole
-                        <li><a href="{{route('all_brand')}}">Danh sách thương hiệu</a></li>
-                    </ul>
-                </li>
+{{--                <li class="nav-item pcoded-hasmenu">--}}
+{{--                    <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span--}}
+{{--                            class="pcoded-mtext">Thương hiệu sản phẩm</span></a>--}}
+{{--                    <ul class="pcoded-submenu">--}}
+{{--                        @hasrole('admin')--}}
+{{--                        <li><a href="{{route('add_brand')}}">Thêm thương hiệu</a></li>--}}
+{{--                        @endhasrole--}}
+{{--                        <li><a href="{{route('all_brand')}}">Danh sách thương hiệu</a></li>--}}
+{{--                    </ul>--}}
+{{--                </li>--}}
                 <li class="nav-item pcoded-hasmenu">
                     <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-book"></i></span><span
                             class="pcoded-mtext">Quản lý sản phẩm</span></a>

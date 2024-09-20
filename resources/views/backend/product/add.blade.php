@@ -60,17 +60,17 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label class="floating-label" for="brand_id">Thương hiệu sản phẩm <span class="required">(*)</span></label>
-                                            <select id="brand_id" name="brand_id" class="form-control">
-                                                <option>---Chọn thương hiệu---</option>
-                                                @foreach ($brand as $brand)
-                                                    <option value="{{ $brand->brand_id }}">{{ $brand->brand_name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
+{{--                                    <div class="col-sm-6">--}}
+{{--                                        <div class="form-group">--}}
+{{--                                            <label class="floating-label" for="brand_id">Thương hiệu sản phẩm <span class="required">(*)</span></label>--}}
+{{--                                            <select id="brand_id" name="brand_id" class="form-control">--}}
+{{--                                                <option>---Chọn thương hiệu---</option>--}}
+{{--                                                @foreach ($brand as $brand)--}}
+{{--                                                    <option value="{{ $brand->brand_id }}">{{ $brand->brand_name }}</option>--}}
+{{--                                                @endforeach--}}
+{{--                                            </select>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="floating-label" for="price">Giá <span class="required">(*)</span></label>
@@ -161,10 +161,12 @@
             } else if (category_id == '') {
                 toastr["error"]("Không được bỏ trống danh mục sản phẩm");
                 return false;
-            } else if (brand_id == '') {
-                toastr["error"]("Không được bỏ trống thương hiệu sản phẩm");
-                return false;
-            } else if (product_quantity == '') {
+            }
+            // else if (brand_id == '') {
+            //     toastr["error"]("Không được bỏ trống thương hiệu sản phẩm");
+            //     return false;
+            // }
+            else if (product_quantity == '') {
                 toastr["error"]("Không được bỏ trống số lượng sản phẩm");
                 return false;
             } else if (price == '') {

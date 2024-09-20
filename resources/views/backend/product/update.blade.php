@@ -1,5 +1,6 @@
 @extends('backend.admin_layout')
 @section('content')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css">
     <section class="pcoded-main-container">
         <div class="pcoded-content">
             <!-- [ breadcrumb ] start -->
@@ -53,20 +54,20 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label class="floating-label" for="brand_id">Thương hiệu sản phẩm <span class="required">(*)</span></label>
-                                            <select id="brand_id" name="brand_id" class="form-control">
-                                                <option>---Chọn thương hiệu---</option>
-                                                @foreach ($brand as $brand)
-                                                    <option @if($product->brand_id == $brand->brand_id) selected @endif
-                                                        value="{{ $brand->brand_id }}">
-                                                        {{ $brand->brand_name }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
+{{--                                    <div class="col-sm-6">--}}
+{{--                                        <div class="form-group">--}}
+{{--                                            <label class="floating-label" for="brand_id">Thương hiệu sản phẩm <span class="required">(*)</span></label>--}}
+{{--                                            <select id="brand_id" name="brand_id" class="form-control">--}}
+{{--                                                <option>---Chọn thương hiệu---</option>--}}
+{{--                                                @foreach ($brand as $brand)--}}
+{{--                                                    <option @if($product->brand_id == $brand->brand_id) selected @endif--}}
+{{--                                                        value="{{ $brand->brand_id }}">--}}
+{{--                                                        {{ $brand->brand_name }}--}}
+{{--                                                    </option>--}}
+{{--                                                @endforeach--}}
+{{--                                            </select>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="floating-label" for="name">Giá <span class="required">(*)</span></label>
@@ -81,7 +82,7 @@
                                                    placeholder="Nhập số lượng" value="{{ $product->product_quantity }}"/>
                                         </div>
                                     </div>
-                                    <div class="col-sm-12">
+                                    <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="floating-label" for="name">Tag sản phẩm <span class="required">(*)</span></label>
                                             <input type="text" data-role="tagsinput" class="form-control" id="product_tags" name="product_tags"
@@ -133,6 +134,8 @@
     </section>
 @endsection
 @section('js')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
     <script>
         CKEDITOR.replace('ckeditor');
         $("#btnSubmit").click(function () {
@@ -149,10 +152,12 @@
             } else if (category_id == '') {
                 toastr["error"]("Không được bỏ trống danh mục sản phẩm");
                 return false;
-            } else if (brand_id == '') {
-                toastr["error"]("Không được bỏ trống thương hiệu sản phẩm");
-                return false;
-            } else if (product_quantity == '') {
+            }
+            // else if (brand_id == '') {
+            //     toastr["error"]("Không được bỏ trống thương hiệu sản phẩm");
+            //     return false;
+            // }
+            else if (product_quantity == '') {
                 toastr["error"]("Không được bỏ trống số lượng sản phẩm");
                 return false;
             } else if (price == '') {
@@ -167,5 +172,6 @@
             }
             return true;
         });
+        $('#product_tags').tagsinput();
     </script>
 @endsection

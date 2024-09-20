@@ -22,7 +22,7 @@ class ProductController extends Controller
     public function index()
     {
         $title = 'Danh sách sản phẩm';
-        $products = Product::orderByDesc('product_id')->paginate(5);
+        $products = Product::orderByDesc('product_id')->paginate(15);
         return view('backend.product.index', compact('products', 'title'));
 
     }
@@ -40,7 +40,7 @@ class ProductController extends Controller
         $data = array();
         $data['product_name'] = $request->name;
         $data['category_id'] = $request->category_id;
-        $data['brand_id'] = $request->brand_id;
+//        $data['brand_id'] = $request->brand_id;
         $data['product_sold'] = $request->product_quantity;
         $data['product_tags'] = $request->product_tags;
         $data['product_content'] = $request->product_content;
@@ -102,7 +102,7 @@ class ProductController extends Controller
         $data = array();
         $data['product_name'] = $request->name;
         $data['category_id'] = $request->category_id;
-        $data['brand_id'] = $request->brand_id;
+//        $data['brand_id'] = $request->brand_id;
         $data['product_tags'] = $request->product_tags;
         $data['product_content'] = $request->product_content;
         $data['product_quantity'] = $request->product_quantity;

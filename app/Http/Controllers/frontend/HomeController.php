@@ -65,7 +65,7 @@ class HomeController extends Controller
         $slider = Slider::where('slider_status', '1')->take(4)->get();
         $category = Category::where('category_status', '1')->orderby('category_id', 'desc')->get();
         $brand = Brand::where('brand_status', '1')->orderby('brand_id', 'desc')->get();
-        $products = Product::where('product_status', '1')->where('category_id', $id)->orderby('product_id', 'desc')->limit(8)->get();
+        $products = Product::where('product_status', '1')->where('category_id', $id)->orderby('product_id', 'desc')->paginate(8);
         $category_name = Category::find($id);
         $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();
         $pages = Pages::all();
@@ -134,53 +134,41 @@ class HomeController extends Controller
         $output = '';
         foreach ($comments as $comment) {
 
-            $output .= ' <div  class="comment-list">
-            <div class="single-comment justify-content-between d-flex">
-                                <div class="user justify-content-between d-flex">
-                                    <div class="thumb">
-                                        <img src="' . url('frontend/assets/img/comment/comment_1.png') . '" alt="">
-                                    </div>
-                                    <div class="desc">
-                                    <div class="d-flex justify-content-between">
-                                            <div class="d-flex align-items-center">
-                                                <h5>
-                                                    <a style="color: black" href="#">@' . $comment->comment_name . '</a>
-                                                </h5>
-                                                <p class="date"> ' . $comment->comment_date . '</p>
+            $output .= ' <div class="d-flex"><img src="' . url('frontend/assets/img/comment/comment_1.png') . '" class="img-fluid rounded-circle p-3"
+                                             style="width: 100px; height: 100px;" alt="">
+                                        <div class="">
+                                            <p class="mb-2" style="font-size: 14px;">' . $comment->comment_date . '</p>
+                                            <div class="d-flex justify-content-between">
+                                                <h5>' . $comment->comment_name . '</h5>
+                                                <div class="d-flex mb-3">
+                                                    <i class="fa fa-star text-secondary"></i>
+                                                    <i class="fa fa-star text-secondary"></i>
+                                                    <i class="fa fa-star text-secondary"></i>
+                                                    <i class="fa fa-star text-secondary"></i>
+                                                    <i class="fa fa-star"></i>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <p class="comment">
-                                            ' . $comment->comment . '
-                                        </p>
-
-                                    </div>
-                                </div>
-                            </div> </div>
+                                            <p>' . $comment->comment . '</p>
+                                        </div></div>
             ';
             foreach ($replycomments as $replycomment) {
                 if ($replycomment->comment_parent === $comment->comment_id) {
-                    $output .= '<div style="margin-left: 40px;"  class="comment-list"><div class="single-comment justify-content-between d-flex">
-                                <div class="user justify-content-between d-flex">
-                                    <div class="thumb">
-                                        <img src="' . url('frontend/assets/img/comment/user.png') . '" alt="">
-                                    </div>
-                                    <div class="desc">
-                                    <div class="d-flex justify-content-between">
-                                            <div class="d-flex align-items-center">
-                                                <h5>
-                                                    <a style="color: black" href="#"><strong>' . $replycomment->comment_name . '</strong></a>
-                                                </h5>
-                                                <p class="date">' . $replycomment->comment_date . '</p>
+                    $output .= '<div style="margin-left: 40px" class="d-flex">
+                                        <img src="' . url('frontend/assets/img/comment/user.png') . '" class="img-fluid rounded-circle p-3" style="width: 100px; height: 100px;" alt="">
+                                        <div class="">
+                                            <p class="mb-2" style="font-size: 14px;">' . $replycomment->comment_date . '</p>
+                                            <div class="d-flex justify-content-between">
+                                                <h5>' . $replycomment->comment_name . '</h5>
+                                                <div class="d-flex mb-3">
+                                                    <i class="fa fa-star text-secondary"></i>
+                                                    <i class="fa fa-star text-secondary"></i>
+                                                    <i class="fa fa-star text-secondary"></i>
+                                                    <i class="fa fa-star text-secondary"></i>
+                                                    <i class="fa fa-star"></i>
+                                                </div>
                                             </div>
-
-                                        </div>
-                                        <p class="comment">
-                                            ' . $replycomment->comment . '
-                                        </p>
-
-                                    </div>
-                                </div>
-                            </div></div>';
+                                            <p> ' . $replycomment->comment . '</p>
+                                        </div></div>';
                 }
             }
         }

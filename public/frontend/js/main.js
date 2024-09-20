@@ -26,10 +26,10 @@
             } else {
                 $('.fixed-top').removeClass('shadow').css('top', 0);
             }
-        } 
+        }
     });
-    
-    
+
+
    // Back to top button
    $(window).scroll(function () {
     if ($(this).scrollTop() > 300) {
@@ -132,20 +132,27 @@
 
 
     // Product Quantity
-    $('.quantity button').on('click', function () {
+    // Product Quantity
+    $('.quantity button').on('click', function (event) {
+        event.preventDefault(); // Ngăn form submit khi nhấn nút
+
         var button = $(this);
         var oldValue = button.parent().parent().find('input').val();
+        var newVal;
+
         if (button.hasClass('btn-plus')) {
-            var newVal = parseFloat(oldValue) + 1;
+            newVal = parseFloat(oldValue) + 1;
         } else {
             if (oldValue > 0) {
-                var newVal = parseFloat(oldValue) - 1;
+                newVal = parseFloat(oldValue) - 1;
             } else {
                 newVal = 0;
             }
         }
+
         button.parent().parent().find('input').val(newVal);
     });
+
 
 })(jQuery);
 
