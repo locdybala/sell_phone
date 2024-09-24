@@ -89,9 +89,11 @@
                                         <td>{{$shipping->shipping_notes}}</td>
                                         <td>@if($shipping->shipping_method==1)
                                                 Tiền mặt
-                                            @else
-                                                Thanh toán online
-                                            @endif</td>
+                                            @@elseif($shipping->shipping_method == 2)
+                                                Thanh toán qua VNPAY
+                                            @elseif($shipping->shipping_method == 3)
+                                                Chuyển khoản ngân hàng
+                                        @endif
                                     </tr>
                                     </tbody>
                                 </table>

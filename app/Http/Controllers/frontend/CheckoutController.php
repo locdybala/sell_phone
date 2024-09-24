@@ -13,9 +13,11 @@ use App\Models\Order;
 use App\Models\OrderDetails;
 use App\Models\Pages;
 use App\Models\Product;
+use App\Models\Province;
 use App\Models\Shipping;
 use App\Models\Slider;
 use App\Models\SocialCustomers;
+use App\Models\Wards;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\File;
@@ -137,9 +139,20 @@ class CheckoutController extends Controller
         $slider = Slider::where('slider_status', '1')->take(4)->get();
         $product = Product::where('product_status', '1')->orderby('product_id', 'desc')->limit(8)->get();
         $pages = Pages::all();
+        $provinces = []; // Khởi tạo biến provinces
+        $wards = []; // Khởi tạo biến wards
 
+        if (Session::has('selected_city')) {
+            // Lấy quận huyện theo thành phố đã chọn
+            $provinces = Province::where('matp', Session::get('selected_city'))->get();
+        }
+
+        if (Session::has('selected_province')) {
+            // Lấy xã phường theo quận huyện đã chọn
+            $wards = Wards::where('maqh', Session::get('selected_province'))->get();
+        }
         if (Session::get('cart')) {
-            return view('pages.checkout.show_checkout', compact('category', 'title', 'brand', 'city', 'pages', 'customer', 'categorypost', 'slider'));
+            return view('pages.checkout.show_checkout', compact('category', 'title', 'brand', 'city', 'pages', 'customer', 'categorypost', 'slider', 'provinces', 'wards'));
 
         } else {
             return Redirect::to('/');
@@ -149,6 +162,10 @@ class CheckoutController extends Controller
     public function calculate_fee(Request $request)
     {
         $data = $request->all();
+        // Lưu giá trị vào session
+        Session::put('selected_city', $data['matp']);
+        Session::put('selected_province', $data['maqh']);
+        Session::put('selected_wards', $data['xaid']);
         if ($data['matp']) {
             $feeship = Feeship::where('fee_matp', $data['matp'])->where('fee_maqh', $data['maqh'])->where('fee_xaid', $data['xaid'])->get();
             if ($feeship) {
@@ -190,7 +207,7 @@ class CheckoutController extends Controller
         $shipping->shipping_name = $data['shipping_name'];
         $shipping->shipping_email = $data['shipping_email'];
         $shipping->shipping_phone = $data['shipping_phone'];
-        $shipping->shipping_address = $data['shipping_address'];
+        $shipping->shipping_address = $data['shipping_address'] . ' ' . $data['address'];
         $shipping->shipping_notes = $data['shipping_notes'];
         $shipping->shipping_method = $data['shipping_method'];
         $shipping->save();
@@ -204,6 +221,8 @@ class CheckoutController extends Controller
         $order->shipping_id = $shipping_id;
         $order->order_status = 1;
         $order->order_code = $checkout_code;
+        $order->order_total = $data['total_after'];
+        $order->order_method = $data['shipping_method'];
 
         date_default_timezone_set('Asia/Ho_Chi_Minh');
         $order->created_at = now();
@@ -240,7 +259,7 @@ class CheckoutController extends Controller
         if (Session::get('fee') == true) {
             $fee = Session::get('fee');
         } else {
-            $fee = '30000';
+            $fee = '25000';
         }
         $shipping_array = [
             'fee' => $fee,
@@ -285,8 +304,7 @@ class CheckoutController extends Controller
         Session::forget('coupon');
         Session::forget('fee');
         Session::forget('cart');
-
-
+        return response()->json(['order_code' => $checkout_code]);
     }
 
     // create link thanh toán VNPay
@@ -631,5 +649,30 @@ class CheckoutController extends Controller
         //close connection
         curl_close($ch);
         return $result;
+    }
+
+    public function success($order_code)
+    {
+        $category = Category::where('category_status', '1')->orderby('category_id', 'desc')->get();
+        $pages = Pages::all();
+        $order_details = OrderDetails::with('product')->where('order_code', $order_code)->get();
+        $order = Order::where('order_code', $order_code)->first();
+        $pages = Pages::all();
+
+        $order_details_product = OrderDetails::with('product')->where('order_code', $order_code)->get();
+
+        foreach ($order_details_product as $key => $order_d) {
+
+            $product_coupon = $order_d->product_coupon;
+        }
+        if ($product_coupon != 'no') {
+            $coupon = Coupon::where('coupon_code', $product_coupon)->first();
+            $coupon_condition = $coupon->coupon_condition;
+            $coupon_number = $coupon->coupon_number;
+        } else {
+            $coupon_condition = 2;
+            $coupon_number = 0;
+        }
+        return view('pages.checkout.success', compact('category', 'pages','order_details', 'coupon_condition', 'coupon_number', 'order'));
     }
 }

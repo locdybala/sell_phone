@@ -65,10 +65,17 @@
                             </span>
                         </a>
                         @if ($customer_id != NULL)
-                            <a href="{{URL::to('/login-checkout')}}" class="my-auto">
-                                <i class="fas fa-user fa-2x"></i>
-                                <span>{{Session::get('customer_name')}}</span>
-                            </a>
+                            <div class="nav-item dropdown">
+                                <a href="{{route('shop')}}" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fas fa-user fa-2x" style="margin-right: 5px"></i>{{ Session::get('customer_name') }}</a>
+                                <div class="dropdown-menu m-0 bg-secondary rounded-0">
+                                        <li>
+                                            <a href="{{ URL::to('/edit-customer/' . Session::get('customer_id')) }}" class="dropdown-item">Thông tin tài khoản</a>
+                                        </li>
+                                    <li>
+                                        <a href="{{route('logout')}}" class="dropdown-item">Đăng xuất</a>
+                                    </li>
+                                </div>
+                            </div>
                         @else
                             <a href="{{URL::to('/login-checkout')}}" class="my-auto">
                                 <i class="fas fa-user fa-2x"></i>

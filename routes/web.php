@@ -280,6 +280,7 @@ Route::get('/del-fee', [CheckoutController::class, 'del_fee']);
 Route::post('/confirm-order', [CheckoutController::class, 'confirm_order']);
 Route::get('/contact', [\App\Http\Controllers\frontend\ContactController::class, 'index'])->name('contact');
 
+Route::get('/success/{order_code}', [CheckoutController::class, 'success']);
 
 Route::get('/checkout', [CheckoutController::class, 'checkout']);
 Route::get('/edit-customer/{id}', [CheckoutController::class, 'edit_customer'])->name('edit_customer');
