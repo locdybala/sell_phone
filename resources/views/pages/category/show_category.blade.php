@@ -57,15 +57,15 @@
                                                    class="cart_product_qty_{{$product->product_id}}">
                                             <div class="rounded position-relative fruite-item">
                                                 <div class="fruite-img">
-                                                    <img src="/upload/product/{{ $product->product_image }}"
+                                                    <img style="height: 300px;" src="/upload/product/{{ $product->product_image }}"
                                                          class="img-fluid w-100 rounded-top" alt="">
                                                 </div>
                                                 <div class="p-4 border border-secondary border-top-0 rounded-bottom">
                                                     <a href="{{ route('detailProduct',['id'=>$product->product_id]) }}">
-                                                        <h4>{{$product->product_name}}</h4></a>
+                                                        <h4 class="product-name">{{$product->product_name}}</h4></a>
                                                     <div class="d-flex justify-content-between flex-lg-wrap">
                                                         <p class="text-dark fs-5 fw-bold mb-0">{{number_format($product->product_price)}}
-                                                            đ</p>
+                                                            <u>đ</u></p>
                                                         @php
                                                             $customerId = Session::get('customer_id');
                                                         @endphp

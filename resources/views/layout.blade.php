@@ -38,6 +38,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+    <style>
+        .product-name {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2; /* Số dòng muốn hiển thị */
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.2em; /* Có thể điều chỉnh để thay đổi chiều cao dòng */
+            max-height: 2.4em; /* 2 dòng x chiều cao dòng */
+        }
+    </style>
 </head>
 <body>
 <div id="preloader-active">
