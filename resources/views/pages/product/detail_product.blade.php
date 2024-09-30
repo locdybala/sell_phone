@@ -118,7 +118,7 @@
                                     $customerId = Session::get('customer_id');
                                 @endphp
                                 @if ($customerId)
-                                    <i class="fa fa-shopping-bag me-2 text-primary"></i><input type="button" value="Đặt ngay" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"
+                                    <i class="fa fa-shopping-bag me-2 text-primary"></i><input type="button" value="Đặt ngay" class="add-to-cart btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"
                                            data-id_product="{{$productDetail->product_id}}" name="add-to-cart">
                                 @else
                                     <a href="{{URL::to('/login-checkout')}}"

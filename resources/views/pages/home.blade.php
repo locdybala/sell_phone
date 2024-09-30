@@ -40,8 +40,8 @@
                             <i class="fas fa-car-side fa-3x text-white"></i>
                         </div>
                         <div class="featurs-content text-center">
-                            <h5>Free Shipping</h5>
-                            <p class="mb-0">Free on order over $300</p>
+                            <h5>Miễn Phí Vận Chuyển</h5>
+                            <p class="mb-0">Miễn phí với đơn hàng hơn 2 triệu</p>
                         </div>
                     </div>
                 </div>
@@ -51,8 +51,8 @@
                             <i class="fas fa-user-shield fa-3x text-white"></i>
                         </div>
                         <div class="featurs-content text-center">
-                            <h5>Security Payment</h5>
-                            <p class="mb-0">100% security payment</p>
+                            <h5>Thanh toán bảo mật</h5>
+                            <p class="mb-0">Thanh toán bảo đảm 100%</p>
                         </div>
                     </div>
                 </div>
@@ -62,8 +62,8 @@
                             <i class="fas fa-exchange-alt fa-3x text-white"></i>
                         </div>
                         <div class="featurs-content text-center">
-                            <h5>30 Day Return</h5>
-                            <p class="mb-0">30 day money guarantee</p>
+                            <h5>Hoàn trả trong 30 ngày</h5>
+                            <p class="mb-0">Đảm bảo tiền 30 ngày</p>
                         </div>
                     </div>
                 </div>
@@ -73,8 +73,8 @@
                             <i class="fa fa-phone-alt fa-3x text-white"></i>
                         </div>
                         <div class="featurs-content text-center">
-                            <h5>24/7 Support</h5>
-                            <p class="mb-0">Support every time fast</p>
+                            <h5>Hỗ trợ 24/7</h5>
+                            <p class="mb-0">Hỗ trợ nhanh chóng mọi lúc</p>
                         </div>
                     </div>
                 </div>
@@ -281,24 +281,23 @@
             <div class="row g-4 align-items-center">
                 <div class="col-lg-6">
                     <div class="py-4">
-                        <h1 class="display-3 text-white">Fresh Exotic Fruits</h1>
-                        <p class="fw-normal display-3 text-dark mb-4">in Our Store</p>
-                        <p class="mb-4 text-dark">The generated Lorem Ipsum is therefore always free from repetition
-                            injected humour, or non-characteristic words etc.</p>
-                        <a href="#"
-                           class="banner-btn btn border-2 border-white rounded-pill text-dark py-3 px-5">BUY</a>
+                        <h1 class="display-3 text-white">{{$productLimit->product_name}}</h1>
+                        <p class="fw-normal display-3 text-dark mb-4">{{$productLimit->category->category_name}}</p>
+                        <p class="mb-4 text-dark">{{$productLimit->product_content}}</p>
+                        <a href="{{ route('detailProduct',['id'=>$productLimit->product_id]) }}"
+                           class="banner-btn btn border-2 border-white rounded-pill text-dark py-3 px-5">Mua Ngay</a>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="position-relative">
-                        <img src="img/baner-1.png" class="img-fluid w-100 rounded" alt="">
+                        <img src="/upload/product/{{ $productLimit->product_image }}" class="img-fluid w-100 rounded"
+                             alt="">
                         <div
                             class="d-flex align-items-center justify-content-center bg-white rounded-circle position-absolute"
-                            style="width: 140px; height: 140px; top: 0; left: 0;">
-                            <h1 style="font-size: 100px;">1</h1>
+                            style="width: 140px; height: 140px; top: 0; left: 20px;">
                             <div class="d-flex flex-column">
-                                <span class="h2 mb-0">50$</span>
-                                <span class="h4 text-muted mb-0">kg</span>
+                                <span class="h2 mb-0">{{number_format($productLimit->product_price)}} </span>
+                                <span class="h4 text-muted mb-0">đ</span>
                             </div>
                         </div>
                     </div>
@@ -343,10 +342,12 @@
                             <div class="p-4 rounded bg-light">
                                 <div class="row align-items-center">
                                     <div class="col-6">
-                                        <img src="/upload/product/{{ $product->product_image }}" class="img-fluid rounded-circle w-100" alt="">
+                                        <img src="/upload/product/{{ $product->product_image }}"
+                                             class="img-fluid rounded-circle w-100" alt="">
                                     </div>
                                     <div class="col-6">
-                                        <a href="{{ route('detailProduct',['id'=>$product->product_id]) }}" class="h5 product-name">{{$product->product_name}}</a>
+                                        <a href="{{ route('detailProduct',['id'=>$product->product_id]) }}"
+                                           class="h5 product-name">{{$product->product_name}}</a>
                                         <div class="d-flex my-3">
                                             <i class="fas fa-star text-primary"></i>
                                             <i class="fas fa-star text-primary"></i>
@@ -360,8 +361,11 @@
                                         @endphp
                                         @if ($customerId)
                                             <button type="button" name="add-to-cart"
-                                                    data-id_product="{{$product->product_id}}" class=" add-to-cartbtn border border-secondary rounded-pill px-3 text-primary"><i
-                                                    class="fa fa-shopping-bag me-2 text-primary"></i> Đặt hàng</button>
+                                                    data-id_product="{{$product->product_id}}"
+                                                    class=" add-to-cartbtn border border-secondary rounded-pill px-3 text-primary">
+                                                <i
+                                                    class="fa fa-shopping-bag me-2 text-primary"></i> Đặt hàng
+                                            </button>
                                         @else
                                             <a href="{{URL::to('/login-checkout')}}"
                                                class="add-to-cart btn border border-secondary rounded-pill px-3 text-primary"><i
@@ -377,47 +381,6 @@
         </div>
     </div>
     <!-- Bestsaler Product End -->
-
-
-    <!-- Fact Start -->
-    <div class="container-fluid py-5">
-        <div class="container">
-            <div class="bg-light p-5 rounded">
-                <div class="row g-4 justify-content-center">
-                    <div class="col-md-6 col-lg-6 col-xl-3">
-                        <div class="counter bg-white rounded p-5">
-                            <i class="fa fa-users text-secondary"></i>
-                            <h4>satisfied customers</h4>
-                            <h1>1963</h1>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6 col-xl-3">
-                        <div class="counter bg-white rounded p-5">
-                            <i class="fa fa-users text-secondary"></i>
-                            <h4>quality of service</h4>
-                            <h1>99%</h1>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6 col-xl-3">
-                        <div class="counter bg-white rounded p-5">
-                            <i class="fa fa-users text-secondary"></i>
-                            <h4>quality certificates</h4>
-                            <h1>33</h1>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6 col-xl-3">
-                        <div class="counter bg-white rounded p-5">
-                            <i class="fa fa-users text-secondary"></i>
-                            <h4>Available Products</h4>
-                            <h1>789</h1>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Fact Start -->
-
 
     <!-- Tastimonial Start -->
     <div class="container-fluid testimonial py-5">

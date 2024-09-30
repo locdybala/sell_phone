@@ -21,7 +21,7 @@ class HomeController extends Controller
         $title = 'Trang chủ';
         $category = Category::where('category_status', '1')->orderby('category_id', 'desc')->get();
         $brand = Brand::where('brand_status', '1')->orderby('brand_id', 'desc')->get();
-        $products = Product::where('product_status', '1')->limit(12)->get();
+        $products = Product::where('product_status', '1')->limit(9)->get();
         $productNews = Product::where('product_status', '1')->orderby('product_id', 'desc')->limit(6)->get();
         $productSolds = Product::where('product_status', '1')->orderby('product_sold', 'desc')->limit(9)->get();
         $productLimit = Product::where('product_status', '1')->orderby('product_price', 'desc')->limit(1)->first();
