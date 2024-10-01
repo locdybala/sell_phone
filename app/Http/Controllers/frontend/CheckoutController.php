@@ -287,24 +287,21 @@ class CheckoutController extends Controller
                 'amount' => $data['total_after'],
             ]);
             return response()->json($data1);
-        } elseif ($data['shipping_method'] == "3") {
-            $data = $this->paymentMomo([
-                'order_id' => $order->order_id,
-                'amount' => $data['total_after'],
-            ]);
-            return response()->json($data);
         } elseif ($data['shipping_method'] == "4") {
             $data = $this->paymentOnePay([
                 'order_id' => $order->order_id,
                 'amount' => $data['total_after'],
             ]);
             return response()->json($data);
+        } else {
+            Session::forget('coupon');
+            Session::forget('fee');
+            Session::forget('cart');
+            Session::forget('selected_city');
+            Session::forget('selected_province');
+            Session::forget('selected_wards');
+            return response()->json(['order_code' => $checkout_code]);
         }
-
-        Session::forget('coupon');
-        Session::forget('fee');
-        Session::forget('cart');
-        return response()->json(['order_code' => $checkout_code]);
     }
 
     // create link thanh toán VNPay
@@ -614,7 +611,10 @@ class CheckoutController extends Controller
             Session::forget('coupon');
             Session::forget('fee');
             Session::forget('cart');
-            return redirect()->route('history')->with('message', 'Thanh toán sản phẩm thành công!');
+            Session::forget('selected_city');
+            Session::forget('selected_province');
+            Session::forget('selected_wards');
+            return redirect()->route('paymentOrderSuccess', ['order_code' => $order->order_code])->with('message', 'Thanh toán sản phẩm thành công!');
         } catch (\Exception $e) {
             return redirect()->route('home')->with('message', 'Có lỗi xảy ra!');
         }

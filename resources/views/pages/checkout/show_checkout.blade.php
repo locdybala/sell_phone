@@ -316,7 +316,9 @@
             var provinceName = $('#province option:selected').text();
             var wardsName = $('#wards option:selected').text();
 
-            $('#address').val(cityName + ', ' + provinceName + ', ' + wardsName);
+            if($('#wards').val() != '') {
+                $('#address').val(cityName + ', ' + provinceName + ', ' + wardsName);
+            }
             $('.calculate_delivery').click(function () {
                 var matp = $('.city').val();
                 var maqh = $('.province').val();
@@ -427,8 +429,13 @@
                                 },
                                 success: function (data) {
                                     swal("Đơn hàng", "Đơn hàng của bạn đã được gửi thành công", "success");
+
                                     if (data.order_code) {
                                         window.location.href = `{{ url('/success') }}/${data.order_code}`;
+                                    } else {
+                                        if (data) {
+                                            window.location.replace(data);
+                                        }
                                     }
                                 },
                                 error: function (xhr) {

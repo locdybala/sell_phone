@@ -30,58 +30,7 @@
     <!-- Hero End -->
 
 
-    <!-- Featurs Section Start -->
-    <div class="container-fluid featurs">
-        <div class="container py-5">
-            <div class="row g-4">
-                <div class="col-md-6 col-lg-3">
-                    <div class="featurs-item text-center rounded bg-light p-4">
-                        <div class="featurs-icon btn-square rounded-circle bg-secondary mb-5 mx-auto">
-                            <i class="fas fa-car-side fa-3x text-white"></i>
-                        </div>
-                        <div class="featurs-content text-center">
-                            <h5>Miễn Phí Vận Chuyển</h5>
-                            <p class="mb-0">Miễn phí với đơn hàng hơn 2 triệu</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="featurs-item text-center rounded bg-light p-4">
-                        <div class="featurs-icon btn-square rounded-circle bg-secondary mb-5 mx-auto">
-                            <i class="fas fa-user-shield fa-3x text-white"></i>
-                        </div>
-                        <div class="featurs-content text-center">
-                            <h5>Thanh toán bảo mật</h5>
-                            <p class="mb-0">Thanh toán bảo đảm 100%</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="featurs-item text-center rounded bg-light p-4">
-                        <div class="featurs-icon btn-square rounded-circle bg-secondary mb-5 mx-auto">
-                            <i class="fas fa-exchange-alt fa-3x text-white"></i>
-                        </div>
-                        <div class="featurs-content text-center">
-                            <h5>Hoàn trả trong 30 ngày</h5>
-                            <p class="mb-0">Đảm bảo tiền 30 ngày</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="featurs-item text-center rounded bg-light p-4">
-                        <div class="featurs-icon btn-square rounded-circle bg-secondary mb-5 mx-auto">
-                            <i class="fa fa-phone-alt fa-3x text-white"></i>
-                        </div>
-                        <div class="featurs-content text-center">
-                            <h5>Hỗ trợ 24/7</h5>
-                            <p class="mb-0">Hỗ trợ nhanh chóng mọi lúc</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Featurs Section End -->
+
 
 
     <!-- Fruits Shop Start-->
@@ -161,56 +110,58 @@
         </div>
     </div>
     <!-- Fruits Shop End-->
-
-
-    <!-- Featurs Start -->
-    <div class="container-fluid service py-5">
+    <!-- Featurs Section Start -->
+    <div class="container-fluid featurs">
         <div class="container py-5">
-            <div class="row g-4 justify-content-center">
-                <div class="col-md-6 col-lg-4">
-                    <a href="#">
-                        <div class="service-item bg-secondary rounded border border-secondary">
-                            <img src="img/featur-1.jpg" class="img-fluid rounded-top w-100" alt="">
-                            <div class="px-4 rounded-bottom">
-                                <div class="service-content bg-primary text-center p-4 rounded">
-                                    <h5 class="text-white">Fresh Apples</h5>
-                                    <h3 class="mb-0">20% OFF</h3>
-                                </div>
-                            </div>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="featurs-item text-center rounded bg-light p-4">
+                        <div class="featurs-icon btn-square rounded-circle bg-secondary mb-5 mx-auto">
+                            <i class="fas fa-car-side fa-3x text-white"></i>
                         </div>
-                    </a>
+                        <div class="featurs-content text-center">
+                            <h5>Miễn Phí Vận Chuyển</h5>
+                            <p class="mb-0">Miễn phí với đơn hàng hơn 2 triệu</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-6 col-lg-4">
-                    <a href="#">
-                        <div class="service-item bg-dark rounded border border-dark">
-                            <img src="img/featur-2.jpg" class="img-fluid rounded-top w-100" alt="">
-                            <div class="px-4 rounded-bottom">
-                                <div class="service-content bg-light text-center p-4 rounded">
-                                    <h5 class="text-primary">Tasty Fruits</h5>
-                                    <h3 class="mb-0">Free delivery</h3>
-                                </div>
-                            </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="featurs-item text-center rounded bg-light p-4">
+                        <div class="featurs-icon btn-square rounded-circle bg-secondary mb-5 mx-auto">
+                            <i class="fas fa-user-shield fa-3x text-white"></i>
                         </div>
-                    </a>
+                        <div class="featurs-content text-center">
+                            <h5>Thanh toán bảo mật</h5>
+                            <p class="mb-0">Thanh toán bảo đảm 100%</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-6 col-lg-4">
-                    <a href="#">
-                        <div class="service-item bg-primary rounded border border-primary">
-                            <img src="img/featur-3.jpg" class="img-fluid rounded-top w-100" alt="">
-                            <div class="px-4 rounded-bottom">
-                                <div class="service-content bg-secondary text-center p-4 rounded">
-                                    <h5 class="text-white">Exotic Vegitable</h5>
-                                    <h3 class="mb-0">Discount 30$</h3>
-                                </div>
-                            </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="featurs-item text-center rounded bg-light p-4">
+                        <div class="featurs-icon btn-square rounded-circle bg-secondary mb-5 mx-auto">
+                            <i class="fas fa-exchange-alt fa-3x text-white"></i>
                         </div>
-                    </a>
+                        <div class="featurs-content text-center">
+                            <h5>Hoàn trả trong 30 ngày</h5>
+                            <p class="mb-0">Đảm bảo tiền 30 ngày</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="featurs-item text-center rounded bg-light p-4">
+                        <div class="featurs-icon btn-square rounded-circle bg-secondary mb-5 mx-auto">
+                            <i class="fa fa-phone-alt fa-3x text-white"></i>
+                        </div>
+                        <div class="featurs-content text-center">
+                            <h5>Hỗ trợ 24/7</h5>
+                            <p class="mb-0">Hỗ trợ nhanh chóng mọi lúc</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Featurs End -->
-
+    <!-- Featurs Section End -->
 
     <!-- Vesitable Shop Start-->
     <div class="container-fluid vesitable py-5">

@@ -14,6 +14,10 @@
                     </div>
                     <div class="col-md-12 col-lg-6 col-xl-8">
                         <h6 style="border: 3px solid #84c423; padding: 20px 10px" class="mb-4 text-center">Cảm ơn bạn. Đơn hàng của bạn đã được nhận</h6>
+                        @if($order->order_method == 3)
+                            <h5 class="text-center">Vui lòng quét mã QR để thanh toán đơn hàng, kèm ghi chú mã đơn hàng</h5>
+                            <img style="width: 200px; height: 200px; margin-left: 300px;" src="{{asset('frontend/img/maqr.jpg')}}" alt="">
+                        @endif
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
@@ -30,7 +34,23 @@
                                     <th scope="row">
                                         {{ $order->order_code }}
                                     </th>
-                                    <th style="color: #84c423">Tạm Giữ</th>
+                                    <th style="color: #84c423">@if ($order->order_status==1)
+                                            <span>Đơn hàng mới</span>
+                                        @elseif($order->order_status== 2)
+
+                                            <span>Hoàn thành</span>>
+                                        @elseif($order->order_status== 3)
+
+                                            <span>Đơn hàng đã hủy</span>
+                                        @elseif($order->order_status== 4)
+
+                                            <span>Đơn hàng đã được xác nhận</span>
+                                        @elseif($order->order_status== 5)
+
+                                            <span>Đang trên đường vận chuyển</span>
+                                        @else
+                                            <span>Đã thanh toán</span>
+                                        @endif</th>
                                     <th>{{ $order->order_date }}</th>
                                     <th>{{number_format($order->order_total)}} <u>đ</u></th>
                                     <th>
