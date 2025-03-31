@@ -57,6 +57,56 @@
 <script src="{{asset('frontend/js/mail-script.js')}}"></script>
 <!-- custom js -->
 <script src="{{asset('frontend/js/custom.js')}}"></script>
+@yield('javascript')
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.add-to-cart').click(function () {
+            debugger;
+            var id = $(this).data('id_product');
+            var cart_product_id = parseInt($('.cart_product_id_' + id).val(), 10);
+            var cart_product_name = $('.cart_product_name_' + id).val();
+            var cart_product_image = $('.cart_product_image_' + id).val();
+            var cart_product_price = parseInt($('.cart_product_price_' + id).val(), 10);
+            var cart_product_quantity = parseInt($('.cart_product_quantity_' + id).val(), 10);
+            var cart_product_qty = parseInt($('.cart_product_qty_' + id).val(), 10);
+            var _token = $('input[name="_token"]').val();
+            if (cart_product_qty >= cart_product_quantity) {
+                toastr["error"]('Số lượng đặt lớn hơn số lượng còn trong kho, Vui lòng chọn số lượng nhỏ hơn ' + cart_product_quantity);
+            } else {
+                $.ajax({
+                    url: '{{url('/add-cart-ajax')}}',
+                    method: 'POST',
+                    data: {
+                        cart_product_id: cart_product_id,
+                        cart_product_name: cart_product_name,
+                        cart_product_quantity: cart_product_quantity,
+                        cart_product_image: cart_product_image,
+                        cart_product_price: cart_product_price,
+                        cart_product_qty: cart_product_qty,
+                        _token: _token
+                    },
+                    success: function () {
+
+                        swal({
+                            title: "Đã thêm sản phẩm vào giỏ hàng",
+                            text: "Bạn có thể mua hàng tiếp hoặc tới giỏ hàng để tiến hành thanh toán",
+                            cancel: "Xem tiếp",
+                            icon: "success",
+                            buttons: ["Xem tiếp", "Đi đến giỏ hàng"],
+                            dangerMode: true,
+                        })
+                            .then((willDelete) => {
+                                if (willDelete) {
+                                    window.location.href = "{{url('/cart')}}";
+                                }
+                            });
+                    }
+
+                });
+            }
+        })
+    });
+</script>
 </body>
 
 </html>

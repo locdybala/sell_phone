@@ -25,7 +25,7 @@ class ContactController extends Controller
     public function update(Request $request, $id) {
         $data = $request->all();
         $contact = Contact::find($id);
-        $contact['info_contact'] = $data['info_name'];
+        $contact['info_contact'] = html_entity_decode($data['info_name']);
         $contact['info_map'] = $data['info_map'];
         $file = $request->file('image');
         if ($file) {

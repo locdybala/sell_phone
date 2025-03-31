@@ -8,6 +8,7 @@ use App\Models\Province;
 use App\Models\Wards;
 use Illuminate\Http\Request;
 use App\Models\City;
+use Illuminate\Support\Facades\Session;
 
 class DeliveryController extends Controller
 {
@@ -96,7 +97,7 @@ class DeliveryController extends Controller
                 $select_province = Province::where('matp', $data['ma_id'])->orderby('maqh', 'ASC')->get();
                 $output .= '<option>---Chọn quận huyện---</option>';
                 foreach ($select_province as $key => $province) {
-                    $output .= '<option value="' . $province->maqh . '">' . $province->name_quanhuyen . '</option>';
+                    $output .= '<option value="' . $province->maqh . '" ' . (Session::get('selected_province') == $province->maqh ? 'selected' : '') . '>' . $province->name_quanhuyen . '</option>';
                 }
 
             } else {
@@ -104,7 +105,7 @@ class DeliveryController extends Controller
                 $select_wards = Wards::where('maqh', $data['ma_id'])->orderby('xaid', 'ASC')->get();
                 $output .= '<option>---Chọn xã phường---</option>';
                 foreach ($select_wards as $key => $ward) {
-                    $output .= '<option value="' . $ward->xaid . '">' . $ward->name_xaphuong . '</option>';
+                    $output .= '<option value="' . $ward->xaid . '" ' . (Session::get('selected_wards') == $ward->xaid ? 'selected' : '') . '>' . $ward->name_xaphuong . '</option>';
                 }
             }
             echo $output;
