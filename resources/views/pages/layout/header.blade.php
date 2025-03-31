@@ -1,103 +1,123 @@
-<header>
+<!--::header part start::-->
+<header class="main_menu home_menu">
     @php
         $customer_id = Session::get('customer_id');
         $shipping_id = Session::get('shipping_id');
     @endphp
-    <!-- Header Start -->
-    <div class="header-area">
-        <div class="main-header header-sticky">
-            <div class="container-fluid">
-                <div class="menu-wrapper">
-                    <!-- Logo -->
-                    <div class="logo">
-                        <a  href="{{URL::to('/')}}"><img style="width: 200px; height: 30px;" src="{{asset('frontend/assets/img/logo/logo1.png')}}" alt=""></a>
-                    </div>
-                    <!-- Main-menu -->
-                    <div class="main-menu d-none d-lg-block">
-                        <nav>
-                            <ul id="navigation">
-                                <li><a href="{{URL::to('/')}}">Trang chủ</a></li>
-                                <li class="hot"><a href="{{route('shop')}}">Danh mục</a>
-                                    <ul class="submenu">
-                                        @foreach ($category as $category)
-                                            <li>
-                                                <a href="{{ route('detailCategory',['id'=>$category->category_id]) }}"> {{$category->category_name}}</a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                </li>
-                                <li><a href="#">Thương hiệu</a>
-                                    <ul class="submenu">
-                                        @foreach ($brand as $brand)
-                                            <li>
-                                                <a href="{{ route('detailBrand',['id'=>$brand->brand_id]) }}">{{$brand->brand_name}}</a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                </li>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-12">
+                <nav class="navbar navbar-expand-lg navbar-light">
+                    <a class="navbar-brand" href="{{URL::to('/')}}"> <img src="{{asset('frontend/img/logo.png')}}" alt="logo"> </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="menu_icon"><i class="fas fa-bars"></i></span>
+                    </button>
 
-                                <li><a href="{{route('categoryPostIndex')}}">Tin tức</a>
-                                </li>
-                                <li><a href="{{route('contact')}}">Liên hệ</a></li>
-                                @if ($customer_id != NULL && $shipping_id == NULL)
-
-                                    <li>
-                                        <a href="{{URL::to('/checkout')}}"> Thanh toán</a>
-                                    </li>
-
-                                @elseif($customer_id != NULL && $shipping_id != NULL)
-
-                                    <li><a href="{{URL::to('/payment')}}"> Thanh toán</a>
-                                    </li>
-                                @else
-                                    <li><a href="{{URL::to('/login-checkout')}}"> Thanh toán</a>
-                                    </li>
-                                @endif
-                                @if ($customer_id != NULL)
-                                    <li><a href="#">Tài khoản</a>
-                                        <ul class="submenu">
-                                            <li><a href="{{route('history')}}">Lịch sử mua hàng</a></li>
-                                            <li><a href="{{route('edit_customer',['id'=>Session::get('customer_id')])}}">Thông tin cá nhân</a></li>
-                                            <li><a href="{{route('logout_checkout')}}">Đăng xuất</a></li>
-                                        </ul>
-                                    </li>
-                                @endif
-                            </ul>
-                        </nav>
-                    </div>
-                    <!-- Header Right -->
-                    <div class="header-right">
-                        <ul>
-                            <li>
-                                <div class="nav-search search-switch">
-                                    <span class="flaticon-search"></span>
+                    <div class="collapse navbar-collapse main-menu-item" id="navbarSupportedContent">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{URL::to('/')}}">Trang chủ</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="{{route('shop')}}" id="navbarDropdown_1"
+                                   role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Danh mục
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
+                                    @foreach ($category as $category)
+                                    <a class="dropdown-item" href="{{ route('detailCategory',['id'=>$category->category_id]) }}">{{$category->category_name}}</a>
+                                    @endforeach
                                 </div>
                             </li>
-                            <li><a href="{{route('cart')}}"><span class="flaticon-shopping-cart"></span></a></li>
-                            @if ($customer_id != NULL)
-                                <li><a href="{{route('list_wistList', ['customerId' => $customer_id])}}"><span class="flaticon-heart"></span></a></li>
-
-                                <li>
-                                    <a href="">
-                                        <span class="flaticon-user"> {{Session::get('customer_name')}}</span>
-                                    </a>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_3"
+                                   role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Thương hiệu
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown_2">
+                                    @foreach ($brand as $brand)
+                                        <a class="dropdown-item" href="{{ route('detailBrand',['id'=>$brand->brand_id]) }}"> {{$brand->brand_name}}</a>
+                                    @endforeach
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('categoryPostIndex')}}">Tin Tức</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('contact')}}">Liên hệ</a>
+                            </li>
+                            @if ($customer_id != NULL && $shipping_id == NULL)
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{URL::to('/checkout')}}">Thanh toán</a>
+                                </li>
+                            @elseif($customer_id != NULL && $shipping_id != NULL)
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{URL::to('/payment')}}">Thanh toán</a>
                                 </li>
                             @else
-                                <li><a href="{{URL::to('/login-checkout')}}"><span class="flaticon-user"> Đăng nhập</span></a></li>
-
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{URL::to('/login-checkout')}}">Thanh toán</a>
+                                </li>
                             @endif
                         </ul>
                     </div>
-                </div>
-                <!-- Mobile Menu -->
-                <div class="col-12">
-                    <div class="mobile_menu d-block d-lg-none"></div>
-                </div>
+                    <div class="hearer_icon d-flex">
+                        <a id="search_1" href="javascript:void(0)"><i class="ti-search"></i></a>
+                        <div class="dropdown cart">
+                            <a class="dropdown-toggle" href="{{route('cart')}}" id="navbarDropdown3" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-cart-plus"></i>
+                            </a>
+{{--                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">--}}
+{{--                                <div class="single_product">--}}
+
+{{--                                </div>--}}
+{{--                            </div>--}}
+
+                        </div>
+                        @if($customer_id != NULL)
+                        <div class="dropdown cart">
+                            <a class="dropdown-toggle" href="{{route('cart')}}" id="navbarDropdown3" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-user"></i>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <div class="single_product">
+                                    @if ($customer_id != NULL)
+                                        <ul>
+                                            <li><a href="{{route('history')}}">Lịch sử mua hàng</a></li>
+                                            <li>
+                                                <a href="{{route('edit_customer',['id'=>Session::get('customer_id')])}}">Thông
+                                                    tin cá nhân</a></li>
+                                            <li><a href="{{route('logout_checkout')}}">Đăng xuất</a></li>
+                                        </ul>
+                                    @endif
+                                </div>
+                            </div>
+
+                        </div>
+                        @else
+                        <a href="{{URL::to('/login-checkout')}}"><i class="fas fa-user"></i> Đăng nhập</a>
+                        @endif
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <div class="search_input" id="search_input_box">
+            <div class="container ">
+                <form class="d-flex justify-content-between search-inner">
+                    <input type="text" class="form-control" id="search_input" placeholder="Search Here">
+                    <button type="submit" class="btn"></button>
+                    <span class="ti-close" id="close_search" title="Close Search"></span>
+                </form>
             </div>
         </div>
     </div>
-    <!-- Header End -->
+
 </header>
+<!-- Header part end-->
 
 
 

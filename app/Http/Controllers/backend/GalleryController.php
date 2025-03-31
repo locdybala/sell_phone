@@ -64,7 +64,7 @@ class GalleryController extends Controller
                 $gallery->save();
             }
         }
-        Session::put('message','Thêm thư viện ảnh thành công');
+        Session::put('success','Thêm thư viện ảnh thành công');
         return redirect()->back();
     }
 

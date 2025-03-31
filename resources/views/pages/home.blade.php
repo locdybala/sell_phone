@@ -1,317 +1,428 @@
 @extends('layout')
 @section('content')
-    <style>
-        .button_wishlist:hover {
-            border: none !important;
-            background: #fff !important;
-        }
-    </style>
-    <!--? slider Area Start -->
-    <div style="height: 600px !important; width: 1920px; margin: 0px auto" class="slider-area ">
-        <div class="slider-active">
-            <!-- Single Slider -->
-            @foreach($sliders as $slider)
-            <div style="background-image: url('upload/slider/{{$slider->slider_image}}'); " class="single-slider slider-height d-flex align-items-center slide-bg">
-                    <div class="row justify-content-between align-items-center">
-                        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
-                            <div class="hero__caption">
-                                <h1 data-animation="fadeInLeft" data-delay=".4s"
-                                    data-duration="2000ms"></h1>
-                                <p data-animation="fadeInLeft" data-delay=".7s"
-                                   data-duration="2000ms"></p>
-                                <!-- Hero-btn -->
-                            </div>
-                        </div>
-                    </div>
-            </div>
-            @endforeach
-            <!-- Single Slider -->
 
-        </div>
-    </div>
-    <!-- slider Area End-->
-    <!-- ? New Product Start -->
-    <section style="padding: 50px 0 50px 0;" class="new-product-area section-padding2">
-        <div class="container">
-            <!-- Section tittle -->
-            <div class="row">
-                <div class="col-xl-12">
-                    <div class="section-tittle mb-70">
-                        <h2>Sản phẩm mới</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                @foreach($productNews as $product)
-                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                        <div class="single-new-pro mb-30 text-center productinfo">
-                            <div class="product-img">
-                                <img style="height: 400px" src="/upload/product/{{ $product->product_image }}" alt="">
-                            </div>
-                            <div class="product-caption">
-                                <h3>
-                                    <a href="{{ route('detailProduct',['id'=>$product->product_id]) }}">{{$product->product_name}}</a>
-                                </h3>
-                                <span>{{number_format($product->product_price)}} đ</span>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-    </section>
-    <!-- ? New Product Start -->
-    <div style="padding-bottom: 50px;" class="popular-items section-paddingt2">
-        <div class="container">
-            <!-- Section tittle -->
-            <div class="row justify-content-center">
-                <div class="col-xl-7 col-lg-8 col-md-10">
-                    <div class="section-tittle mb-70 text-center">
-                        <h2>Sản phẩm bán chạy</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                @foreach($productSolds as $product)
-                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                        <form>
-                            @csrf
-                            <input type="hidden" id="wishlish_product_id_{{$product->product_id}}"
-                                   value="{{$product->product_id}}"
-                                   class="cart_product_id_{{$product->product_id}}">
-                            <input type="hidden" id="wishlish_product_name_{{$product->product_id}}"
-                                   value="{{$product->product_name}}"
-                                   class="cart_product_name_{{$product->product_id}}">
-                            <input type="hidden" id="wishlish_product_image_{{$product->product_id}}"
-                                   value="{{$product->product_image}}"
-                                   class="cart_product_image_{{$product->product_id}}">
-                            <input type="hidden" id="wishlish_product_price_{{$product->product_id}}"
-                                   value="{{$product->product_price}}"
-                                   class="cart_product_price_{{$product->product_id}}">
-                            <input type="hidden" id="wishlish_product_quantity_{{$product->product_id}}"
-                                   value="{{$product->product_quantity}}"
-                                   class="cart_product_quantity_{{$product->product_id}}">
-                            <input type="hidden" value="1" id="wishlish_product_qty_{{$product->product_id}}"
-                                   class="cart_product_qty_{{$product->product_id}}">
-                            <div class="single-popular-items mb-50 text-center">
-                                <div class="popular-img">
-                                    <img style="height: 380px;" src="/upload/product/{{ $product->product_image }}"
-                                         alt="">
-                                    @php
-                                        $customerId = Session::get('customer_id');
-                                    @endphp
-                                    @if ($customerId)
-                                        <div class="img-cap ">
-                                            <button type="button" name="add-to-cart"
-                                                    data-id_product="{{$product->product_id}}"
-                                                    class="add-to-cart ">Thêm giỏ hàng
-                                            </button>
+    @if(isset($sliders) && count($sliders) > 0)
+        <section class="banner_part">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-12">
+                        <div class="banner_slider owl-carousel">
+                            @foreach($sliders as $slider)
+                                <div class="single_banner_slider">
+                                    <div class="row">
+                                        <div class="col-lg-5 col-md-8">
+                                            <div class="banner_text">
+                                                <div class="banner_text_iner">
+                                                    <h1>{{ $slider->title }}</h1>
+                                                    <p>{{ $slider->description }}</p>
+                                                    <a href="#" class="btn_2">Buy Now</a>
+                                                </div>
+                                            </div>
                                         </div>
-                                    @else
-                                        <div class="img-cap ">
-                                            <a href="{{URL::to('/login-checkout')}}"
-                                               class="add-to-cart"><span>Thêm
-                                            giỏ hàng</span></a>
+                                        <div class="banner_img d-none d-lg-block">
+                                            <img src="{{ asset('upload/slider/'. $slider->slider_image) }}" alt="{{ $slider->title }}">
                                         </div>
-                                    @endif
-                                    <input type="hidden" id="customerId" value="{{$customerId}}">
-
-                                    <div class="favorit-items">
-                                        @if ($customerId)
-                                            <span id="{{$product->product_id}}" onclick="add_wistlist(this.id);"
-                                                  class="flaticon-heart"></span>
-
-                                        @else
-                                            <a href="{{URL::to('/login-checkout')}}"
-                                               class="add-to-cart"><span class="flaticon-heart"></span></a>
-                                        @endif
                                     </div>
                                 </div>
-                                <div class="popular-caption">
-                                    <h3>
-                                        <a id="wishlish_product_url_{{$product->product_id}}"
-                                           href="{{ route('detailProduct',['id'=>$product->product_id]) }}">{{$product->product_name}}</a>
-                                    </h3>
-                                    <span>{{number_format($product->product_price)}} đ</span>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-    </div>>
-    <div class="video-area">
-        <div class="container-fluid">
-            <div class="row align-items-center">
-                <div class="col-lg-12">
-                    <div class="video-wrap">
-                        <div class="play-btn "><a class="popup-video" href="https://www.youtube.com/watch?v=wusYkvUFmiI"><i class="fas fa-play"></i></a></div>
+                            @endforeach
+                        </div>
+                        <div class="slider-counter"></div>
                     </div>
                 </div>
             </div>
-            <!-- Arrow -->
-            <div class="thumb-content-box">
-                <div class="thumb-content">
-                    <h3>Xem chi tiết</h3>
-                    <a href="https://www.youtube.com/watch?v=wusYkvUFmiI"> <i class="flaticon-arrow"></i></a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div style="padding-top: 100px; padding-bottom: 100px;" class="watch-area section-padding30">
+        </section>
+    @endif
+
+
+    <!-- feature_part start-->
+    <section class="feature_part padding_top">
         <div class="container">
-            <div class="row align-items-center justify-content-between padding-130">
-                <div class="col-lg-5 col-md-6">
-                    <div class="watch-details mb-40">
-                        <h2>{{$productLimit->product_name}}</h2>
-                        <p>{{$productLimit->product_content}}</p>
-                        <a href="{{ route('detailProduct',['id'=>$productLimit->product_id]) }}" class="btn">Xem đồng
-                            hồ</a>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-10">
-                    <div class="choice-watch-img mb-40">
-                        <img src="/upload/product/{{ $productLimit->product_image }}" alt="">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="section_tittle text-center">
+                        <h2>Featured Category</h2>
                     </div>
                 </div>
             </div>
             <div class="row align-items-center justify-content-between">
-                <div class="col-lg-6 col-md-6 col-sm-10">
-                    <div class="choice-watch-img mb-40">
-                        <img src="/upload/product/{{ $productView->product_image }}" alt="">
+                <div class="col-lg-7 col-sm-6">
+                    <div class="single_feature_post_text">
+                        <p>Premium Quality</p>
+                        <h3>Latest foam Sofa</h3>
+                        <a href="#" class="feature_btn">EXPLORE NOW <i class="fas fa-play"></i></a>
+                        <img src="{{asset('frontend/img/feature/feature_1.png')}}" alt="">
                     </div>
                 </div>
-                <div class="col-lg-5 col-md-6">
-                    <div class="watch-details mb-40">
-                        <h2>{{$productView->product_name}}</h2>
-                        <p>{{$productView->content}}</p>
-                        <a href="{{ route('detailProduct',['id'=>$productView->product_id]) }}" class="btn">Xem đồng
-                            hồ</a>
+                <div class="col-lg-5 col-sm-6">
+                    <div class="single_feature_post_text">
+                        <p>Premium Quality</p>
+                        <h3>Latest foam Sofa</h3>
+                        <a href="#" class="feature_btn">EXPLORE NOW <i class="fas fa-play"></i></a>
+                        <img src="{{asset('frontend/img/feature/feature_2.png')}}" alt="">
+                    </div>
+                </div>
+                <div class="col-lg-5 col-sm-6">
+                    <div class="single_feature_post_text">
+                        <p>Premium Quality</p>
+                        <h3>Latest foam Sofa</h3>
+                        <a href="#" class="feature_btn">EXPLORE NOW <i class="fas fa-play"></i></a>
+                        <img src="{{asset('frontend/img/feature/feature_3.png')}}" alt="">
+                    </div>
+                </div>
+                <div class="col-lg-7 col-sm-6">
+                    <div class="single_feature_post_text">
+                        <p>Premium Quality</p>
+                        <h3>Latest foam Sofa</h3>
+                        <a href="#" class="feature_btn">EXPLORE NOW <i class="fas fa-play"></i></a>
+                        <img src="{{asset('frontend/img/feature/feature_4.png')}}" alt="">
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!--  New Product End -->
-    <!--? Popular Items Start -->
-    <div class="popular-items section-paddingt2">
+    </section>
+    <!-- upcoming_event part start-->
+
+    <!-- product_list start-->
+    <section class="product_list section_padding">
         <div class="container">
-            <!-- Section tittle -->
             <div class="row justify-content-center">
-                <div class="col-xl-7 col-lg-8 col-md-10">
-                    <div class="section-tittle mb-70 text-center">
-                        <h2>Danh sách sản phẩm</h2>
+                <div class="col-lg-12">
+                    <div class="section_tittle text-center">
+                        <h2>awesome <span>shop</span></h2>
                     </div>
                 </div>
             </div>
             <div class="row">
-                @foreach($products as $product)
-                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                        <form>
-                            @csrf
-                            <input type="hidden" id="wishlish_product_id_{{$product->product_id}}"
-                                   value="{{$product->product_id}}"
-                                   class="cart_product_id_{{$product->product_id}}">
-                            <input type="hidden" id="wishlish_product_name_{{$product->product_id}}"
-                                   value="{{$product->product_name}}"
-                                   class="cart_product_name_{{$product->product_id}}">
-                            <input type="hidden" id="wishlish_product_image_{{$product->product_id}}"
-                                   value="{{$product->product_image}}"
-                                   class="cart_product_image_{{$product->product_id}}">
-                            <input type="hidden" id="wishlish_product_price_{{$product->product_id}}"
-                                   value="{{$product->product_price}}"
-                                   class="cart_product_price_{{$product->product_id}}">
-                            <input type="hidden" id="wishlish_product_quantity_{{$product->product_id}}"
-                                   value="{{$product->product_quantity}}"
-                                   class="cart_product_quantity_{{$product->product_id}}">
-                            <input type="hidden" value="1" id="wishlish_product_qty_{{$product->product_id}}"
-                                   class="cart_product_qty_{{$product->product_id}}">
-                            <div class="single-popular-items mb-50 text-center">
-                                <div class="popular-img">
-                                    <img style="height: 380px;" src="/upload/product/{{ $product->product_image }}"
-                                         alt="">
-                                    @php
-                                        $customerId = Session::get('customer_id');
-                                    @endphp
-                                    @if ($customerId)
-                                        <div class="img-cap ">
-                                            <button type="button" name="add-to-cart"
-                                                    data-id_product="{{$product->product_id}}"
-                                                    class="add-to-cart ">Thêm giỏ hàng
-                                            </button>
+                <div class="col-lg-12">
+                    <div class="product_list_slider owl-carousel">
+                        <div class="single_product_list_slider">
+                            <div class="row align-items-center justify-content-between">
+                                <div class="col-lg-3 col-sm-6">
+                                    <div class="single_product_item">
+                                        <img src="{{asset('frontend/img/product/product_1.png')}}" alt="">
+                                        <div class="single_product_text">
+                                            <h4>Quartz Belt Watch</h4>
+                                            <h3>$150.00</h3>
+                                            <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
                                         </div>
-                                    @else
-                                        <div class="img-cap ">
-                                            <a href="{{URL::to('/login-checkout')}}"
-                                               class="add-to-cart"><span>Thêm
-                                            giỏ hàng</span></a>
-                                        </div>
-                                    @endif
-                                    <input type="hidden" id="customerId" value="{{$customerId}}">
-
-                                    <div class="favorit-items">
-                                        @if ($customerId)
-                                            <span id="{{$product->product_id}}" onclick="add_wistlist(this.id);"
-                                                  class="flaticon-heart"></span>
-
-                                        @else
-                                            <a href="{{URL::to('/login-checkout')}}"
-                                               class="add-to-cart"><span class="flaticon-heart"></span></a>
-                                        @endif
                                     </div>
                                 </div>
-                                <div class="popular-caption">
-                                    <h3>
-                                        <a id="wishlish_product_url_{{$product->product_id}}"
-                                           href="{{ route('detailProduct',['id'=>$product->product_id]) }}">{{$product->product_name}}</a>
-                                    </h3>
-                                    <span>{{number_format($product->product_price)}} đ</span>
+                                <div class="col-lg-3 col-sm-6">
+                                    <div class="single_product_item">
+                                        <img src="{{asset('frontend/img/product/product_2.png')}}" alt="">
+                                        <div class="single_product_text">
+                                            <h4>Quartz Belt Watch</h4>
+                                            <h3>$150.00</h3>
+                                            <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-sm-6">
+                                    <div class="single_product_item">
+                                        <img src="{{asset('frontend/img/product/product_3.png')}}" alt="">
+                                        <div class="single_product_text">
+                                            <h4>Quartz Belt Watch</h4>
+                                            <h3>$150.00</h3>
+                                            <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-sm-6">
+                                    <div class="single_product_item">
+                                        <img src="{{asset('frontend/img/product/product_4.png')}}" alt="">
+                                        <div class="single_product_text">
+                                            <h4>Quartz Belt Watch</h4>
+                                            <h3>$150.00</h3>
+                                            <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-sm-6">
+                                    <div class="single_product_item">
+                                        <img src="{{asset('frontend/img/product/product_5.png')}}" alt="">
+                                        <div class="single_product_text">
+                                            <h4>Quartz Belt Watch</h4>
+                                            <h3>$150.00</h3>
+                                            <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-sm-6">
+                                    <div class="single_product_item">
+                                        <img src="{{asset('frontend/img/product/product_6.png')}}" alt="">
+                                        <div class="single_product_text">
+                                            <h4>Quartz Belt Watch</h4>
+                                            <h3>$150.00</h3>
+                                            <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-sm-6">
+                                    <div class="single_product_item">
+                                        <img src="{{asset('frontend/img/product/product_7.png')}}" alt="">
+                                        <div class="single_product_text">
+                                            <h4>Quartz Belt Watch</h4>
+                                            <h3>$150.00</h3>
+                                            <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-sm-6">
+                                    <div class="single_product_item">
+                                        <img src="{{asset('frontend/img/product/product_8.png')}}" alt="">
+                                        <div class="single_product_text">
+                                            <h4>Quartz Belt Watch</h4>
+                                            <h3>$150.00</h3>
+                                            <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </form>
+                        </div>
+                        <div class="single_product_list_slider">
+                            <div class="row align-items-center justify-content-between">
+                                <div class="col-lg-3 col-sm-6">
+                                    <div class="single_product_item">
+                                        <img src="{{asset('frontend/img/product/product_1.png')}}" alt="">
+                                        <div class="single_product_text">
+                                            <h4>Quartz Belt Watch</h4>
+                                            <h3>$150.00</h3>
+                                            <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-sm-6">
+                                    <div class="single_product_item">
+                                        <img src="{{asset('frontend/img/product/product_2.png')}}" alt="">
+                                        <div class="single_product_text">
+                                            <h4>Quartz Belt Watch</h4>
+                                            <h3>$150.00</h3>
+                                            <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-sm-6">
+                                    <div class="single_product_item">
+                                        <img src="{{asset('frontend/img/product/product_3.png')}}" alt="">
+                                        <div class="single_product_text">
+                                            <h4>Quartz Belt Watch</h4>
+                                            <h3>$150.00</h3>
+                                            <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-sm-6">
+                                    <div class="single_product_item">
+                                        <img src="{{asset('frontend/img/product/product_4.png')}}" alt="">
+                                        <div class="single_product_text">
+                                            <h4>Quartz Belt Watch</h4>
+                                            <h3>$150.00</h3>
+                                            <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-sm-6">
+                                    <div class="single_product_item">
+                                        <img src="{{asset('frontend/img/product/product_5.png')}}" alt="">
+                                        <div class="single_product_text">
+                                            <h4>Quartz Belt Watch</h4>
+                                            <h3>$150.00</h3>
+                                            <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-sm-6">
+                                    <div class="single_product_item">
+                                        <img src="{{asset('frontend/img/product/product_6.png')}}" alt="">
+                                        <div class="single_product_text">
+                                            <h4>Quartz Belt Watch</h4>
+                                            <h3>$150.00</h3>
+                                            <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-sm-6">
+                                    <div class="single_product_item">
+                                        <img src="{{asset('frontend/img/product/product_7.png')}}" alt="">
+                                        <div class="single_product_text">
+                                            <h4>Quartz Belt Watch</h4>
+                                            <h3>$150.00</h3>
+                                            <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-sm-6">
+                                    <div class="single_product_item">
+                                        <img src="{{asset('frontend/img/product/product_8.png')}}" alt="">
+                                        <div class="single_product_text">
+                                            <h4>Quartz Belt Watch</h4>
+                                            <h3>$150.00</h3>
+                                            <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                @endforeach
-            </div>
-            <!-- Button -->
-            <div class="row justify-content-center">
-                <div class="room-btn pt-70">
-                    <a href="{{route('shop')}}" class="btn view-btn1">Xem thêm sản phẩm</a>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Popular Items End -->
-    <!--? Shop Method Start-->
-    <div class="shop-method-area">
+    </section>
+    <!-- product_list part start-->
+
+    <!-- awesome_shop start-->
+    <section class="our_offer section_padding">
         <div class="container">
-            <div class="method-wrapper">
-                <div class="row d-flex justify-content-between">
-                    <div class="col-xl-4 col-lg-4 col-md-6">
-                        <div class="single-method mb-40">
-                            <i class="ti-package"></i>
-                            <h6>Phương thức vận chuyển miễn phí</h6>
-                            <p>Giao hàng nhanh, đóng gói cẩn thận, miễn phí đến tay người dùng</p>
-                        </div>
+            <div class="row align-items-center justify-content-between">
+                <div class="col-lg-6 col-md-6">
+                    <div class="offer_img">
+                        <img src="{{asset('frontend/img/offer_img.png')}}" alt="">
                     </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6">
-                        <div class="single-method mb-40">
-                            <i class="ti-unlock"></i>
-                            <h6>Hệ thống thanh toán an toàn</h6>
-                            <p>Kiểm tra hàng mới thanh toán hoặc có thể thanh toán online nhanh chóng</p>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="offer_text">
+                        <h2>Weekly Sale on
+                            60% Off All Products</h2>
+                        <div class="date_countdown">
+                            <div id="timer">
+                                <div id="days" class="date"></div>
+                                <div id="hours" class="date"></div>
+                                <div id="minutes" class="date"></div>
+                                <div id="seconds" class="date"></div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6">
-                        <div class="single-method mb-40">
-                            <i class="ti-reload"></i>
-                            <h6>Bảo mật thông tin người dùng</h6>
-                            <p>Thông tin khách hàng luôn được bảo mật</p>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="enter email address"
+                                   aria-label="Recipient's username" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <a href="#" class="input-group-text btn_2" id="basic-addon2">book now</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+    <!-- awesome_shop part start-->
+
+    <!-- product_list part start-->
+    <section class="product_list best_seller section_padding">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="section_tittle text-center">
+                        <h2>Best Sellers <span>shop</span></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row align-items-center justify-content-between">
+                <div class="col-lg-12">
+                    <div class="best_product_slider owl-carousel">
+                        <div class="single_product_item">
+                            <img src="{{asset('frontend/img/product/product_1.png')}}" alt="">
+                            <div class="single_product_text">
+                                <h4>Quartz Belt Watch</h4>
+                                <h3>$150.00</h3>
+                            </div>
+                        </div>
+                        <div class="single_product_item">
+                            <img src="{{asset('frontend/img/product/product_2.png')}}" alt="">
+                            <div class="single_product_text">
+                                <h4>Quartz Belt Watch</h4>
+                                <h3>$150.00</h3>
+                            </div>
+                        </div>
+                        <div class="single_product_item">
+                            <img src="{{asset('frontend/img/product/product_3.png')}}" alt="">
+                            <div class="single_product_text">
+                                <h4>Quartz Belt Watch</h4>
+                                <h3>$150.00</h3>
+                            </div>
+                        </div>
+                        <div class="single_product_item">
+                            <img src="{{asset('frontend/img/product/product_4.png')}}" alt="">
+                            <div class="single_product_text">
+                                <h4>Quartz Belt Watch</h4>
+                                <h3>$150.00</h3>
+                            </div>
+                        </div>
+                        <div class="single_product_item">
+                            <img src="{{asset('frontend/img/product/product_5.png')}}" alt="">
+                            <div class="single_product_text">
+                                <h4>Quartz Belt Watch</h4>
+                                <h3>$150.00</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- product_list part end-->
+
+    <!-- subscribe_area part start-->
+    <section class="subscribe_area section_padding">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-7">
+                    <div class="subscribe_area_text text-center">
+                        <h5>Join Our Newsletter</h5>
+                        <h2>Subscribe to get Updated
+                            with new offers</h2>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="enter email address"
+                                   aria-label="Recipient's username" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <a href="#" class="input-group-text btn_2" id="basic-addon2">subscribe now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--::subscribe_area part end::-->
+
+    <!-- subscribe_area part start-->
+    <section class="client_logo padding_top">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-12">
+                    <div class="single_client_logo">
+                        <img src="{{asset('frontend/img/client_logo/client_logo_1.png')}}" alt="">
+                    </div>
+                    <div class="single_client_logo">
+                        <img src="{{asset('frontend/img/client_logo/client_logo_2.png')}}" alt="">
+                    </div>
+                    <div class="single_client_logo">
+                        <img src="{{asset('frontend/img/client_logo/client_logo_3.png')}}" alt="">
+                    </div>
+                    <div class="single_client_logo">
+                        <img src="{{asset('frontend/img/client_logo/client_logo_4.png')}}" alt="">
+                    </div>
+                    <div class="single_client_logo">
+                        <img src="{{asset('frontend/img/client_logo/client_logo_5.png')}}" alt="">
+                    </div>
+                    <div class="single_client_logo">
+                        <img src="{{asset('frontend/img/client_logo/client_logo_3.png')}}" alt="">
+                    </div>
+                    <div class="single_client_logo">
+                        <img src="{{asset('frontend/img/client_logo/client_logo_1.png')}}" alt="">
+                    </div>
+                    <div class="single_client_logo">
+                        <img src="{{asset('frontend/img/client_logo/client_logo_2.png')}}" alt="">
+                    </div>
+                    <div class="single_client_logo">
+                        <img src="{{asset('frontend/img/client_logo/client_logo_3.png')}}" alt="">
+                    </div>
+                    <div class="single_client_logo">
+                        <img src="{{asset('frontend/img/client_logo/client_logo_4.png')}}" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--::subscribe_area part end::-->
 @endsection
 @section('javascript')
     <script type="text/javascript">
