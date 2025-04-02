@@ -7,6 +7,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\CategoryPost;
 use App\Models\Comment;
+use App\Models\Coupon;
 use App\Models\Gallery;
 use App\Models\Pages;
 use App\Models\Product;
@@ -21,15 +22,21 @@ class HomeController extends Controller
         $title = 'Trang chủ';
         $category = Category::where('category_status', '1')->orderby('category_id', 'desc')->get();
         $brand = Brand::where('brand_status', '1')->orderby('brand_id', 'desc')->get();
-        $products = Product::where('product_status', '1')->limit(9)->get();
         $productNews = Product::where('product_status', '1')->orderby('product_id', 'desc')->limit(6)->get();
         $productSolds = Product::where('product_status', '1')->orderby('product_sold', 'desc')->limit(9)->get();
         $productLimit = Product::where('product_status', '1')->orderby('product_price', 'desc')->limit(1)->first();
         $productView = Product::where('product_status', '1')->orderby('product_view', 'desc')->limit(1)->first();
+        $bestSellers = Product::latest()->limit(5)->get();
         $sliders = Slider::where('slider_status', '1')->get();
+        $categories = Category::latest()->take(4)->get(); // Lấy 4 danh mục mới nhất
         $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();
         $pages = Pages::all();
-        return view('pages.home', compact('category', 'brand', 'products', 'sliders', 'productView', 'productLimit', 'categorypost', 'title', 'productNews', 'pages', 'productSolds'));
+        $coupon = Coupon::whereDate('coupon_date_start', '<=', now())
+            ->whereDate('coupon_date_end', '>=', now())
+            ->first();
+        $products = Product::latest()->take(16)->get();
+        return view('pages.home', compact('category', 'brand', 'products', 'sliders', 'productView', 'productLimit', 'categorypost',
+            'title', 'productNews', 'pages', 'productSolds', 'categories', 'coupon', 'bestSellers'));
     }
 
     public function shop()
@@ -63,13 +70,18 @@ class HomeController extends Controller
     {
         $title = 'Sản phẩm theo danh mục';
         $slider = Slider::where('slider_status', '1')->take(4)->get();
-        $category = Category::where('category_status', '1')->orderby('category_id', 'desc')->get();
+        $category = Category::where('category_status', '1')
+            ->withCount('product') // Lưu ý: 'products' theo tên function
+            ->orderBy('category_id', 'desc')
+            ->get();
         $brand = Brand::where('brand_status', '1')->orderby('brand_id', 'desc')->get();
         $products = Product::where('product_status', '1')->where('category_id', $id)->orderby('product_id', 'desc')->paginate(8);
         $category_name = Category::find($id);
         $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();
         $pages = Pages::all();
-        return view('pages.category.show_category', compact('category','brand', 'products', 'category_name', 'slider', 'categorypost', 'title', 'pages'));
+        // Lấy sản phẩm bán chạy nhất (giả sử cột `product_sold` lưu số lượng đã bán)
+        $best_sellers = Product::where('product_status', '1')->orderBy('product_sold', 'desc')->take(8)->get();
+        return view('pages.category.show_category', compact('category','brand', 'products', 'category_name', 'slider', 'categorypost', 'title', 'pages', 'best_sellers'));
     }
 
     public function detailBrand($id)
@@ -77,16 +89,18 @@ class HomeController extends Controller
         $title = 'Sản phẩm theo thương hiệu';
         $brand_name = Brand::find($id)->brand_name;
         $slider = Slider::where('slider_status', '1')->take(4)->get();
-        $category = Category::where('category_status', '1')->orderby('category_id', 'desc')->get();
+        $category = Category::where('category_status', '1')
+            ->withCount('product') // Lưu ý: 'products' theo tên function
+            ->orderBy('category_id', 'desc')
+            ->get();
         $brand = Brand::where('brand_status', '1')->orderby('brand_id', 'desc')->get();
-        $product = Product::where('product_status', '1')->where('brand_id', $id)->orderby('product_id', 'desc')->limit(8)->get();
-        $price_increases = Product::where('product_status', '1')->where('brand_id', $id)->orderby('product_price', 'desc')->limit(8)->get();
-        $price_reduces = Product::where('product_status', '1')->where('brand_id', $id)->orderby('product_price', 'ASC')->limit(8)->get();
-        $product_populars = Product::where('product_status', '1')->where('brand_id', $id)->orderby('product_view', 'DESC')->limit(8)->get();
+        $products = Product::where('product_status', '1')->where('brand_id', $id)->orderby('product_id', 'desc')->paginate(8);
 
         $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();
         $pages = Pages::all();
-        return view('pages.brand.show_brand', compact('price_increases', 'price_reduces', 'product_populars', 'category', 'brand', 'product', 'brand_name', 'slider', 'categorypost', 'title', 'pages'));
+        $best_sellers = Product::where('product_status', '1')->orderBy('product_sold', 'desc')->take(8)->get();
+
+        return view('pages.brand.show_brand', compact( 'category', 'brand', 'products', 'brand_name', 'slider', 'categorypost', 'title', 'pages', 'best_sellers'));
     }
 
     public function detailProduct($id)
@@ -110,14 +124,17 @@ class HomeController extends Controller
     public function search(Request $request)
     {
         $title = 'Tìm kiếm';
-        $category = Category::where('category_status', '1')->orderby('category_id', 'desc')->get();
+        $category = Category::where('category_status', '1')
+            ->withCount('product') // Lưu ý: 'products' theo tên function
+            ->orderBy('category_id', 'desc')
+            ->get();
         $brand = Brand::where('brand_status', '1')->orderby('brand_id', 'desc')->get();
         $keywords = $request->keywords_submit;
         $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();
-        $product = Product::where('product_name', 'like', '%' . $keywords . '%')->get();
+        $products = Product::where('product_name', 'like', '%' . $keywords . '%')->get();
         $slider = Slider::where('slider_status', '1')->take(4)->get();
         $pages = Pages::all();
-        return view('pages.product.search', compact('category', 'brand', 'product', 'categorypost', 'title', 'slider', 'pages'));
+        return view('pages.product.search', compact('category', 'brand', 'products', 'categorypost', 'title', 'slider', 'pages'));
 
     }
 
@@ -134,43 +151,55 @@ class HomeController extends Controller
         $output = '';
         foreach ($comments as $comment) {
 
-            $output .= ' <div class="d-flex"><img src="' . url('frontend/assets/img/comment/comment_1.png') . '" class="img-fluid rounded-circle p-3"
-                                             style="width: 100px; height: 100px;" alt="">
-                                        <div class="">
-                                            <p class="mb-2" style="font-size: 14px;">' . $comment->comment_date . '</p>
-                                            <div class="d-flex justify-content-between">
-                                                <h5>' . $comment->comment_name . '</h5>
-                                                <div class="d-flex mb-3">
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                            </div>
-                                            <p>' . $comment->comment . '</p>
-                                        </div></div>
-            ';
-            foreach ($replycomments as $replycomment) {
-                if ($replycomment->comment_parent === $comment->comment_id) {
-                    $output .= '<div style="margin-left: 40px" class="d-flex">
-                                        <img src="' . url('frontend/assets/img/comment/user.png') . '" class="img-fluid rounded-circle p-3" style="width: 100px; height: 100px;" alt="">
-                                        <div class="">
-                                            <p class="mb-2" style="font-size: 14px;">' . $replycomment->comment_date . '</p>
-                                            <div class="d-flex justify-content-between">
-                                                <h5>' . $replycomment->comment_name . '</h5>
-                                                <div class="d-flex mb-3">
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                            </div>
-                                            <p> ' . $replycomment->comment . '</p>
-                                        </div></div>';
+            $output = '';
+            foreach ($comments as $comment) {
+                $output .= '<div class="review_item">'
+                    . '<div class="media">'
+                    . '<div class="d-flex">'
+                    . '<img src="' . url('frontend/assets/img/comment/comment_1.png') . '" class="img-fluid rounded-circle p-3" style="width: 100px; height: 100px;" alt="">'
+                    . '</div>'
+                    . '<div class="media-body">'
+                    . '<h4>' . $comment->comment_name . '</h4>'
+                    . '<div class="d-flex mb-3">';
+
+                // Hiển thị số sao đánh giá
+                for ($i = 1; $i <= 5; $i++) {
+                    $output .= '<i class="fa ' . ($i <= $comment->rating ? 'fa-star text-secondary' : 'fa-star text-muted') . '"></i>';
+                }
+
+                $output .= '</div>' // Đóng phần đánh giá sao
+                    . '<p>' . $comment->comment . '</p>'
+                    . '<p class="mb-2" style="font-size: 14px;">' . $comment->comment_date . '</p>'
+                    . '</div>' // Đóng media-body
+                    . '</div>' // Đóng media
+                    . '</div>'; // Đóng review_item
+
+                // Hiển thị phản hồi bình luận
+                foreach ($replycomments as $replycomment) {
+                    if ($replycomment->comment_parent === $comment->comment_id) {
+                        $output .= '<div class="review_item" style="margin-left: 40px">'
+                            . '<div class="media">'
+                            . '<div class="d-flex">'
+                            . '<img src="' . url('frontend/assets/img/comment/user.png') . '" class="img-fluid rounded-circle p-3" style="width: 100px; height: 100px;" alt="">'
+                            . '</div>'
+                            . '<div class="media-body">'
+                            . '<h4>' . $replycomment->comment_name . '</h4>'
+                            . '<div class="d-flex mb-3">';
+
+                        for ($i = 1; $i <= 5; $i++) {
+                            $output .= '<i class="fa ' . ($i <= $replycomment->rating ? 'fa-star text-secondary' : 'fa-star text-muted') . '"></i>';
+                        }
+
+                        $output .= '</div>' // Đóng phần đánh giá sao
+                            . '<p>' . $replycomment->comment . '</p>'
+                            . '<p class="mb-2" style="font-size: 14px;">' . $replycomment->comment_date . '</p>'
+                            . '</div>' // Đóng media-body
+                            . '</div>' // Đóng media
+                            . '</div>'; // Đóng review_item
+                    }
                 }
             }
+
         }
         echo $output;
     }

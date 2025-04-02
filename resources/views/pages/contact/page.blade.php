@@ -1,53 +1,54 @@
 @extends('layout')
 @section('content')
-    <!-- Single Page Header start -->
-    <div class="container-fluid page-header py-5">
-        <h1 class="text-center text-white display-6">Chính sách cửa hàng</h1>
-        <ol class="breadcrumb justify-content-center mb-0">
-            <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-            <li class="breadcrumb-item active text-white">{{$page->title}}</li>
-        </ol>
-    </div>
-    <div class="container-fluid fruite py-5">
-        <div class="container py-5">
-            <div class="row g-4">
-                <div class="col-lg-12">
-                    <div class="row g-4">
-                        <div class="col-lg-3">
-                            <div class="row g-4">
-                                <div class="col-lg-12">
-                                    <div class="mb-3">
-                                        <h4>Danh mục bài viết</h4>
-                                        <ul class="list-unstyled fruite-categorie">
-                                            @foreach($pagess as $value)
-                                                <li>
-                                                    <div class="d-flex justify-content-between fruite-name">
-                                                        <a href="{{route('pages', ['slug' => $value->slug])}}"><i
-                                                                class="fas fa-chevron-right me-2"></i>{{$value->name}}
-                                                        </a>
-                                                    </div>
-                                                </li>
-                                            @endforeach
-
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-9">
-                            <div class="single-post">
-                                <div class="blog_details">
-                                    <h2>{{$page->title}}</h2>
-                                    <p class="excert">
-                                        {!! $page->content !!}
-                                    </p>
-                                </div>
-                            </div>
+    <section class="breadcrumb breadcrumb_bg">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="breadcrumb_iner">
+                        <div class="breadcrumb_iner_item">
+                            <h2>{{$page->title}}</h2>
+                            <p>Trang chủ <span>-</span>Chính sách cửa hàng</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+    <!-- breadcrumb start-->
+
+    <!--================Category Product Area =================-->
+    <section class="cat_product_area section_padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="left_sidebar_area">
+                        <aside class="left_widgets p_filter_widgets">
+                            <div class="l_w_title">
+                                <h3>Danh mục sản phẩm</h3>
+                            </div>
+                            <div class="widgets_inner">
+                                <ul class="list">
+                                    @foreach ($pagess as $value)
+                                        <li>
+                                            <a href="{{route('pages', ['slug' => $value->slug])}}">{{$value->name}}</a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </aside>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="row align-items-center latest_product_inner">
+                        <h2>{{$page->title}}</h2>
+                        <p class="excert">
+                            {!! $page->content !!}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================End Category Product Area =================-->
 @endsection
 

@@ -1,13 +1,19 @@
 @extends('layout')
 @section('content')
-    <div class="container-fluid page-header py-5">
-        <h1 class="text-center text-white display-6">Quên mật khẩu</h1>
-        <ol class="breadcrumb justify-content-center mb-0">
-            <li class="breadcrumb-item"><a href="{{URL::to('/')}}">Trang Chủ</a></li>
-            <li class="breadcrumb-item active text-white">Quên mật khẩu</li>
-        </ol>
-        <!-- Checkout Page Start -->
-    </div>
+    <section class="breadcrumb breadcrumb_bg">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="breadcrumb_iner">
+                        <div class="breadcrumb_iner_item">
+                            <h2>Quên mật khẩu</h2>
+                            <p>Trang Chủ <span>-</span> Quên mật khẩu</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <div class="container-fluid py-5">
         <div class="container py-5">
             <div class="row g-5 align-items-center">
@@ -28,15 +34,15 @@
                     @endif
                     <form action="{{route('send_mail_forgot_pass')}}" method="POST">
                         {{csrf_field()}}
-                        <div class="form-item">
+                        <div class="form-group">
                             <label for="email_account" class="form-label my-3">Tài khoản email<sup>*</sup></label>
                             <input type="email" id="email_account" name="email_account" class="form-control"
                                    placeholder="Nhập tài khoản email" value="{{old('email_account')}}">
                         </div>
 
-                        <div class="form-item mt-3">
+                        <div class="form-group mt-3">
                             <button type="submit" id="btnSubmit"
-                                    class="btn btn-warning ">Lấy lại mật khẩu
+                                    class="btn_3">Lấy lại mật khẩu
                             </button>
                             <a class="lost_pass" href="{{route('login')}}">Đăng nhập</a>
                         </div>

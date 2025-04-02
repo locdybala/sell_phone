@@ -1,43 +1,77 @@
 @extends('layout')
 @section('content')
-    <div class="container-fluid page-header py-5">
-        <h1 class="text-center text-white display-6">Liên hệ</h1>
-        <ol class="breadcrumb justify-content-center mb-0">
-            <li class="breadcrumb-item"><a href="{{URL::to('/')}}">Trang chủ</a></li>
-            <li class="breadcrumb-item active text-white">Liên hệ</li>
-        </ol>
-    </div>
-    <!-- Contact Start -->
-    <div class="container-fluid contact py-5">
-        <div class="container py-5">
-            <div class="p-5 bg-light rounded">
-                <div class="row g-4">
-                    <div class="col-12">
-                        <div class="text-center mx-auto" style="max-width: 700px;">
-                            <h1 class="text-primary">Hãy liên lạc</h1>
-                            <p class="mb-4">Xem địa chỉ trực tiếp của shop
-                                <a href="https://s.net.vn/MlVv">Xem ngay</a>.</p>
+    <!--================Home Banner Area =================-->
+    <!-- breadcrumb start-->
+    <section class="breadcrumb breadcrumb_bg">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="breadcrumb_iner">
+                        <div class="breadcrumb_iner_item">
+                            <h2>Liên hệ</h2>
+                            <p>Trang chủ <span>-</span> Liên hệ</p>
                         </div>
-                    </div>
-                    <div class="col-lg-12">
-                        <div class="h-100 rounded">
-                            {!! $contact->info_map!!}
-                        </div>
-                    </div>
-                    <div class="col-lg-7">
-                        <form action="" class="">
-                            <input type="text" class="w-100 form-control border-0 py-3 mb-4" placeholder="Họ và tên">
-                            <input type="email" class="w-100 form-control border-0 py-3 mb-4" placeholder="Địa chỉ email">
-                            <textarea class="w-100 form-control border-0 mb-4" rows="5" cols="10" placeholder="Viết phản hồi"></textarea>
-                            <button class="w-100 btn form-control border-secondary py-3 bg-white text-primary " type="submit">Gửi</button>
-                        </form>
-                    </div>
-                    <div class="col-lg-5">
-                        {!! $contact->info_contact !!}
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+    <!-- breadcrumb start-->
+
+    <!-- ================ contact section start ================= -->
+    <section class="contact-section padding_top">
+        <div class="container">
+            <div class="d-none d-sm-block mb-5 pb-4">
+                <div id="map" style="height: 480px;">{!! $contact->info_map!!}</div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="contact-title">Liên hệ</h2>
+                </div>
+                <div class="col-lg-8">
+                    <form class="form-contact contact_form" action="contact_process.php" method="post" id="contactForm"
+                          novalidate="novalidate">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+
+                  <textarea class="form-control w-100" name="message" id="message" cols="30" rows="9"
+                            onfocus="this.placeholder = ''" onblur="this.placeholder = 'Lời nhắn'"
+                            placeholder='Lời nhắn'></textarea>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <input class="form-control" name="name" id="name" type="text" onfocus="this.placeholder = ''"
+                                           onblur="this.placeholder = 'Họ và tên'" placeholder='Họ và tên'>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <input class="form-control" name="email" id="email" type="email" onfocus="this.placeholder = ''"
+                                           onblur="this.placeholder = 'Địa chỉ email'" placeholder='Địa chỉ email'>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <input class="form-control" name="subject" id="subject" type="text" onfocus="this.placeholder = ''"
+                                           onblur="this.placeholder = 'Tiêu đề'" placeholder='Tiêu đề'>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group mt-3">
+                            <a href="#" class="btn_3 button-contactForm">Gửi yêu cầu</a>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-lg-4">
+                    {!! $contact->info_contact !!}
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ================ contact section end ================= -->
 @endsection
 

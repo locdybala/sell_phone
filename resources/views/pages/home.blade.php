@@ -13,14 +13,15 @@
                                         <div class="col-lg-5 col-md-8">
                                             <div class="banner_text">
                                                 <div class="banner_text_iner">
-                                                    <h1>{{ $slider->title }}</h1>
-                                                    <p>{{ $slider->description }}</p>
-                                                    <a href="#" class="btn_2">Buy Now</a>
+                                                    <h1>{{ $slider->slider_name }}</h1>
+                                                    <p>{!! $slider->slider_desc !!} </p>
+                                                    <a href="{{route('shop')}}" class="btn_2">Mua ngay</a>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="banner_img d-none d-lg-block">
-                                            <img src="{{ asset('upload/slider/'. $slider->slider_image) }}" alt="{{ $slider->title }}">
+                                            <img src="{{ asset('upload/slider/'. $slider->slider_image) }}"
+                                                 alt="{{ $slider->title }}">
                                         </div>
                                     </div>
                                 </div>
@@ -40,43 +41,30 @@
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <div class="section_tittle text-center">
-                        <h2>Featured Category</h2>
+                        <h2>Danh mục nổi bật</h2>
                     </div>
                 </div>
             </div>
             <div class="row align-items-center justify-content-between">
-                <div class="col-lg-7 col-sm-6">
-                    <div class="single_feature_post_text">
-                        <p>Premium Quality</p>
-                        <h3>Latest foam Sofa</h3>
-                        <a href="#" class="feature_btn">EXPLORE NOW <i class="fas fa-play"></i></a>
-                        <img src="{{asset('frontend/img/feature/feature_1.png')}}" alt="">
+                @php
+                    $default_images = [
+                        'frontend/img/feature/feature_1.png',
+                        'frontend/img/feature/feature_2.png',
+                        'frontend/img/feature/feature_3.png',
+                        'frontend/img/feature/feature_4.png'
+                    ];
+                @endphp
+                @foreach($categories as $key => $ca)
+                    <div class="col-lg-6 col-sm-6">
+                        <div class="single_feature_post_text">
+                            <p>Chất lượng cao</p>
+                            <h3>{{ $ca->category_name }}</h3>
+                            <a href="{{ route('detailCategory',['id'=>$ca->category_id]) }}" class="feature_btn">XEM
+                                NGAY <i class="fas fa-play"></i></a>
+                            <img src="{{ asset($default_images[$key]) }}" alt="{{ $ca->category_name }}">
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-5 col-sm-6">
-                    <div class="single_feature_post_text">
-                        <p>Premium Quality</p>
-                        <h3>Latest foam Sofa</h3>
-                        <a href="#" class="feature_btn">EXPLORE NOW <i class="fas fa-play"></i></a>
-                        <img src="{{asset('frontend/img/feature/feature_2.png')}}" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-5 col-sm-6">
-                    <div class="single_feature_post_text">
-                        <p>Premium Quality</p>
-                        <h3>Latest foam Sofa</h3>
-                        <a href="#" class="feature_btn">EXPLORE NOW <i class="fas fa-play"></i></a>
-                        <img src="{{asset('frontend/img/feature/feature_3.png')}}" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-7 col-sm-6">
-                    <div class="single_feature_post_text">
-                        <p>Premium Quality</p>
-                        <h3>Latest foam Sofa</h3>
-                        <a href="#" class="feature_btn">EXPLORE NOW <i class="fas fa-play"></i></a>
-                        <img src="{{asset('frontend/img/feature/feature_4.png')}}" alt="">
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>
@@ -88,182 +76,58 @@
             <div class="row justify-content-center">
                 <div class="col-lg-12">
                     <div class="section_tittle text-center">
-                        <h2>awesome <span>shop</span></h2>
+                        <h2>Danh sách <span>Sản phẩm</span></h2>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="product_list_slider owl-carousel">
+                    @foreach ($products->chunk(8) as $chunk)
+                        <!-- Mỗi slide chứa 8 sản phẩm -->
                         <div class="single_product_list_slider">
                             <div class="row align-items-center justify-content-between">
-                                <div class="col-lg-3 col-sm-6">
-                                    <div class="single_product_item">
-                                        <img src="{{asset('frontend/img/product/product_1.png')}}" alt="">
-                                        <div class="single_product_text">
-                                            <h4>Quartz Belt Watch</h4>
-                                            <h3>$150.00</h3>
-                                            <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
-                                        </div>
+                                @foreach ($chunk as $product)
+                                    <div class="col-lg-3 col-sm-6">
+                                        <form>
+                                            @csrf
+                                            <input type="hidden" value="{{$product->product_id}}"
+                                                   class="cart_product_id_{{$product->product_id}}">
+                                            <input type="hidden" value="{{$product->product_name}}"
+                                                   class="cart_product_name_{{$product->product_id}}">
+                                            <input type="hidden" value="{{$product->product_image}}"
+                                                   class="cart_product_image_{{$product->product_id}}">
+                                            <input type="hidden" value="{{$product->product_price}}"
+                                                   class="cart_product_price_{{$product->product_id}}">
+                                            <input type="hidden" value="{{$product->product_quantity}}"
+                                                   class="cart_product_quantity_{{$product->product_id}}">
+                                            <input type="hidden" value="1"
+                                                   class="cart_product_qty_{{$product->product_id}}">
+                                            <div class="single_product_item">
+                                                <a href="{{ route('detailProduct',['id'=>$product->product_id]) }}">
+                                                    <img src="/upload/product/{{ $product->product_image }}" alt=""></a>
+                                                <div class="single_product_text">
+
+                                                    <h4>{{$product->product_name}}</h4>
+                                                    <h3>{{number_format($product->product_price)}}</h3>
+                                                    @php
+                                                        $customerId = Session::get('customer_id');
+                                                    @endphp
+                                                    @if ($customerId)
+                                                        <input type="button" name="add-to-cart" value="Thêm giỏ hàng"
+                                                               data-id_product="{{$product->product_id}}"
+                                                               class="add-to-cart btn_3">
+                                                    @else
+                                                        <a href="{{URL::to('/login-checkout')}}" class="add_cart">Thêm
+                                                            giỏ hàng<i class="ti-heart"></i></a>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
-                                </div>
-                                <div class="col-lg-3 col-sm-6">
-                                    <div class="single_product_item">
-                                        <img src="{{asset('frontend/img/product/product_2.png')}}" alt="">
-                                        <div class="single_product_text">
-                                            <h4>Quartz Belt Watch</h4>
-                                            <h3>$150.00</h3>
-                                            <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-sm-6">
-                                    <div class="single_product_item">
-                                        <img src="{{asset('frontend/img/product/product_3.png')}}" alt="">
-                                        <div class="single_product_text">
-                                            <h4>Quartz Belt Watch</h4>
-                                            <h3>$150.00</h3>
-                                            <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-sm-6">
-                                    <div class="single_product_item">
-                                        <img src="{{asset('frontend/img/product/product_4.png')}}" alt="">
-                                        <div class="single_product_text">
-                                            <h4>Quartz Belt Watch</h4>
-                                            <h3>$150.00</h3>
-                                            <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-sm-6">
-                                    <div class="single_product_item">
-                                        <img src="{{asset('frontend/img/product/product_5.png')}}" alt="">
-                                        <div class="single_product_text">
-                                            <h4>Quartz Belt Watch</h4>
-                                            <h3>$150.00</h3>
-                                            <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-sm-6">
-                                    <div class="single_product_item">
-                                        <img src="{{asset('frontend/img/product/product_6.png')}}" alt="">
-                                        <div class="single_product_text">
-                                            <h4>Quartz Belt Watch</h4>
-                                            <h3>$150.00</h3>
-                                            <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-sm-6">
-                                    <div class="single_product_item">
-                                        <img src="{{asset('frontend/img/product/product_7.png')}}" alt="">
-                                        <div class="single_product_text">
-                                            <h4>Quartz Belt Watch</h4>
-                                            <h3>$150.00</h3>
-                                            <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-sm-6">
-                                    <div class="single_product_item">
-                                        <img src="{{asset('frontend/img/product/product_8.png')}}" alt="">
-                                        <div class="single_product_text">
-                                            <h4>Quartz Belt Watch</h4>
-                                            <h3>$150.00</h3>
-                                            <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
-                        <div class="single_product_list_slider">
-                            <div class="row align-items-center justify-content-between">
-                                <div class="col-lg-3 col-sm-6">
-                                    <div class="single_product_item">
-                                        <img src="{{asset('frontend/img/product/product_1.png')}}" alt="">
-                                        <div class="single_product_text">
-                                            <h4>Quartz Belt Watch</h4>
-                                            <h3>$150.00</h3>
-                                            <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-sm-6">
-                                    <div class="single_product_item">
-                                        <img src="{{asset('frontend/img/product/product_2.png')}}" alt="">
-                                        <div class="single_product_text">
-                                            <h4>Quartz Belt Watch</h4>
-                                            <h3>$150.00</h3>
-                                            <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-sm-6">
-                                    <div class="single_product_item">
-                                        <img src="{{asset('frontend/img/product/product_3.png')}}" alt="">
-                                        <div class="single_product_text">
-                                            <h4>Quartz Belt Watch</h4>
-                                            <h3>$150.00</h3>
-                                            <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-sm-6">
-                                    <div class="single_product_item">
-                                        <img src="{{asset('frontend/img/product/product_4.png')}}" alt="">
-                                        <div class="single_product_text">
-                                            <h4>Quartz Belt Watch</h4>
-                                            <h3>$150.00</h3>
-                                            <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-sm-6">
-                                    <div class="single_product_item">
-                                        <img src="{{asset('frontend/img/product/product_5.png')}}" alt="">
-                                        <div class="single_product_text">
-                                            <h4>Quartz Belt Watch</h4>
-                                            <h3>$150.00</h3>
-                                            <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-sm-6">
-                                    <div class="single_product_item">
-                                        <img src="{{asset('frontend/img/product/product_6.png')}}" alt="">
-                                        <div class="single_product_text">
-                                            <h4>Quartz Belt Watch</h4>
-                                            <h3>$150.00</h3>
-                                            <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-sm-6">
-                                    <div class="single_product_item">
-                                        <img src="{{asset('frontend/img/product/product_7.png')}}" alt="">
-                                        <div class="single_product_text">
-                                            <h4>Quartz Belt Watch</h4>
-                                            <h3>$150.00</h3>
-                                            <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-sm-6">
-                                    <div class="single_product_item">
-                                        <img src="{{asset('frontend/img/product/product_8.png')}}" alt="">
-                                        <div class="single_product_text">
-                                            <h4>Quartz Belt Watch</h4>
-                                            <h3>$150.00</h3>
-                                            <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -271,38 +135,36 @@
     <!-- product_list part start-->
 
     <!-- awesome_shop start-->
-    <section class="our_offer section_padding">
-        <div class="container">
-            <div class="row align-items-center justify-content-between">
-                <div class="col-lg-6 col-md-6">
-                    <div class="offer_img">
-                        <img src="{{asset('frontend/img/offer_img.png')}}" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6">
-                    <div class="offer_text">
-                        <h2>Weekly Sale on
-                            60% Off All Products</h2>
-                        <div class="date_countdown">
-                            <div id="timer">
-                                <div id="days" class="date"></div>
-                                <div id="hours" class="date"></div>
-                                <div id="minutes" class="date"></div>
-                                <div id="seconds" class="date"></div>
-                            </div>
+    @if($coupon)
+        <section class="our_offer section_padding">
+            <div class="container">
+                <div class="row align-items-center justify-content-between">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="offer_img">
+                            <img src="{{asset('frontend/img/offer_img.png')}}" alt="Khuyến mãi">
                         </div>
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="enter email address"
-                                   aria-label="Recipient's username" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <a href="#" class="input-group-text btn_2" id="basic-addon2">book now</a>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <div class="offer_text">
+                            <h2>Ưu đãi đặc biệt:
+                                {{ $coupon->coupon_condition == 1 ? $coupon->coupon_number.'%' : number_format($coupon->coupon_number) . ' VND' }}
+                                giảm giá</h2>
+                            <p>Áp dụng với mã: <strong>{{ $coupon->coupon_code }}</strong></p>
+                            <p>Thời gian khuyến mãi: {{ date('d/m/Y', strtotime($coupon->coupon_date_start)) }}
+                                - {{ date('d/m/Y', strtotime($coupon->coupon_date_end)) }}</p>
+
+                            <div class="input-group">
+                                <input type="text" class="form-control" value="{{ $coupon->coupon_code }}" readonly>
+                                <div class="input-group-append">
+                                    <a href="#" class="input-group-text btn_2">Dùng ngay</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    @endif
     <!-- awesome_shop part start-->
 
     <!-- product_list part start-->
@@ -311,53 +173,30 @@
             <div class="row justify-content-center">
                 <div class="col-lg-12">
                     <div class="section_tittle text-center">
-                        <h2>Best Sellers <span>shop</span></h2>
+                        <h2>Sản phẩm <span>mới</span></h2>
                     </div>
                 </div>
             </div>
             <div class="row align-items-center justify-content-between">
                 <div class="col-lg-12">
                     <div class="best_product_slider owl-carousel">
-                        <div class="single_product_item">
-                            <img src="{{asset('frontend/img/product/product_1.png')}}" alt="">
-                            <div class="single_product_text">
-                                <h4>Quartz Belt Watch</h4>
-                                <h3>$150.00</h3>
+                        @foreach($bestSellers as $product)
+                            <div class="single_product_item">
+                                <a href="{{ route('detailProduct',['id'=>$product->product_id]) }}">
+                                <img src="/upload/product/{{ $product->product_image }}" alt="">
+                                <div class="single_product_text">
+                                    <h4>{{$product->product_name}}</h4>
+                                    <h3>{{number_format($product->product_price)}}</h3>
+                                </div>
+                                </a>
                             </div>
-                        </div>
-                        <div class="single_product_item">
-                            <img src="{{asset('frontend/img/product/product_2.png')}}" alt="">
-                            <div class="single_product_text">
-                                <h4>Quartz Belt Watch</h4>
-                                <h3>$150.00</h3>
-                            </div>
-                        </div>
-                        <div class="single_product_item">
-                            <img src="{{asset('frontend/img/product/product_3.png')}}" alt="">
-                            <div class="single_product_text">
-                                <h4>Quartz Belt Watch</h4>
-                                <h3>$150.00</h3>
-                            </div>
-                        </div>
-                        <div class="single_product_item">
-                            <img src="{{asset('frontend/img/product/product_4.png')}}" alt="">
-                            <div class="single_product_text">
-                                <h4>Quartz Belt Watch</h4>
-                                <h3>$150.00</h3>
-                            </div>
-                        </div>
-                        <div class="single_product_item">
-                            <img src="{{asset('frontend/img/product/product_5.png')}}" alt="">
-                            <div class="single_product_text">
-                                <h4>Quartz Belt Watch</h4>
-                                <h3>$150.00</h3>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
     <!-- product_list part end-->
 
     <!-- subscribe_area part start-->
@@ -366,21 +205,14 @@
             <div class="row justify-content-center">
                 <div class="col-lg-7">
                     <div class="subscribe_area_text text-center">
-                        <h5>Join Our Newsletter</h5>
-                        <h2>Subscribe to get Updated
-                            with new offers</h2>
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="enter email address"
-                                   aria-label="Recipient's username" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <a href="#" class="input-group-text btn_2" id="basic-addon2">subscribe now</a>
-                            </div>
-                        </div>
+                        <h5>Đừng bỏ lỡ cơ hội!</h5>
+                        <h2>Khám phá những ưu đãi đặc biệt, Mua ngay để nhận thêm quà tặng hấp dẫn!</h2>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
     <!--::subscribe_area part end::-->
 
     <!-- subscribe_area part start-->
@@ -453,13 +285,13 @@
                             _token: _token
                         },
                         success: function () {
-
-                            swal({
+                            Swal.fire({
                                 title: "Đã thêm sản phẩm vào giỏ hàng",
                                 text: "Bạn có thể mua hàng tiếp hoặc tới giỏ hàng để tiến hành thanh toán",
-                                cancel: "Xem tiếp",
                                 icon: "success",
-                                buttons: ["Xem tiếp", "Đi đến giỏ hàng"],
+                                showCancelButton: true,
+                                confirmButtonText: "Đi đến giỏ hàng",
+                                cancelButtonText: "Xem tiếp",
                                 dangerMode: true,
                             })
                                 .then((willDelete) => {

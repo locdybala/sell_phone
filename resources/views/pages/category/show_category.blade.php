@@ -1,116 +1,195 @@
 @extends('layout')
 @section('content')
-    <!-- Single Page Header start -->
-    <div class="container-fluid page-header py-5">
-        <h1 class="text-center text-white display-6">Sản phẩm</h1>
-        <ol class="breadcrumb justify-content-center mb-0">
-            <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-            <li class="breadcrumb-item"><a href="{{route('shop')}}">Sản phẩm</a></li>
-            <li class="breadcrumb-item active text-white">{{$category_name->category_name}}</li>
-        </ol>
-    </div>
-    <!-- Single Page Header End -->
 
-
-    <!-- Fruits Shop Start-->
-    <div class="container-fluid fruite py-5">
-        <div class="container py-5">
-            <h1 class="mb-4">King Bio Shop</h1>
-            <div class="row g-4">
-                <div class="col-lg-12">
-                    <div class="row g-4">
-                        <div class="col-xl-3">
-                            <div class="input-group w-100 mx-auto d-flex">
-                                <input type="search" class="form-control p-3" placeholder="Nhập từ khoá tìm kiếm"
-                                       aria-describedby="search-icon-1">
-                                <span id="search-icon-1" class="input-group-text p-3"><i
-                                        class="fa fa-search"></i></span>
-                            </div>
-                        </div>
-                        <div class="col-6"></div>
-                        <div class="col-xl-3">
-                        </div>
-                    </div>
-                    <div class="row g-4 mt-3">
-                        <div class="col-lg-12">
-                            <div class="row g-4 justify-content-between">
-                                @if($products->isEmpty())
-                                    <div class="col-12 text-center">
-                                        <p>Chưa có sản phẩm</p>
-                                    </div>
-                                @else
-                                @foreach($products as $product)
-                                    <div class="col-md-6 col-lg-4 col-xl-4">
-                                        <form>
-                                            @csrf
-                                            <input type="hidden" value="{{$product->product_id}}"
-                                                   class="cart_product_id_{{$product->product_id}}">
-                                            <input type="hidden" value="{{$product->product_name}}"
-                                                   class="cart_product_name_{{$product->product_id}}">
-                                            <input type="hidden" value="{{$product->product_image}}"
-                                                   class="cart_product_image_{{$product->product_id}}">
-                                            <input type="hidden" value="{{$product->product_price}}"
-                                                   class="cart_product_price_{{$product->product_id}}">
-                                            <input type="hidden" value="{{$product->product_quantity}}"
-                                                   class="cart_product_quantity_{{$product->product_id}}">
-                                            <input type="hidden" value="1"
-                                                   class="cart_product_qty_{{$product->product_id}}">
-                                            <div class="rounded position-relative fruite-item">
-                                                <div class="fruite-img">
-                                                    <img style="height: 300px;" src="/upload/product/{{ $product->product_image }}"
-                                                         class="img-fluid w-100 rounded-top" alt="">
-                                                </div>
-                                                <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                    <a href="{{ route('detailProduct',['id'=>$product->product_id]) }}">
-                                                        <h4 class="product-name">{{$product->product_name}}</h4></a>
-                                                    <div class="d-flex justify-content-between flex-lg-wrap">
-                                                        <p class="text-dark fs-5 fw-bold mb-0">{{number_format($product->product_price)}}
-                                                            <u>đ</u></p>
-                                                        @php
-                                                            $customerId = Session::get('customer_id');
-                                                        @endphp
-                                                        @if ($customerId)
-                                                            <button type="button" name="add-to-cart"
-                                                                    data-id_product="{{$product->product_id}}"
-                                                                    class="btn border add-to-cart border-secondary rounded-pill px-3 text-primary">
-                                                                <i class="fa fa-shopping-bag me-2 text-primary"></i>Thêm
-                                                                giỏ
-                                                                hàng
-                                                            </button>
-                                                        @else
-                                                            <a href="{{URL::to('/login-checkout')}}"
-                                                               class="btn border add-to-cart border-secondary rounded-pill px-3 text-primary"><i
-                                                                    class="fa fa-shopping-bag me-2 text-primary"></i>Thêm
-                                                                giỏ hàng</a>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                @endforeach
-                                    <div class="col-12">
-                                        <div class="pagination d-flex justify-content-center mt-5">
-                                            <a href="{{$products->previousPageUrl()}}"
-                                               class="rounded {{$products->onFirstPage() ? 'disabled' : ''}}">&laquo;</a>
-
-                                            @for ($i = 1; $i <= $products->lastPage(); $i++)
-                                                <a href="{{$products->url($i)}}"
-                                                   class="rounded {{$products->currentPage() === $i ? 'active' : ''}}">{{$i}}</a>
-                                            @endfor
-
-                                            <a href="{{$products->nextPageUrl()}}"
-                                               class="rounded {{$products->hasMorePages() ? '' : 'disabled'}}">&raquo;</a>
-                                        </div>
-                                    </div>
-                                @endif
-                            </div>
+    <section class="breadcrumb breadcrumb_bg">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="breadcrumb_iner">
+                        <div class="breadcrumb_iner_item">
+                            <h2>{{$category_name->category_name}}</h2>
+                            <p>Trang chủ <span>-</span> Danh mục</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+    <!-- breadcrumb start-->
+
+    <!--================Category Product Area =================-->
+    <section class="cat_product_area section_padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="left_sidebar_area">
+                        <aside class="left_widgets p_filter_widgets">
+                            <div class="l_w_title">
+                                <h3>Danh mục sản phẩm</h3>
+                            </div>
+                            <div class="widgets_inner">
+                                <ul class="list">
+                                    @foreach ($category as $categori)
+                                    <li>
+                                        <a href="{{ route('detailCategory',['id'=>$categori->category_id]) }}">{{$categori->category_name}}</a>
+                                        <span>({{ $categori->product_count }})</span>
+                                    </li>
+                                    @endforeach
+
+                                </ul>
+                            </div>
+                        </aside>
+
+{{--                        <aside class="left_widgets p_filter_widgets">--}}
+{{--                            <div class="l_w_title">--}}
+{{--                                <h3>Thương hiệu</h3>--}}
+{{--                            </div>--}}
+{{--                            <div class="widgets_inner">--}}
+{{--                                <ul class="list">--}}
+{{--                                    @foreach ($brand as $bra)--}}
+{{--                                    <li>--}}
+{{--                                        <a href="{{ route('detailBrand',['id'=>$bra->brand_id]) }}">{{$bra->brand_name}}</a>--}}
+{{--                                    </li>--}}
+{{--                                    @endforeach--}}
+{{--                                </ul>--}}
+{{--                            </div>--}}
+{{--                        </aside>--}}
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="product_top_bar d-flex justify-content-between align-items-center">
+                                <div class="single_product_menu">
+                                    <p><span>{{ $products->total() }} </span>sản phẩm</p>
+                                </div>
+{{--                                <div class="single_product_menu d-flex">--}}
+{{--                                    <h5>short by : </h5>--}}
+{{--                                    <select>--}}
+{{--                                        <option data-display="Select">name</option>--}}
+{{--                                        <option value="1">price</option>--}}
+{{--                                        <option value="2">product</option>--}}
+{{--                                    </select>--}}
+{{--                                </div>--}}
+{{--                               --}}
+                                <div class="single_product_menu d-flex">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Tìm kiếm"
+                                               aria-describedby="inputGroupPrepend">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inputGroupPrepend"><i
+                                                    class="ti-search"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-center latest_product_inner">
+                        @if($products->isEmpty())
+                            <div class="col-12 text-center">
+                                <p>Chưa có sản phẩm</p>
+                            </div>
+                        @else
+                        @foreach($products as $product)
+                        <div class="col-lg-4 col-sm-6">
+                            <form>
+                                @csrf
+                                <input type="hidden" value="{{$product->product_id}}"
+                                       class="cart_product_id_{{$product->product_id}}">
+                                <input type="hidden" value="{{$product->product_name}}"
+                                       class="cart_product_name_{{$product->product_id}}">
+                                <input type="hidden" value="{{$product->product_image}}"
+                                       class="cart_product_image_{{$product->product_id}}">
+                                <input type="hidden" value="{{$product->product_price}}"
+                                       class="cart_product_price_{{$product->product_id}}">
+                                <input type="hidden" value="{{$product->product_quantity}}"
+                                       class="cart_product_quantity_{{$product->product_id}}">
+                                <input type="hidden" value="1"
+                                       class="cart_product_qty_{{$product->product_id}}">
+                            <div class="single_product_item">
+                                <a href="{{ route('detailProduct',['id'=>$product->product_id]) }}">
+                                    <img src="/upload/product/{{ $product->product_image }}" alt=""></a>
+                                <div class="single_product_text">
+
+                                        <h4>{{$product->product_name}}</h4>
+                                    <h3>{{number_format($product->product_price)}}</h3>
+                                    @php
+                                        $customerId = Session::get('customer_id');
+                                    @endphp
+                                    @if ($customerId)
+                                        <input type="button" name="add-to-cart" value="Thêm giỏ hàng"
+                                                data-id_product="{{$product->product_id}}"
+                                                class="add-to-cart btn_3">
+                                    @else
+                                        <a href="{{URL::to('/login-checkout')}}" class="add_cart">Thêm giỏ hàng<i class="ti-heart"></i></a>
+                                    @endif
+                                </div>
+                            </div>
+                            </form>
+                        </div>
+                        @endforeach
+                        <div class="col-lg-12">
+                            <div class="pageination">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination justify-content-center">
+                                        <li class="page-item">
+                                            <a class="page-link {{$products->onFirstPage() ? 'disabled' : ''}}" href="{{$products->previousPageUrl()}}" aria-label="Previous">
+                                                <i class="ti-angle-double-left"></i>
+                                            </a>
+                                        </li>
+                                        @for ($i = 1; $i <= $products->lastPage(); $i++)
+                                        <li class="page-item"><a class="page-link {{$products->currentPage() === $i ? 'active' : ''}}" href="{{$products->url($i)}}">{{$i}}</a></li>
+                                        @endfor
+                                        <li class="page-item">
+                                            <a class="page-link {{$products->hasMorePages() ? '' : 'disabled'}}" href="{{$products->nextPageUrl()}}" aria-label="Next">
+                                                <i class="ti-angle-double-right"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================End Category Product Area =================-->
+
+    <!-- product_list part start-->
+    <section class="product_list best_seller">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="section_tittle text-center">
+                        <h2>Bán chạy nhất <span>cửa hàng</span></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row align-items-center justify-content-between">
+                <div class="col-lg-12">
+                    <div class="best_product_slider owl-carousel">
+                        @foreach($best_sellers as $product)
+                        <div class="single_product_item">
+                            <a href="{{ route('detailProduct',['id'=>$product->product_id]) }}">
+                                <img src="/upload/product/{{ $product->product_image }}" alt="">
+                                <div class="single_product_text">
+                                    <h4>{{$product->product_name}}</h4>
+                                    <h3>{{number_format($product->product_price)}}</h3>
+
+                                </div>
+                            </a>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- product_list part end-->
 @endsection
 @section('javascript')
     <script type="text/javascript">

@@ -41,7 +41,7 @@ Route::get('/', function () {
     return view('layout');
 });
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::post('search', [HomeController::class, 'search'])->name('search');
+Route::get('search', [HomeController::class, 'search'])->name('search');
 
 
 //Frontend

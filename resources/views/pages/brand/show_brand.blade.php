@@ -1,304 +1,194 @@
 @extends('layout')
 @section('content')
-    <div class="slider-area ">
-        <div style="min-height: 300px" class="single-slider slider-height2 d-flex align-items-center">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-12">
-                        <div class="hero-cap text-center">
-                            <h2>Thương hiệu: {{$brand_name}}</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Hero Area End-->
-    <!-- Latest Products Start -->
-    <section class="popular-items latest-padding">
+    <section class="breadcrumb breadcrumb_bg">
         <div class="container">
-            <div class="row product-btn justify-content-between mb-40">
-                <div class="properties__button">
-                    <!--Nav Button  -->
-                    <nav>
-                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Sản phẩm mới</a>
-                            <a class="nav-item nav-link" id="nav-price-reduce-tab" data-toggle="tab" href="#nav-price-reduce" role="tab" aria-controls="nav-profile" aria-selected="false"> Giá tăng dần</a>
-                            <a class="nav-item nav-link" id="nav-price-increase-tab" data-toggle="tab" href="#nav-price-increase" role="tab" aria-controls="nav-profile" aria-selected="false"> Giá giảm dần</a>
-                            <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false"> Phổ biến nhất </a>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="breadcrumb_iner">
+                        <div class="breadcrumb_iner_item">
+                            <h2>{{$brand_name}}</h2>
+                            <p>Trang chủ <span>-</span> Thương hiệu</p>
                         </div>
-                    </nav>
-                    <!--End Nav Button  -->
-                </div>
-                <!-- Grid and List view -->
-                <div class="grid-list-view">
-                </div>
-                <!-- Select items -->
-
-            </div>
-            <!-- Nav Card -->
-            <div class="tab-content" id="nav-tabContent">
-                <!-- card one -->
-                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                    <div class="row">
-                        @foreach($product as $product)
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                                <form>
-                                    @csrf
-                                    <input type="hidden" value="{{$product->product_id}}"
-                                           class="cart_product_id_{{$product->product_id}}">
-                                    <input type="hidden" value="{{$product->product_name}}"
-                                           class="cart_product_name_{{$product->product_id}}">
-                                    <input type="hidden" value="{{$product->product_image}}"
-                                           class="cart_product_image_{{$product->product_id}}">
-                                    <input type="hidden" value="{{$product->product_price}}"
-                                           class="cart_product_price_{{$product->product_id}}">
-                                    <input type="hidden" value="{{$product->product_quantity}}"
-                                           class="cart_product_quantity_{{$product->product_id}}">
-                                    <input type="hidden" value="1" class="cart_product_qty_{{$product->product_id}}">
-                                    <div class="single-popular-items mb-50 text-center">
-                                        <div class="popular-img">
-                                            <img style="height: 380px;" src="/upload/product/{{ $product->product_image }}" alt="">
-                                            @php
-                                                $customerId = Session::get('customer_id');
-                                            @endphp
-                                            @if ($customerId)
-                                                <style>.img-cap button a{
-                                                        color: #fff;
-                                                        background: #f81f1f;
-                                                        padding: 20px 0;
-                                                        display: block;
-                                                        cursor: pointer;
-                                                        border: none; /* Loại bỏ viền của button */
-                                                        width: 100%; /* Đảm bảo button chiếm toàn bộ chiều rộng của div */
-                                                    }</style>
-
-                                                <div class="img-cap ">
-                                                    <button type="button" name="add-to-cart"
-                                                            data-id_product="{{$product->product_id}}"
-                                                            class="add-to-cart ">Thêm giỏ hàng
-                                                    </button>
-                                                </div>
-                                            @else
-                                                <div class="img-cap ">
-                                                    <a href="{{URL::to('/login-checkout')}}"
-                                                       class="add-to-cart"><span>Thêm
-                                            giỏ hàng</span></a>
-                                                </div>
-                                            @endif
-                                            <div class="favorit-items">
-                                                <span class="flaticon-heart"></span>
-                                            </div>
-                                        </div>
-                                        <div class="popular-caption">
-                                            <h3>
-                                                <a href="{{ route('detailProduct',['id'=>$product->product_id]) }}">{{$product->product_name}}</a>
-                                            </h3>
-                                            <span>{{number_format($product->product_price)}} đ</span>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-                <!-- Card two -->
-                <div class="tab-pane fade" id="nav-price-reduce" role="tabpanel" aria-labelledby="nav-price-reduce-tab">
-                    <div class="row">
-                        @foreach($price_reduces as $product)
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                                <form>
-                                    @csrf
-                                    <input type="hidden" value="{{$product->product_id}}"
-                                           class="cart_product_id_{{$product->product_id}}">
-                                    <input type="hidden" value="{{$product->product_name}}"
-                                           class="cart_product_name_{{$product->product_id}}">
-                                    <input type="hidden" value="{{$product->product_image}}"
-                                           class="cart_product_image_{{$product->product_id}}">
-                                    <input type="hidden" value="{{$product->product_price}}"
-                                           class="cart_product_price_{{$product->product_id}}">
-                                    <input type="hidden" value="{{$product->product_quantity}}"
-                                           class="cart_product_quantity_{{$product->product_id}}">
-                                    <input type="hidden" value="1" class="cart_product_qty_{{$product->product_id}}">
-                                    <div class="single-popular-items mb-50 text-center">
-                                        <div class="popular-img">
-                                            <img style="height: 380px;" src="/upload/product/{{ $product->product_image }}" alt="">
-                                            @php
-                                                $customerId = Session::get('customer_id');
-                                            @endphp
-                                            @if ($customerId)
-                                                <style>.img-cap button a{
-                                                        color: #fff;
-                                                        background: #f81f1f;
-                                                        padding: 20px 0;
-                                                        display: block;
-                                                        cursor: pointer;
-                                                        border: none; /* Loại bỏ viền của button */
-                                                        width: 100%; /* Đảm bảo button chiếm toàn bộ chiều rộng của div */
-                                                    }</style>
-
-                                                <div class="img-cap ">
-                                                    <button type="button" name="add-to-cart"
-                                                            data-id_product="{{$product->product_id}}"
-                                                            class="add-to-cart ">Thêm giỏ hàng
-                                                    </button>
-                                                </div>
-                                            @else
-                                                <div class="img-cap ">
-                                                    <a href="{{URL::to('/login-checkout')}}"
-                                                       class="add-to-cart"><span>Thêm
-                                            giỏ hàng</span></a>
-                                                </div>
-                                            @endif
-                                            <div class="favorit-items">
-                                                <span class="flaticon-heart"></span>
-                                            </div>
-                                        </div>
-                                        <div class="popular-caption">
-                                            <h3>
-                                                <a href="{{ route('detailProduct',['id'=>$product->product_id]) }}">{{$product->product_name}}</a>
-                                            </h3>
-                                            <span>{{number_format($product->product_price)}} đ</span>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-                <div class="tab-pane fade" id="nav-price-increase" role="tabpanel" aria-labelledby="nav-price-increase-tab">
-                    <div class="row">
-                        @foreach($price_increases as $product)
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                                <form>
-                                    @csrf
-                                    <input type="hidden" value="{{$product->product_id}}"
-                                           class="cart_product_id_{{$product->product_id}}">
-                                    <input type="hidden" value="{{$product->product_name}}"
-                                           class="cart_product_name_{{$product->product_id}}">
-                                    <input type="hidden" value="{{$product->product_image}}"
-                                           class="cart_product_image_{{$product->product_id}}">
-                                    <input type="hidden" value="{{$product->product_price}}"
-                                           class="cart_product_price_{{$product->product_id}}">
-                                    <input type="hidden" value="{{$product->product_quantity}}"
-                                           class="cart_product_quantity_{{$product->product_id}}">
-                                    <input type="hidden" value="1" class="cart_product_qty_{{$product->product_id}}">
-                                    <div class="single-popular-items mb-50 text-center">
-                                        <div class="popular-img">
-                                            <img style="height: 380px;" src="/upload/product/{{ $product->product_image }}" alt="">
-                                            @php
-                                                $customerId = Session::get('customer_id');
-                                            @endphp
-                                            @if ($customerId)
-                                                <style>.img-cap button a{
-                                                        color: #fff;
-                                                        background: #f81f1f;
-                                                        padding: 20px 0;
-                                                        display: block;
-                                                        cursor: pointer;
-                                                        border: none; /* Loại bỏ viền của button */
-                                                        width: 100%; /* Đảm bảo button chiếm toàn bộ chiều rộng của div */
-                                                    }</style>
-
-                                                <div class="img-cap ">
-                                                    <button type="button" name="add-to-cart"
-                                                            data-id_product="{{$product->product_id}}"
-                                                            class="add-to-cart ">Thêm giỏ hàng
-                                                    </button>
-                                                </div>
-                                            @else
-                                                <div class="img-cap ">
-                                                    <a href="{{URL::to('/login-checkout')}}"
-                                                       class="add-to-cart"><span>Thêm
-                                            giỏ hàng</span></a>
-                                                </div>
-                                            @endif
-                                            <div class="favorit-items">
-                                                <span class="flaticon-heart"></span>
-                                            </div>
-                                        </div>
-                                        <div class="popular-caption">
-                                            <h3>
-                                                <a href="{{ route('detailProduct',['id'=>$product->product_id]) }}">{{$product->product_name}}</a>
-                                            </h3>
-                                            <span>{{number_format($product->product_price)}} đ</span>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-                <!-- Card three -->
-                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-                    <div class="row">
-                        @foreach($product_populars as $product)
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                                <form>
-                                    @csrf
-                                    <input type="hidden" value="{{$product->product_id}}"
-                                           class="cart_product_id_{{$product->product_id}}">
-                                    <input type="hidden" value="{{$product->product_name}}"
-                                           class="cart_product_name_{{$product->product_id}}">
-                                    <input type="hidden" value="{{$product->product_image}}"
-                                           class="cart_product_image_{{$product->product_id}}">
-                                    <input type="hidden" value="{{$product->product_price}}"
-                                           class="cart_product_price_{{$product->product_id}}">
-                                    <input type="hidden" value="{{$product->product_quantity}}"
-                                           class="cart_product_quantity_{{$product->product_id}}">
-                                    <input type="hidden" value="1" class="cart_product_qty_{{$product->product_id}}">
-                                    <div class="single-popular-items mb-50 text-center">
-                                        <div class="popular-img">
-                                            <img style="height: 380px;" src="/upload/product/{{ $product->product_image }}" alt="">
-                                            @php
-                                                $customerId = Session::get('customer_id');
-                                            @endphp
-                                            @if ($customerId)
-                                                <style>.img-cap button a{
-                                                        color: #fff;
-                                                        background: #f81f1f;
-                                                        padding: 20px 0;
-                                                        display: block;
-                                                        cursor: pointer;
-                                                        border: none; /* Loại bỏ viền của button */
-                                                        width: 100%; /* Đảm bảo button chiếm toàn bộ chiều rộng của div */
-                                                    }</style>
-
-                                                <div class="img-cap ">
-                                                    <button type="button" name="add-to-cart"
-                                                            data-id_product="{{$product->product_id}}"
-                                                            class="add-to-cart ">Thêm giỏ hàng
-                                                    </button>
-                                                </div>
-                                            @else
-                                                <div class="img-cap ">
-                                                    <a href="{{URL::to('/login-checkout')}}"
-                                                       class="add-to-cart"><span>Thêm
-                                            giỏ hàng</span></a>
-                                                </div>
-                                            @endif
-                                            <div class="favorit-items">
-                                                <span class="flaticon-heart"></span>
-                                            </div>
-                                        </div>
-                                        <div class="popular-caption">
-                                            <h3>
-                                                <a href="{{ route('detailProduct',['id'=>$product->product_id]) }}">{{$product->product_name}}</a>
-                                            </h3>
-                                            <span>{{number_format($product->product_price)}} đ</span>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        @endforeach
                     </div>
                 </div>
             </div>
-            <!-- End Nav Card -->
         </div>
     </section>
-    <!-- Latest Products End -->
-    <!--? Shop Method Start-->
+    <!--================Category Product Area =================-->
+    <section class="cat_product_area section_padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="left_sidebar_area">
+                        <aside class="left_widgets p_filter_widgets">
+                            <div class="l_w_title">
+                                <h3>Browse Categories</h3>
+                            </div>
+                            <div class="widgets_inner">
+                                <ul class="list">
+                                    @foreach ($category as $categori)
+                                        <li>
+                                            <a href="{{ route('detailCategory',['id'=>$categori->category_id]) }}">{{$categori->category_name}}</a>
+                                            <span>({{ $categori->product_count }})</span>
+                                        </li>
+                                    @endforeach
+
+                                </ul>
+                            </div>
+                        </aside>
+
+                        <aside class="left_widgets p_filter_widgets">
+                            <div class="l_w_title">
+                                <h3>Thương hiệu</h3>
+                            </div>
+                            <div class="widgets_inner">
+                                <ul class="list">
+                                    @foreach ($brand as $bra)
+                                        <li>
+                                            <a href="{{ route('detailBrand',['id'=>$bra->brand_id]) }}">{{$bra->brand_name}}</a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </aside>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="product_top_bar d-flex justify-content-between align-items-center">
+                                <div class="single_product_menu">
+                                    <p><span>{{ $products->total() }} </span>sản phẩm</p>
+                                </div>
+                                {{--                                <div class="single_product_menu d-flex">--}}
+                                {{--                                    <h5>short by : </h5>--}}
+                                {{--                                    <select>--}}
+                                {{--                                        <option data-display="Select">name</option>--}}
+                                {{--                                        <option value="1">price</option>--}}
+                                {{--                                        <option value="2">product</option>--}}
+                                {{--                                    </select>--}}
+                                {{--                                </div>--}}
+                                {{--                               --}}
+                                <div class="single_product_menu d-flex">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Tìm kiếm"
+                                               aria-describedby="inputGroupPrepend">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inputGroupPrepend"><i
+                                                    class="ti-search"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-center latest_product_inner">
+                        @if($products->isEmpty())
+                            <div class="col-12 text-center">
+                                <p>Chưa có sản phẩm</p>
+                            </div>
+                        @else
+                            @foreach($products as $product)
+                                <div class="col-lg-4 col-sm-6">
+                                    <form>
+                                        @csrf
+                                        <input type="hidden" value="{{$product->product_id}}"
+                                               class="cart_product_id_{{$product->product_id}}">
+                                        <input type="hidden" value="{{$product->product_name}}"
+                                               class="cart_product_name_{{$product->product_id}}">
+                                        <input type="hidden" value="{{$product->product_image}}"
+                                               class="cart_product_image_{{$product->product_id}}">
+                                        <input type="hidden" value="{{$product->product_price}}"
+                                               class="cart_product_price_{{$product->product_id}}">
+                                        <input type="hidden" value="{{$product->product_quantity}}"
+                                               class="cart_product_quantity_{{$product->product_id}}">
+                                        <input type="hidden" value="1"
+                                               class="cart_product_qty_{{$product->product_id}}">
+                                        <div class="single_product_item">
+                                            <a href="{{ route('detailProduct',['id'=>$product->product_id]) }}">
+                                                <img src="/upload/product/{{ $product->product_image }}" alt=""></a>
+                                            <div class="single_product_text">
+
+                                                <h4>{{$product->product_name}}</h4>
+                                                <h3>{{number_format($product->product_price)}}</h3>
+                                                @php
+                                                    $customerId = Session::get('customer_id');
+                                                @endphp
+                                                @if ($customerId)
+                                                    <button type="button" name="add-to-cart"
+                                                            data-id_product="{{$product->product_id}}"
+                                                            class="add_cart">Thêm giỏ hàng
+                                                        <i class="ti-heart"></i>
+                                                    </button>
+                                                @else
+                                                    <a href="{{URL::to('/login-checkout')}}" class="add_cart">Thêm giỏ hàng<i class="ti-heart"></i></a>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            @endforeach
+                            <div class="col-lg-12">
+                                <div class="pageination">
+                                    <nav aria-label="Page navigation example">
+                                        <ul class="pagination justify-content-center">
+                                            <li class="page-item">
+                                                <a class="page-link {{$products->onFirstPage() ? 'disabled' : ''}}" href="{{$products->previousPageUrl()}}" aria-label="Previous">
+                                                    <i class="ti-angle-double-left"></i>
+                                                </a>
+                                            </li>
+                                            @for ($i = 1; $i <= $products->lastPage(); $i++)
+                                                <li class="page-item"><a class="page-link {{$products->currentPage() === $i ? 'active' : ''}}" href="{{$products->url($i)}}">{{$i}}</a></li>
+                                            @endfor
+                                            <li class="page-item">
+                                                <a class="page-link {{$products->hasMorePages() ? '' : 'disabled'}}" href="{{$products->nextPageUrl()}}" aria-label="Next">
+                                                    <i class="ti-angle-double-right"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================End Category Product Area =================-->
+
+    <!-- product_list part start-->
+    <section class="product_list best_seller">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="section_tittle text-center">
+                        <h2>Bán chạy nhất <span>cửa hàng</span></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row align-items-center justify-content-between">
+                <div class="col-lg-12">
+                    <div class="best_product_slider owl-carousel">
+                        @foreach($best_sellers as $product)
+                            <div class="single_product_item">
+                                <a href="{{ route('detailProduct',['id'=>$product->product_id]) }}">
+                                    <img src="/upload/product/{{ $product->product_image }}" alt="">
+                                    <div class="single_product_text">
+                                        <h4>{{$product->product_name}}</h4>
+                                        <h3>{{number_format($product->product_price)}}</h3>
+
+                                    </div>
+                                </a>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- product_list part end-->
 
 @endsection
 @section('javascript')

@@ -24,6 +24,8 @@
     <link rel="stylesheet" href="{{asset('frontend/css/slick.css')}}">
     <!-- style CSS -->
     <link rel="stylesheet" href="{{asset('frontend/css/style.css')}}">
+    <link rel="stylesheet" href="{{asset('frontend/css/lightslider.min.css')}}">
+    <link rel="stylesheet" href="{{asset('frontend/css/nice-select.css')}}">
 </head>
 
 <body>
@@ -55,6 +57,10 @@
 <script src="{{asset('frontend/js/jquery.form.js')}}"></script>
 <script src="{{asset('frontend/js/jquery.validate.min.js')}}"></script>
 <script src="{{asset('frontend/js/mail-script.js')}}"></script>
+<script src="{{asset('frontend/js/lightslider.min.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{{asset('frontend/js/jquery.nice-select.min.js')}}"></script>
+
 <!-- custom js -->
 <script src="{{asset('frontend/js/custom.js')}}"></script>
 @yield('javascript')
@@ -87,19 +93,19 @@
                     },
                     success: function () {
 
-                        swal({
+                        Swal.fire({
                             title: "Đã thêm sản phẩm vào giỏ hàng",
                             text: "Bạn có thể mua hàng tiếp hoặc tới giỏ hàng để tiến hành thanh toán",
-                            cancel: "Xem tiếp",
                             icon: "success",
-                            buttons: ["Xem tiếp", "Đi đến giỏ hàng"],
+                            showCancelButton: true,
+                            confirmButtonText: "Đi đến giỏ hàng",
+                            cancelButtonText: "Xem tiếp",
                             dangerMode: true,
-                        })
-                            .then((willDelete) => {
-                                if (willDelete) {
-                                    window.location.href = "{{url('/cart')}}";
-                                }
-                            });
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = "{{url('/cart')}}";
+                            }
+                        });
                     }
 
                 });

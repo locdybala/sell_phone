@@ -26,22 +26,22 @@
                                     Danh mục
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
-                                    @foreach ($category as $category)
-                                    <a class="dropdown-item" href="{{ route('detailCategory',['id'=>$category->category_id]) }}">{{$category->category_name}}</a>
+                                    @foreach ($category as $cate)
+                                        <a class="dropdown-item" href="{{ route('detailCategory',['id'=>$cate->category_id]) }}">{{$cate->category_name}}</a>
                                     @endforeach
                                 </div>
                             </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_3"
-                                   role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Thương hiệu
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown_2">
-                                    @foreach ($brand as $brand)
-                                        <a class="dropdown-item" href="{{ route('detailBrand',['id'=>$brand->brand_id]) }}"> {{$brand->brand_name}}</a>
-                                    @endforeach
-                                </div>
-                            </li>
+{{--                            <li class="nav-item dropdown">--}}
+{{--                                <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_3"--}}
+{{--                                   role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
+{{--                                    Thương hiệu--}}
+{{--                                </a>--}}
+{{--                                <div class="dropdown-menu" aria-labelledby="navbarDropdown_2">--}}
+{{--                                    @foreach ($brand as $brand)--}}
+{{--                                        <a class="dropdown-item" href="{{ route('detailBrand',['id'=>$brand->brand_id]) }}"> {{$brand->brand_name}}</a>--}}
+{{--                                    @endforeach--}}
+{{--                                </div>--}}
+{{--                            </li>--}}
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('categoryPostIndex')}}">Tin Tức</a>
                             </li>
@@ -65,9 +65,9 @@
                     </div>
                     <div class="hearer_icon d-flex">
                         <a id="search_1" href="javascript:void(0)"><i class="ti-search"></i></a>
-                        <div class="dropdown cart">
-                            <a class="dropdown-toggle" href="{{route('cart')}}" id="navbarDropdown3" role="button"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a href=""><i class="ti-heart"></i></a>
+                        <div class=" cart">
+                            <a  href="{{route('cart')}}">
                                 <i class="fas fa-cart-plus"></i>
                             </a>
 {{--                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">--}}
@@ -107,8 +107,9 @@
         </div>
         <div class="search_input" id="search_input_box">
             <div class="container ">
-                <form class="d-flex justify-content-between search-inner">
-                    <input type="text" class="form-control" id="search_input" placeholder="Search Here">
+                <form method="post" action="{{route('search')}}" class="d-flex justify-content-between search-inner">
+                    @csrf
+                    <input type="text" class="form-control" id="keywords_submit" name="keywords_submit" placeholder="Search Here">
                     <button type="submit" class="btn"></button>
                     <span class="ti-close" id="close_search" title="Close Search"></span>
                 </form>
