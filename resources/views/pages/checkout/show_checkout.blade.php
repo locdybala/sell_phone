@@ -429,6 +429,7 @@
                                     shipping_method: shipping_method
                                 },
                                 success: function (data) {
+                                    console.log(data);
                                     debugger
                                     Swal.fire({
                                         icon: 'success',

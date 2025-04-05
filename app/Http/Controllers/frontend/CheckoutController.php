@@ -313,25 +313,27 @@ class CheckoutController extends Controller
         $vnp_Returnurl = env('VNP_RETURN_URL');
 
         $vnp_TxnRef = $data_payment['order_id']; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
-        $vnp_OrderInfo = 'Thanh toán bảo hiểm Medici Pro.';
-        $vnp_OrderType = 'other';
+        $vnp_OrderInfo = 'Thanh toán đơn hàng';
+        $vnp_OrderType = 'billpayment';
         $vnp_Amount = $data_payment['amount'] * 100;
         $vnp_Locale = 'vn';
         $vnp_BankCode = '';
         $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
-
+        $startTime = date('YmdHis');
+        $expire = date('YmdHis', strtotime('+15 minutes', strtotime($startTime)));
         $inputData = array(
             "vnp_Version" => "2.1.0",
             "vnp_TmnCode" => $vnp_TmnCode,
             "vnp_Amount" => $vnp_Amount,
             "vnp_Command" => "pay",
-            "vnp_CreateDate" => date('YmdHis'),
+            "vnp_CreateDate" => $startTime,
             "vnp_CurrCode" => "VND",
             "vnp_IpAddr" => $vnp_IpAddr,
             "vnp_Locale" => $vnp_Locale,
             "vnp_OrderInfo" => $vnp_OrderInfo,
             "vnp_OrderType" => $vnp_OrderType,
             "vnp_ReturnUrl" => $vnp_Returnurl,
+            "vnp_ExpireDate" => $expire,
             "vnp_TxnRef" => $vnp_TxnRef,
         );
 
@@ -403,67 +405,51 @@ class CheckoutController extends Controller
         return $jsonResult['payUrl'];
     }
 
-    public function paymentOnePay($dataRequest)
+    public function paymentOnePay($data)
     {
-        // Khóa bí mật - được cấp bởi OnePAY
-        $SECURE_SECRET = "A3EFDFABA8653DF2342E8DAC29B51AF0";
+        // Lấy thông tin đơn hàng
+        $order_id = $data['order_id'];
+        $amount = $data['amount'];
 
-// add the start of the vpcURL querystring parameters
-// *****************************Lấy giá trị url cổng thanh toán*****************************
-        $vpcURL = 'https://mtf.onepay.vn/onecomm-pay/vpc.op' . "?";
-        $data = array(
-            'vpc_Merchant' => 'ONEPAY',
-            'vpc_AccessCode' => 'D67342C2',
-            'vpc_MerchTxnRef' => $dataRequest['order_id'],
-            'vpc_OrderInfo' => 'JSECURETEST01',
-            'vpc_Amount' => $dataRequest['amount'],
-            'vpc_ReturnURL' => 'http://127.0.0.1:8000/payment-success',
-            'vpc_Version' => '2',
+        // Thông tin Merchant và AccessCode
+        $merchant = 'ONEPAYTEST';  // Thay bằng Merchant của bạn
+        $accessCode = 'D67342C2';  // Thay bằng AccessCode của bạn
+        $secureSecret = 'A3EFDFABA8653DF2342E8DAC29B51AF0';  // Thay bằng Secure Secret của bạn
+
+        // Tạo tham số cho request
+        $inputData = [
+            'vpc_Merchant' => $merchant,
+            'vpc_AccessCode' => $accessCode,
+            'vpc_MerchTxnRef' => $order_id,  // Mã đơn hàng
+            'vpc_OrderInfo' => 'Thanh toán đơn hàng #' . $order_id,
+            'vpc_Amount' => $amount * 100,  // Amount phải tính bằng đồng (VND)
+            'vpc_Currency' => 'VND',
             'vpc_Command' => 'pay',
-            'vpc_Locale' => 'vn',
-            'vpc_Currency' => 'VND'
-        );
-//$stringHashData = $SECURE_SECRET; *****************************Khởi tạo chuỗi dữ liệu mã hóa trống*****************************
-        $stringHashData = "";
-// sắp xếp dữ liệu theo thứ tự a-z trước khi nối lại
-// arrange array data a-z before make a hash
-        ksort($data);
+            'vpc_Locale' => 'vn',  // Ngôn ngữ tiếng Việt
+            'vpc_TicketNo' => '127.0.0.1',  // Thông tin ticket
+        ];
 
-// set a parameter to show the first pair in the URL
-// đặt tham số đếm = 0
-        $appendAmp = 0;
-
-        foreach ($data as $key => $value) {
-            // create the md5 input and URL leaving out any fields that have no value
-            // tạo chuỗi đầu dữ liệu những tham số có dữ liệu
+        // Tạo Secure Hash
+        $stringHashData = '';
+        ksort($inputData);
+        foreach($inputData as $key => $value) {
             if (strlen($value) > 0) {
-                // this ensures the first paramter of the URL is preceded by the '?' char
-                if ($appendAmp == 0) {
-                    $vpcURL .= urlencode($key) . '=' . urlencode($value);
-                    $appendAmp = 1;
-                } else {
-                    $vpcURL .= '&' . urlencode($key) . "=" . urlencode($value);
-                }
-                //$stringHashData .= $value; *****************************sử dụng cả tên và giá trị tham số để mã hóa*****************************
-                if ((strlen($value) > 0) && ((substr($key, 0, 4) == "vpc_") || (substr($key, 0, 5) == "user_"))) {
-                    $stringHashData .= $key . "=" . $value . "&";
-                }
+                $stringHashData .= $key . '=' . $value . '&';
             }
         }
-//*****************************xóa ký tự & ở thừa ở cuối chuỗi dữ liệu mã hóa*****************************
-        $stringHashData = rtrim($stringHashData, "&");
+        $stringHashData = rtrim($stringHashData, '&');
+        $secureHash = strtoupper(hash_hmac('SHA256', $stringHashData, pack('H*', $secureSecret)));
 
-// thêm giá trị chuỗi mã hóa dữ liệu được tạo ra ở trên vào cuối url
-        if (strlen($SECURE_SECRET) > 0) {
-            //$vpcURL .= "&vpc_SecureHash=" . strtoupper(md5($stringHashData));
-            // *****************************Thay hàm mã hóa dữ liệu*****************************
-            $vpcURL .= "&vpc_SecureHash=" . strtoupper(hash_hmac('SHA256', $stringHashData, pack('H*', $SECURE_SECRET)));
-        }
-// chuyển trình duyệt sang cổng thanh toán theo URL được tạo ra
-        return $vpcURL;
+        $inputData['vpc_SecureHash'] = $secureHash;
 
+        // Tạo URL để redirect đến OnePAY
+        $vpcURL = 'https://mtf.onepay.vn/onecomm-pay/vpc.op?' . http_build_query($inputData);
 
+        // Trả về URL để frontend thực hiện redirect
+        return  $vpcURL;
     }
+
+
 
     public function forgot_pass()
     {
@@ -675,4 +661,28 @@ class CheckoutController extends Controller
         }
         return view('pages.checkout.success', compact('category', 'pages','order_details', 'coupon_condition', 'coupon_number', 'order'));
     }
+    public function onepayResponse(Request $request)
+    {
+        $responseCode = $request->input('vpc_TxnResponseCode');
+        $orderCode = $request->input('vpc_MerchTxnRef');
+        dd($request->all());
+        if ($responseCode == "0") {
+            // Thanh toán thành công
+            // Cập nhật trạng thái đơn hàng nếu muốn
+            Order::where('order_id', $orderCode)->update(['order_status' => 2]);
+
+            // Xoá session
+            Session::forget('coupon');
+            Session::forget('fee');
+            Session::forget('cart');
+            Session::forget('selected_city');
+            Session::forget('selected_province');
+            Session::forget('selected_wards');
+            return redirect()->route('paymentOrderSuccess', ['order_code' => $orderCode])->with('message', 'Thanh toán sản phẩm thành công!');
+
+        } else {
+            return redirect('/cart')->with('error', 'Thanh toán thất bại hoặc bị huỷ.');
+        }
+    }
+
 }

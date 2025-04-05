@@ -71,6 +71,7 @@ Route::get('/delete_coupon', [CartController::class, 'delete_coupon'])->name('de
 Route::get('/history', [CartController::class, 'history'])->name('history');
 Route::get('/view-order-history/{order_code}', [CartController::class, 'view_order_history'])->name('view_order_history');
 Route::get('/payment-success', [CheckoutController::class, 'paymentSuccess'])->name(('payment-success'));
+Route::get('/onepay/response', [CheckoutController::class, 'onepayResponse'])->name('onepay.response');
 
 Auth::routes();
 
