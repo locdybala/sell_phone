@@ -313,25 +313,27 @@ class CheckoutController extends Controller
         $vnp_Returnurl = env('VNP_RETURN_URL');
 
         $vnp_TxnRef = $data_payment['order_id']; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
-        $vnp_OrderInfo = 'Thanh toán bảo hiểm Medici Pro.';
-        $vnp_OrderType = 'other';
+        $vnp_OrderInfo = 'Thanh toán đơn hàng';
+        $vnp_OrderType = 'billpayment';
         $vnp_Amount = $data_payment['amount'] * 100;
         $vnp_Locale = 'vn';
         $vnp_BankCode = '';
         $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
-
+        $startTime = date('YmdHis');
+        $expire = date('YmdHis', strtotime('+15 minutes', strtotime($startTime)));
         $inputData = array(
             "vnp_Version" => "2.1.0",
             "vnp_TmnCode" => $vnp_TmnCode,
             "vnp_Amount" => $vnp_Amount,
             "vnp_Command" => "pay",
-            "vnp_CreateDate" => date('YmdHis'),
+            "vnp_CreateDate" => $startTime,
             "vnp_CurrCode" => "VND",
             "vnp_IpAddr" => $vnp_IpAddr,
             "vnp_Locale" => $vnp_Locale,
             "vnp_OrderInfo" => $vnp_OrderInfo,
             "vnp_OrderType" => $vnp_OrderType,
             "vnp_ReturnUrl" => $vnp_Returnurl,
+            "vnp_ExpireDate" => $expire,
             "vnp_TxnRef" => $vnp_TxnRef,
         );
 
