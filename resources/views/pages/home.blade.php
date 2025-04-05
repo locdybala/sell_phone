@@ -190,6 +190,7 @@
                                 </div>
                                 </a>
                             </div>
+<<<<<<< HEAD
                         @endforeach
                     </div>
                 </div>
@@ -255,6 +256,92 @@
         </div>
     </section>
     <!--::subscribe_area part end::-->
+=======
+                        </form>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+    <!-- Vesitable Shop End -->
+
+
+
+    <!-- Bestsaler Product Start -->
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+            <div class="text-center mx-auto mb-5" style="max-width: 700px;">
+                <h1 class="display-4">Danh sách sản phẩm</h1>
+                <p>Chúng tôi cung cấp các sản phẩm thân thiện với môi trường như túi đựng, ống hút và hộp đựng thực
+                    phẩm, tất cả đều làm từ vật liệu tự nhiên, dễ phân hủy và an toàn cho sức khỏe. Hãy chọn sản phẩm
+                    sinh học để bảo vệ hành tinh! 🌱✨</p>
+            </div>
+            <div class="row g-4">
+                @foreach($products as $product)
+                    <div class="col-lg-6 col-xl-4">
+                        <form>
+                            @csrf
+                            <input type="hidden" id="wishlish_product_id_{{$product->product_id}}"
+                                   value="{{$product->product_id}}"
+                                   class="cart_product_id_{{$product->product_id}}">
+                            <input type="hidden" id="wishlish_product_name_{{$product->product_id}}"
+                                   value="{{$product->product_name}}"
+                                   class="cart_product_name_{{$product->product_id}}">
+                            <input type="hidden" id="wishlish_product_image_{{$product->product_id}}"
+                                   value="{{$product->product_image}}"
+                                   class="cart_product_image_{{$product->product_id}}">
+                            <input type="hidden" id="wishlish_product_price_{{$product->product_id}}"
+                                   value="{{$product->product_price}}"
+                                   class="cart_product_price_{{$product->product_id}}">
+                            <input type="hidden" id="wishlish_product_quantity_{{$product->product_id}}"
+                                   value="{{$product->product_quantity}}"
+                                   class="cart_product_quantity_{{$product->product_id}}">
+                            <input type="hidden" value="1" id="wishlish_product_qty_{{$product->product_id}}"
+                                   class="cart_product_qty_{{$product->product_id}}">
+                            <div class="p-4 rounded bg-light">
+                                <div class="row align-items-center">
+                                    <div class="col-6">
+                                        <img src="/upload/product/{{ $product->product_image }}"
+                                             class="img-fluid rounded-circle w-100" alt="">
+                                    </div>
+                                    <div class="col-6">
+                                        <a href="{{ route('detailProduct',['id'=>$product->product_id]) }}"
+                                           class="h5 product-name">{{$product->product_name}}</a>
+                                        <div class="d-flex my-3">
+                                            <i class="fas fa-star text-primary"></i>
+                                            <i class="fas fa-star text-primary"></i>
+                                            <i class="fas fa-star text-primary"></i>
+                                            <i class="fas fa-star text-primary"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                        <h4 class="mb-3">{{number_format($product->product_price)}} <u>đ</u></h4>
+                                        @php
+                                            $customerId = Session::get('customer_id');
+                                        @endphp
+                                        @if ($customerId)
+                                            <button type="button" name="add-to-cart"
+                                                    data-id_product="{{$product->product_id}}"
+                                                    class=" add-to-cartbtn border border-secondary rounded-pill px-3 text-primary">
+                                                <i
+                                                    class="fa fa-shopping-bag me-2 text-primary"></i> Đặt hàng
+                                            </button>
+                                        @else
+                                            <a href="{{URL::to('/login-checkout')}}"
+                                               class="add-to-cart btn border border-secondary rounded-pill px-3 text-primary"><i
+                                                    class="fa fa-shopping-bag me-2 text-primary"></i> Đặt hàng</a>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+    <!-- Bestsaler Product End -->
+
+>>>>>>> 89ff803 (add code thanh toan)
 @endsection
 @section('javascript')
     <script type="text/javascript">
