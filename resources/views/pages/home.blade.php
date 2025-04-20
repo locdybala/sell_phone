@@ -197,35 +197,17 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-12">
-                    <div class="single_client_logo">
-                        <img src="{{asset('frontend/img/client_logo/client_logo_1.png')}}" alt="">
+                    <div class="section_tittle text-center mb-5">
+                        <h2>Thương hiệu nổi bật</h2>
                     </div>
-                    <div class="single_client_logo">
-                        <img src="{{asset('frontend/img/client_logo/client_logo_2.png')}}" alt="">
-                    </div>
-                    <div class="single_client_logo">
-                        <img src="{{asset('frontend/img/client_logo/client_logo_3.png')}}" alt="">
-                    </div>
-                    <div class="single_client_logo">
-                        <img src="{{asset('frontend/img/client_logo/client_logo_4.png')}}" alt="">
-                    </div>
-                    <div class="single_client_logo">
-                        <img src="{{asset('frontend/img/client_logo/client_logo_5.png')}}" alt="">
-                    </div>
-                    <div class="single_client_logo">
-                        <img src="{{asset('frontend/img/client_logo/client_logo_3.png')}}" alt="">
-                    </div>
-                    <div class="single_client_logo">
-                        <img src="{{asset('frontend/img/client_logo/client_logo_1.png')}}" alt="">
-                    </div>
-                    <div class="single_client_logo">
-                        <img src="{{asset('frontend/img/client_logo/client_logo_2.png')}}" alt="">
-                    </div>
-                    <div class="single_client_logo">
-                        <img src="{{asset('frontend/img/client_logo/client_logo_3.png')}}" alt="">
-                    </div>
-                    <div class="single_client_logo">
-                        <img src="{{asset('frontend/img/client_logo/client_logo_4.png')}}" alt="">
+                    <div class="client_logo_slider owl-carousel">
+                        @foreach($brand as $item)
+                            @if($item->brand_status == 1)
+                                <div class="single_client_logo d-flex align-items-center justify-content-center" style="min-height: 280px; background: #fff; margin: 0 15px; border-radius: 10px; box-shadow: 0 2px 15px rgba(0,0,0,0.05);">
+                                    <img src="/upload/brand/{{ $item->brand_image }}" alt="{{ $item->brand_name }}" style="width: 100%; max-width: 350px; height: auto; padding: 30px;">
+                                </div>
+                            @endif
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -281,6 +263,33 @@
                     });
                 }
             })
+
+            // Khởi tạo slider cho thương hiệu
+            $('.client_logo_slider').owlCarousel({
+                items: 2,
+                loop: true,
+                margin: 30,
+                autoplay: true,
+                autoplayTimeout: 4000,
+                autoplayHoverPause: true,
+                nav: true,
+                dots: false,
+                navText: ['<i class="fas fa-chevron-left"></i>', '<i class="fas fa-chevron-right"></i>'],
+                responsive: {
+                    0: {
+                        items: 1,
+                        margin: 0
+                    },
+                    768: {
+                        items: 2,
+                        margin: 20
+                    },
+                    992: {
+                        items: 2,
+                        margin: 30
+                    }
+                }
+            });
         });
 
         function add_wistlist(clicked_id) {
