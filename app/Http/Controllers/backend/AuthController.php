@@ -7,6 +7,7 @@ use App\Models\Roles;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 
 class AuthController extends Controller
@@ -33,7 +34,6 @@ class AuthController extends Controller
     public function loginAuth(Request $request)
     {
         $this->validate($request, [
-
             'email' => 'required|email|max:255',
             'password' => 'required|max:255',
         ]);

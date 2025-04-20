@@ -128,7 +128,7 @@ class OrderController extends Controller
 		</style>
 		<h2><center>Cộng hòa xã hội chủ nghĩa Việt Nam</center></h2>
 		<h4><center>Độc lập - Tự do - Hạnh phúc</center></h4>
-		<h1><center>Cửa hàng nội thất</center></h1>
+		<h1><center>Cửa hàng Điện thoại</center></h1>
 
 		<p>Người đặt hàng</p>
 		<table class="table-styling">

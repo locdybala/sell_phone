@@ -46,22 +46,14 @@
                 </div>
             </div>
             <div class="row align-items-center justify-content-between">
-                @php
-                    $default_images = [
-                        'frontend/img/feature/feature_1.png',
-                        'frontend/img/feature/feature_2.png',
-                        'frontend/img/feature/feature_3.png',
-                        'frontend/img/feature/feature_4.png'
-                    ];
-                @endphp
+
                 @foreach($categories as $key => $ca)
                     <div class="col-lg-6 col-sm-6">
-                        <div class="single_feature_post_text">
+                        <div class="single_feature_post_text" style="height: 150px !important;">
                             <p>Chất lượng cao</p>
                             <h3>{{ $ca->category_name }}</h3>
-                            <a href="{{ route('detailCategory',['id'=>$ca->category_id]) }}" class="feature_btn">XEM
+                            <a style="margin-left:300px;" href="{{ route('detailCategory',['id'=>$ca->category_id]) }}" class="feature_btn">XEM
                                 NGAY <i class="fas fa-play"></i></a>
-                            <img src="{{ asset($default_images[$key]) }}" alt="{{ $ca->category_name }}">
                         </div>
                     </div>
                 @endforeach
@@ -108,7 +100,7 @@
                                                 <div class="single_product_text">
 
                                                     <h4>{{$product->product_name}}</h4>
-                                                    <h3>{{number_format($product->product_price)}}</h3>
+                                                    <h3>{{number_format($product->product_price)}} vnđ</h3>
                                                     @php
                                                         $customerId = Session::get('customer_id');
                                                     @endphp
@@ -141,7 +133,6 @@
                 <div class="row align-items-center justify-content-between">
                     <div class="col-lg-6 col-md-6">
                         <div class="offer_img">
-                            <img src="{{asset('frontend/img/offer_img.png')}}" alt="Khuyến mãi">
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6">
@@ -198,20 +189,6 @@
     </section>
 
     <!-- product_list part end-->
-
-    <!-- subscribe_area part start-->
-    <section class="subscribe_area section_padding">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-7">
-                    <div class="subscribe_area_text text-center">
-                        <h5>Đừng bỏ lỡ cơ hội!</h5>
-                        <h2>Khám phá những ưu đãi đặc biệt, Mua ngay để nhận thêm quà tặng hấp dẫn!</h2>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!--::subscribe_area part end::-->
 

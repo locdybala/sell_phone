@@ -17,6 +17,7 @@ return new class extends Migration
             $table->increments('brand_id');
             $table->string('brand_name',100);
             $table->text('brand_desc');
+            $table->string('brand_image')->nullable();
             $table->integer('brand_status');
             $table->timestamps();
         });

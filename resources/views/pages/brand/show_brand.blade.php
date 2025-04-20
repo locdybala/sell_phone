@@ -46,6 +46,8 @@
                                     @foreach ($brand as $bra)
                                         <li>
                                             <a href="{{ route('detailBrand',['id'=>$bra->brand_id]) }}">{{$bra->brand_name}}</a>
+                                            <span>({{ $bra->product_count }})</span>
+
                                         </li>
                                     @endforeach
                                 </ul>
@@ -111,7 +113,7 @@
                                             <div class="single_product_text">
 
                                                 <h4>{{$product->product_name}}</h4>
-                                                <h3>{{number_format($product->product_price)}}</h3>
+                                                <h3>{{number_format($product->product_price)}} vnđ</h3>
                                                 @php
                                                     $customerId = Session::get('customer_id');
                                                 @endphp
@@ -177,7 +179,7 @@
                                     <img src="/upload/product/{{ $product->product_image }}" alt="">
                                     <div class="single_product_text">
                                         <h4>{{$product->product_name}}</h4>
-                                        <h3>{{number_format($product->product_price)}}</h3>
+                                        <h3>{{number_format($product->product_price)}} vnđ</h3>
 
                                     </div>
                                 </a>

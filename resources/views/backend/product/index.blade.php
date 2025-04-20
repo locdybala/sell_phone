@@ -27,7 +27,7 @@
                 <!-- [ stiped-table ] start -->
                 <div class="col-xl-12">
                     <div class="card">
-                        @include('backend.components.notification');
+                        @include('backend.components.notification')
                         <div class="card-header">
                             <h5>Danh sách sản phẩm</h5>
                             <div style="display: flex">

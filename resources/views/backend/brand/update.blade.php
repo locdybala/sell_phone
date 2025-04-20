@@ -29,7 +29,7 @@
                             <h5>Sửa thương hiệu</h5>
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('update_brand',['id'=>$brand->brand_id]) }}" method="POST">
+                            <form action="{{ route('update_brand',['id'=>$brand->brand_id]) }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
                                     <div class="col-sm-12">
@@ -47,11 +47,20 @@
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="form-group">
+                                            <label class="floating-label" for="brand_image">Hình ảnh thương hiệu</label>
+                                            <input type="file" class="form-control" id="brand_image" name="brand_image"/>
+                                            @if($brand->brand_image)
+                                                <img src="/upload/brand/{{ $brand->brand_image }}" style="width:100px;height:auto;margin-top:10px;">
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
                                             <label class="floating-label" for="description">Mô tả</label>
                                             <textarea
                                                 id="ckeditor"
                                                 class="form-control" name="description"
-                                                placeholder="Mô tả thương hiệu" required
+                                                placeholder="Mô tả thương hiệu"
                                             >{!!  $brand->brand_desc  !!}</textarea>
                                         </div>
                                     </div>
@@ -69,7 +78,7 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <button type="submit" id="btnSubmit" class="btn btn-primary">Sửa</button>
-                                            <a href="/admin/category/all_category" class="btn btn-default">Huỷ</a>
+                                            <a href="/admin/brand/all_brand" class="btn btn-default">Huỷ</a>
                                         </div>
                                     </div>
                                 </div>

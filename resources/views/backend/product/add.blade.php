@@ -60,17 +60,17 @@
                                             </select>
                                         </div>
                                     </div>
-{{--                                    <div class="col-sm-6">--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <label class="floating-label" for="brand_id">Thương hiệu sản phẩm <span class="required">(*)</span></label>--}}
-{{--                                            <select id="brand_id" name="brand_id" class="form-control">--}}
-{{--                                                <option>---Chọn thương hiệu---</option>--}}
-{{--                                                @foreach ($brand as $brand)--}}
-{{--                                                    <option value="{{ $brand->brand_id }}">{{ $brand->brand_name }}</option>--}}
-{{--                                                @endforeach--}}
-{{--                                            </select>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="floating-label" for="brand_id">Thương hiệu sản phẩm <span class="required">(*)</span></label>
+                                            <select id="brand_id" name="brand_id" class="form-control">
+                                                <option>---Chọn thương hiệu---</option>
+                                                @foreach ($brand as $brand)
+                                                    <option value="{{ $brand->brand_id }}">{{ $brand->brand_name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="floating-label" for="price">Giá <span class="required">(*)</span></label>
@@ -102,8 +102,12 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label class="floating-label" for="name">Nội dung <span class="required">(*)</span></label>
-                                            <input type="text" class="form-control" id="product_content" name="product_content"
-                                                   placeholder="Nội dung sản phẩm"/>
+                                            <textarea
+                                            id="product_content"
+                                            class="form-control" name="product_content"
+                                            placeholder="Nội dung sản phẩm"
+                                        ></textarea>
+
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
@@ -146,7 +150,11 @@
 @endsection
 @section('js')
     <script>
-        CKEDITOR.replace('ckeditor');
+        ClassicEditor
+        .create(document.querySelector('#product_content'))
+        .catch(error => {
+            console.error(error);
+        });
         $("#btnSubmit").click(function () {
             var name = $("#name").val();
             var category_id = $("#category_id").val();
