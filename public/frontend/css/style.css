@@ -1,6 +1,27 @@
 /*Color Variables*/
 /**************** extend css start ****************/
-@import url("https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap");
+
+/* Override default font */
+body {
+    font-family: "Be Vietnam Pro", sans-serif !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Be Vietnam Pro", sans-serif !important;
+}
+
+p {
+    font-family: "Be Vietnam Pro", sans-serif !important;
+}
+
+/* Add custom styles for Vietnamese text */
+.vietnamese-text {
+    font-family: "Be Vietnam Pro", sans-serif !important;
+    letter-spacing: 0.5px;
+    line-height: 1.8;
+} 
 /* line 2, ../../01 cl html template/03_jun 2019/188_Aranoz shop_html/sass/_extends.scss */
 .btn_2, .form-contact .form-group .btn_1 i {
   background-image: linear-gradient(16deg, #ff005a 0%, #ff5d2d 64%, #ffba00 100%);
@@ -15,7 +36,7 @@
 /**************** common css start ****************/
 /* line 4, ../../01 cl html template/03_jun 2019/188_Aranoz shop_html/sass/_common.scss */
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: "Be Vietnam Pro", sans-serif !important;
   padding: 0;
   margin: 0;
   font-size: 14px;
