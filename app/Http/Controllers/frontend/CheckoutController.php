@@ -276,10 +276,10 @@ class CheckoutController extends Controller
             'order_code' => $checkout_code
 
         ];
-//        Mail::send('pages.mail.mail_order', ['cart_array' => $cart_array, 'shipping' => $shipping_array, 'order' => $ordercode_mail], function ($message) use ($title_mail, $data) {
-//            $message->to($data['email'])->subject($title_mail);
-//            $message->from($data['email'], $title_mail);
-//        });
+       Mail::send('pages.mail.mail_order', ['cart_array' => $cart_array, 'shipping' => $shipping_array, 'order' => $ordercode_mail], function ($message) use ($title_mail, $data) {
+           $message->to($data['email'])->subject($title_mail);
+           $message->from($data['email'], $title_mail);
+       });
 
         if ($data['shipping_method'] == "2") {
             $data1 = $this->paymentVnpay([

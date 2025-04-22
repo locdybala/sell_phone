@@ -2,17 +2,22 @@
 <footer class="footer_part">
     <div class="container">
         <div class="row justify-content-around">
-            <div class="col-sm-6 col-lg-3">
-                <div class="single_footer_part">
-                    <h4>Điện thoại nổi bật</h4>
-                    <ul class="list-unstyled">
-                        <li><a href="#">iPhone 15 Series</a></li>
-                        <li><a href="#">Samsung Galaxy S24</a></li>
-                        <li><a href="#">Xiaomi Redmi Note</a></li>
-                        <li><a href="#">Điện thoại giá rẻ</a></li>
-                    </ul>
-                </div>
-            </div>
+        <div class="fpt-contact">
+                <h3>KẾT NỐI VỚI PD SHOP</h3>
+                    <div class="social-icons">
+                        <ul class="list-unstyled">
+                            <li><a href="https://www.facebook.com/phamhongdang02/" class="single_social_icon"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href="https://www.instagram.com/hongdang02/" class="single_social_icon"><i class="fab fa-instagram"></i></a></li>
+                            <li><a href="https://www.youtube.com/@phamhongang2754" class="single_social_icon"><i class="fab fa-youtube"></i></a></li>
+                            <li><a href="#" class="single_social_icon"><i class="fab fa-tiktok"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="hotline">
+                    <h4>Số điện thoại cửa hàng</h4>
+                        <p>Tư vấn mua hàng <br>
+                    <b>0388181970</b> </p>
+                 </div>
+        </div>
             <div class="col-sm-6 col-lg-3">
                 <div class="single_footer_part">
                     <h4>Thông tin</h4>
@@ -54,15 +59,12 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="copyright_text">
-                        <p>© <script>document.write(new Date().getFullYear());</script> Điện Thoại 24h | Thiết kế bởi <a href="#">Đội ngũ Dev Mobile</a></p>
+                        <p>© <script>document.write(new Date().getFullYear());</script> Công ty bán hàng điện máy | Thiết kế bởi <a href="#">PD Shop</a></p>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="footer_icon social_icon">
                         <ul class="list-unstyled">
-                            <li><a href="{{$contact->info_facebook}}" class="single_social_icon"><i class="fab fa-facebook-f"></i></a></li>
-                            <li><a href="{{$contact->info_instagram}}" class="single_social_icon"><i class="fab fa-instagram"></i></a></li>
-                            <li><a href="{{$contact->info_youtube}}" class="single_social_icon"><i class="fab fa-youtube"></i></a></li>
                         </ul>
                     </div>
                 </div>
