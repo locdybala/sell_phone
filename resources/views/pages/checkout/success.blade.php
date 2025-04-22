@@ -21,7 +21,7 @@
                     <h6 style="border: 3px solid #84c423; padding: 20px 10px" class="mb-4 text-center">Cảm ơn bạn. Đơn hàng của bạn đã được nhận</h6>
                     @if($order->order_method == 3)
                         <h5 class="text-center">Vui lòng quét mã QR để thanh toán đơn hàng, kèm ghi chú mã đơn hàng</h5>
-                        <img style="width: 200px; height: 200px; margin-left: 300px;" src="{{asset('frontend/img/maqr.jpg')}}" alt="">
+                        <img style="width: 200px; height: 200px; margin-left: 300px;" src="{{asset('frontend/img/maqr.png')}}" alt="">
                     @endif
                     <div class="table-responsive mb-4">
                         <table class="table table-bordered">

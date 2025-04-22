@@ -24,12 +24,20 @@
             <div class="cupon_area">
                 <div class="check_title">
                     <h2>
-                        Have a coupon?
-                        <a href="#">Click here to enter your code</a>
+                        Bạn có mã giảm giá?
+                        <a href="#">Nhập code để áp dụng mã giảm giá</a>
                     </h2>
                 </div>
-                <input type="text" placeholder="Enter coupon code"/>
-                <a class="tp_btn" href="#">Apply Coupon</a>
+                @if(session()->has('message'))
+                        <div class="alert alert-success">{!! session()->get('message') !!}</div>
+                    @elseif(session()->has('error'))
+                        <div class="alert alert-danger">{!! session()->get('error') !!}</div>
+                    @endif
+                <form method="POST" action="{{route('check_coupon')}}">
+                    @csrf
+                <input type="text" name="coupon" placeholder="Enter coupon code"/>
+                <button class="tp_btn" type="submit">Áp dụng</button>
+                </form>
             </div>
             <div class="billing_details">
                 <div class="row">
@@ -244,8 +252,8 @@
                                     </div>
                                     <div class="payment_item">
                                         <div class="radion_btn">
-                                            <input checked type="radio" id="f-option5" name="payment_select" value="3"/>
-                                            <label for="f-option5">Chuyển khoản ngân hàng</label>
+                                            <input checked type="radio" id="f-option3" name="payment_select" value="3"/>
+                                            <label for="f-option3">Chuyển khoản ngân hàng</label>
                                             <div class="check"></div>
                                         </div>
                                         <p>

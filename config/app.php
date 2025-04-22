@@ -199,6 +199,7 @@ return [
         Maatwebsite\Excel\ExcelServiceProvider::class,
         App\Providers\BladeServiceProvider::class,
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
+        App\Providers\FrontendServiceProvider::class,
     ],
 
     /*

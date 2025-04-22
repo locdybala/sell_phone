@@ -8,7 +8,7 @@
         <div class="row align-items-center">
             <div class="col-lg-12">
                 <nav class="navbar navbar-expand-lg navbar-light">
-                    <a class="navbar-brand" href="{{URL::to('/')}}"> <img src="{{asset('frontend/img/logo.png')}}" alt="logo"> </a>
+                    <a class="navbar-brand" href="{{URL::to('/')}}"> <img style="width: 120px; height: 40px;" src="{{asset('upload/info/' . $contact->info_image)}}" alt="logo"> </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
@@ -65,7 +65,6 @@
                     </div>
                     <div class="hearer_icon d-flex">
                         <a id="search_1" href="javascript:void(0)"><i class="ti-search"></i></a>
-                        <a href=""><i class="ti-heart"></i></a>
                         <div class=" cart">
                             <a  href="{{route('cart')}}">
                                 <i class="fas fa-cart-plus"></i>
@@ -107,8 +106,7 @@
         </div>
         <div class="search_input" id="search_input_box">
             <div class="container ">
-                <form method="post" action="{{route('search')}}" class="d-flex justify-content-between search-inner">
-                    @csrf
+                <form method="get" action="{{route('search')}}" class="d-flex justify-content-between search-inner">
                     <input type="text" class="form-control" id="keywords_submit" name="keywords_submit" placeholder="Search Here">
                     <button type="submit" class="btn"></button>
                     <span class="ti-close" id="close_search" title="Close Search"></span>

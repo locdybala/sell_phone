@@ -29,7 +29,7 @@
                             <h5>Thêm mới danh mục bài viết</h5>
                         </div>
                         <div class="card-body">
-                            <form action="{{route('addCategory')}}" method="POST">
+                            <form action="{{route('addCategoryPost')}}" method="POST">
                                 @csrf
                                 <div class="row">
                                     <div class="col-sm-12">
@@ -52,7 +52,7 @@
                                             <textarea
                                                 id="ckeditor"
                                                 class="form-control" name="description"
-                                                placeholder="Mô tả danh mục bài viết" required
+                                                placeholder="Mô tả danh mục bài viết"
                                             ></textarea>
                                         </div>
                                     </div>
@@ -119,7 +119,5 @@
         }
 
     </script>
-    <script>
-        CKEDITOR.replace('ckeditor');
-    </script>
+
 @endsection

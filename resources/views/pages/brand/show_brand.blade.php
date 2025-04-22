@@ -62,18 +62,10 @@
                                 <div class="single_product_menu">
                                     <p><span>{{ $products->total() }} </span>sản phẩm</p>
                                 </div>
-                                {{--                                <div class="single_product_menu d-flex">--}}
-                                {{--                                    <h5>short by : </h5>--}}
-                                {{--                                    <select>--}}
-                                {{--                                        <option data-display="Select">name</option>--}}
-                                {{--                                        <option value="1">price</option>--}}
-                                {{--                                        <option value="2">product</option>--}}
-                                {{--                                    </select>--}}
-                                {{--                                </div>--}}
-                                {{--                               --}}
+                    
                                 <div class="single_product_menu d-flex">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Tìm kiếm"
+                                    <div class="input-group"> 
+                                        <input type="text" class="form-control" id="search-input" placeholder="Tìm kiếm"
                                                aria-describedby="inputGroupPrepend">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="inputGroupPrepend"><i
@@ -118,14 +110,12 @@
                                                     $customerId = Session::get('customer_id');
                                                 @endphp
                                                 @if ($customerId)
-                                                    <button type="button" name="add-to-cart"
-                                                            data-id_product="{{$product->product_id}}"
-                                                            class="add_cart">Thêm giỏ hàng
-                                                        <i class="ti-heart"></i>
-                                                    </button>
-                                                @else
-                                                    <a href="{{URL::to('/login-checkout')}}" class="add_cart">Thêm giỏ hàng<i class="ti-heart"></i></a>
-                                                @endif
+                                        <input type="button" name="add-to-cart" value="Thêm giỏ hàng"
+                                                data-id_product="{{$product->product_id}}"
+                                                class="add-to-cart btn_3">
+                                    @else
+                                        <a href="{{URL::to('/login-checkout')}}" class="add_cart">Thêm giỏ hàng<i class="ti-heart"></i></a>
+                                    @endif
                                             </div>
                                         </div>
                                     </form>
@@ -196,6 +186,37 @@
 @section('javascript')
     <script type="text/javascript">
         $(document).ready(function(){
+            $('.input-group-text').click(function() {
+                debugger;
+                var searchText = $('#search-input').val().toLowerCase();
+                var hasResults = false;
+                
+                $('.col-lg-4.col-sm-6').each(function() {
+                    var productName = $(this).find('h4').text().toLowerCase();
+                    if (productName.includes(searchText)) {
+                        $(this).show();
+                        hasResults = true;
+                    } else {
+                        $(this).hide();
+                    }
+                });
+
+                // Show/hide no results message
+                if (!hasResults) {
+                    if ($('.no-results-message').length === 0) {
+                        $('.latest_product_inner').append('<div class="col-12 text-center no-results-message"><p>Không tìm thấy sản phẩm nào</p></div>');
+                    }
+                } else {
+                    $('.no-results-message').remove();
+                }
+            });
+
+            // Trigger search on Enter key
+            $('.form-control').keypress(function(e) {
+                if(e.which == 13) {
+                    $('.input-group-text').click();
+                }
+            });
             $('.add-to-cart').click(function(){
                 debugger;
                 var id = $(this).data('id_product');

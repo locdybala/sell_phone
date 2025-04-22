@@ -203,8 +203,10 @@
                     <div class="client_logo_slider owl-carousel">
                         @foreach($brand as $item)
                             @if($item->brand_status == 1)
-                                <div class="single_client_logo d-flex align-items-center justify-content-center" style="min-height: 280px; background: #fff; margin: 0 15px; border-radius: 10px; box-shadow: 0 2px 15px rgba(0,0,0,0.05);">
-                                    <img src="/upload/brand/{{ $item->brand_image }}" alt="{{ $item->brand_name }}" style="width: 100%; max-width: 350px; height: auto; padding: 30px;">
+                                <div class="single_client_logo">
+                                    <div class="brand-item">
+                                        <img src="/upload/brand/{{ $item->brand_image }}" alt="{{ $item->brand_name }}">
+                                    </div>
                                 </div>
                             @endif
                         @endforeach
@@ -214,6 +216,126 @@
         </div>
     </section>
     <!--::subscribe_area part end::-->
+
+    <style>
+        .client_logo .single_client_logo {
+    height: 50px;
+    text-align: center;
+    display: flex
+;
+    align-items: center;
+    justify-content: center;
+    border-left: 1px solid #edeff2;
+    width: 100%;
+    float: left;
+    border-bottom: 1px solid #edeff2;
+}
+        .client_logo {
+            padding: 60px 0;
+            background: #f8f9fa;
+        }
+        
+        .single_client_logo {
+            margin: 0 15px;
+        }
+        
+        .brand-item {
+            background: #ffffff;
+            border-radius: 8px;
+            height: 100px;
+            width: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border: 1px solid #eee;
+            padding: 15px;
+        }
+        
+        .brand-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+        
+        .brand-item img {
+            width: 400px;
+            height: 80px;
+            object-fit: contain;
+            filter: grayscale(0%);
+            opacity: 1;
+            transition: all 0.3s ease;
+        }
+        
+        .brand-item:hover img {
+            filter: grayscale(0%);
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        .section_tittle h2 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section_tittle h2:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: #ff3368;
+            border-radius: 2px;
+        }
+
+        .client_logo_slider {
+            padding: 0 40px;
+        }
+
+        .client_logo_slider .owl-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: calc(100% + 60px);
+            left: -30px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .client_logo_slider .owl-prev,
+        .client_logo_slider .owl-next {
+            width: 40px;
+            height: 40px;
+            background: #fff !important;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .client_logo_slider .owl-prev i,
+        .client_logo_slider .owl-next i {
+            font-size: 20px;
+            color: #333;
+        }
+
+        .client_logo_slider .owl-prev:hover,
+        .client_logo_slider .owl-next:hover {
+            background: #ff3368 !important;
+        }
+
+        .client_logo_slider .owl-prev:hover i,
+        .client_logo_slider .owl-next:hover i {
+            color: #fff;
+        }
+    </style>
 @endsection
 @section('javascript')
     <script type="text/javascript">
@@ -264,9 +386,9 @@
                 }
             })
 
-            // Khởi tạo slider cho thương hiệu
+            // Cập nhật cấu hình slider cho thương hiệu
             $('.client_logo_slider').owlCarousel({
-                items: 2,
+                items: 4,
                 loop: true,
                 margin: 30,
                 autoplay: true,
@@ -280,12 +402,16 @@
                         items: 1,
                         margin: 0
                     },
-                    768: {
+                    576: {
                         items: 2,
                         margin: 20
                     },
+                    768: {
+                        items: 3,
+                        margin: 20
+                    },
                     992: {
-                        items: 2,
+                        items: 4,
                         margin: 30
                     }
                 }

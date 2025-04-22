@@ -42,6 +42,34 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
+                                            <label class="floating-label" for="Text">Link facebook</label>
+                                            <input type="text" class="form-control" name="info_facebook" value="{{ old('info_facebook', $contact->info_facebook) }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="floating-label" for="Text">Link youtobe</label>
+                                            <input type="text" class="form-control" name="info_youtobe" value="{{ old('info_youtobe', $contact->info_youtobe) }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="floating-label" for="Text">Link instagram</label>
+                                            <input type="text" class="form-control" name="info_instagram" value="{{ old('info_instagram', $contact->info_instagram) }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="floating-label" for="password">Ảnh Logo</label>
+                                            <input type="file" class="form-control" id="basic-default-name" name="image" accept="image/*"/>
+                                            @if($contact->info_image)
+                                                <img class="input-rounded mt-2" src="{{ asset('upload/info/'.$contact->info_image) }}" height="150" width="150" alt="Logo">
+                                            @endif
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
                                             <label class="floating-label" for="ckeditor">Thông tin liên hệ</label>
                                             <textarea
                                                 id="ckeditor"
@@ -59,15 +87,7 @@
                                             >{{ $contact->info_map }}</textarea>
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label class="floating-label" for="password">Ảnh Logo</label>
-                                            <input type="file" class="form-control" id="basic-default-name" name="image"
-                                            />
-                                            <img class="input-rounded mt-2" src="{{ URL::to('/upload/info/'.$contact->info_image) }}" height="150" width="150" alt="">
-                                        </div>
-                                    </div>
-
+                        
                                 </div>
                                 <button type="submit" class="btn  btn-primary">Sửa</button>
                             </form>
@@ -79,10 +99,4 @@
 
         </div>
     </section>
-@endsection
-@section('js')
-    <script>
-        CKEDITOR.replace('ckeditor');
-
-    </script>
 @endsection

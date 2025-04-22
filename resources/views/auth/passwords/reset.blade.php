@@ -1,6 +1,41 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="vi">
 
-@section('content')
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập hệ thống</title>
+    <link rel="icon" href="{{ asset('backend/assets/images/favicon.ico') }}" type="image/x-icon">
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Toastr -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .login-container {
+            max-width: 400px;
+            margin: 60px auto;
+        }
+
+        .card {
+            border-radius: 1rem;
+        }
+
+        .form-control:focus {
+            box-shadow: none;
+            border-color: #4a90e2;
+        }
+    </style>
+</head>
+
+<body>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -62,4 +97,24 @@
         </div>
     </div>
 </div>
-@endsection
+<!-- Bootstrap JS + Toastr -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    @if(session('success'))
+        <script>
+            toastr.success("{{ session('success') }}");
+        </script>
+    @endif
+
+    @if(session('error'))
+        <script>
+            toastr.error("{{ session('error') }}");
+        </script>
+    @endif
+
+</body>
+
+</html>
+

@@ -79,7 +79,7 @@
                                         <div class="form-group">
                                             <label class="floating-label" for="description">Nội dung</label>
                                             <textarea
-                                                id="ckeditor2"
+                                                id="ckeditor"
                                                 class="form-control" name="contents"
                                                 placeholder="Mô tả bài viết"
                                             ></textarea>
@@ -128,12 +128,11 @@
 @endsection
 @section('js')
     <script>
-        CKEDITOR.replace('ckeditor');
-        CKEDITOR.replace('ckeditor1');
-        CKEDITOR.replace('ckeditor2');
-        CKEDITOR.replace('ckeditor3');
-        CKEDITOR.replace('ckeditor4');
-
+        ClassicEditor
+        .create(document.querySelector('#ckeditor1'))
+        .catch(error => {
+            console.error(error);
+        });
     </script>
     <script>
         function ChangeToSlug()

@@ -64,22 +64,13 @@
                                 <div class="single_product_menu">
                                     <p><span>{{ $products->total() }} </span>sản phẩm</p>
                                 </div>
-{{--                                <div class="single_product_menu d-flex">--}}
-{{--                                    <h5>short by : </h5>--}}
-{{--                                    <select>--}}
-{{--                                        <option data-display="Select">name</option>--}}
-{{--                                        <option value="1">price</option>--}}
-{{--                                        <option value="2">product</option>--}}
-{{--                                    </select>--}}
-{{--                                </div>--}}
-{{--                               --}}
                                 <div class="single_product_menu d-flex">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Tìm kiếm"
+                                        <input type="text" class="form-control" id="search-input" placeholder="Tìm kiếm"
                                                aria-describedby="inputGroupPrepend">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text" id="inputGroupPrepend"><i
-                                                    class="ti-search"></i></span>
+                                            <button class="input-group-text" id="inputGroupPrepend"><i
+                                                    class="ti-search"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -195,6 +186,40 @@
 @section('javascript')
     <script type="text/javascript">
         $(document).ready(function () {
+            // Search functionality
+            $('.input-group-text').click(function() {
+                debugger;
+                var searchText = $('#search-input').val().toLowerCase();
+                var hasResults = false;
+                
+                $('.col-lg-4.col-sm-6').each(function() {
+                    var productName = $(this).find('h4').text().toLowerCase();
+                    if (productName.includes(searchText)) {
+                        $(this).show();
+                        hasResults = true;
+                    } else {
+                        $(this).hide();
+                    }
+                });
+
+                // Show/hide no results message
+                if (!hasResults) {
+                    if ($('.no-results-message').length === 0) {
+                        $('.latest_product_inner').append('<div class="col-12 text-center no-results-message"><p>Không tìm thấy sản phẩm nào</p></div>');
+                    }
+                } else {
+                    $('.no-results-message').remove();
+                }
+            });
+
+            // Trigger search on Enter key
+            $('.form-control').keypress(function(e) {
+                if(e.which == 13) {
+                    $('.input-group-text').click();
+                }
+            });
+
+            // Add to cart functionality
             $('.add-to-cart').click(function () {
                 debugger;
                 var id = $(this).data('id_product');
@@ -221,7 +246,6 @@
                             _token: _token
                         },
                         success: function () {
-
                             swal({
                                 title: "Đã thêm sản phẩm vào giỏ hàng",
                                 text: "Bạn có thể mua hàng tiếp hoặc tới giỏ hàng để tiến hành thanh toán",
@@ -236,7 +260,6 @@
                                     }
                                 });
                         }
-
                     });
                 }
             })

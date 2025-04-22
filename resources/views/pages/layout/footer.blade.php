@@ -43,13 +43,7 @@
                     <h4>Đăng ký nhận tin</h4>
                     <p>Nhận thông tin khuyến mãi và sản phẩm mới nhất về điện thoại.</p>
                     <div id="mc_embed_signup">
-                        <form target="_blank" action="#" method="get" class="subscribe_form relative mail_part">
-                            <input type="email" name="email" id="newsletter-form-email" placeholder="Nhập email của bạn"
-                                   class="placeholder hide-on-focus">
-                            <button type="submit" name="submit" id="newsletter-submit"
-                                    class="email_icon newsletter-submit button-contactForm">Đăng ký</button>
-                            <div class="mt-10 info"></div>
-                        </form>
+                        
                     </div>
                 </div>
             </div>
@@ -66,10 +60,9 @@
                 <div class="col-lg-4">
                     <div class="footer_icon social_icon">
                         <ul class="list-unstyled">
-                            <li><a href="#" class="single_social_icon"><i class="fab fa-facebook-f"></i></a></li>
-                            <li><a href="#" class="single_social_icon"><i class="fab fa-instagram"></i></a></li>
-                            <li><a href="#" class="single_social_icon"><i class="fab fa-youtube"></i></a></li>
-                            <li><a href="#" class="single_social_icon"><i class="fab fa-tiktok"></i></a></li>
+                            <li><a href="{{$contact->info_facebook}}" class="single_social_icon"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href="{{$contact->info_instagram}}" class="single_social_icon"><i class="fab fa-instagram"></i></a></li>
+                            <li><a href="{{$contact->info_youtube}}" class="single_social_icon"><i class="fab fa-youtube"></i></a></li>
                         </ul>
                     </div>
                 </div>
