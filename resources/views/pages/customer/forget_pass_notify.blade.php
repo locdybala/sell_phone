@@ -56,7 +56,7 @@
 <body>
 <div class="container">
     <div class="logo">
-        <img src="{{asset('frontend/img/logo/logo.png')}}" alt="Logo Cửa hàng Nội thất">
+        <img src="{{asset('frontend/img/logo/logo.png')}}" alt="Logo Cửa hàng Điện thoại">
     </div>
     <h3>Yêu cầu đặt lại mật khẩu</h3>
     <p>Chúng tôi nhận được yêu cầu đặt lại mật khẩu cho tài khoản của bạn. Nếu bạn không yêu cầu điều này, vui lòng bỏ qua email này.</p>
@@ -67,7 +67,7 @@
     <p><strong>Lưu ý:</strong> Liên kết này sẽ hết hạn trong 3 giờ. Nếu bạn cần yêu cầu mới, vui lòng truy cập <a href="http://127.0.0.1:8000/forgot_pass">trang đặt lại mật khẩu</a>.</p>
     <div class="footer">
         <p>Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi!</p>
-        <p><strong>Cửa hàng Nội thất</strong></p>
+        <p><strong>Cửa hàng Điện thoại</strong></p>
     </div>
 </div>
 </body>

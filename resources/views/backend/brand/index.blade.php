@@ -23,11 +23,10 @@
             <!-- [ breadcrumb ] end -->
             <!-- [ Main Content ] start -->
             <div class="row">
-
                 <!-- [ stiped-table ] start -->
                 <div class="col-xl-12">
                     <div class="card">
-                        @include('backend.components.notification');
+                        @include('backend.components.notification')
                         <div class="card-header">
                             <h5>Danh sách thương hiệu</h5>
                             @hasrole('admin')
@@ -44,6 +43,7 @@
                                     <tr>
                                         <th>STT</th>
                                         <th>Tên thương hiệu</th>
+                                        <th>Hình ảnh</th>
                                         <th>Mô tả</th>
                                         <th>Tình trạng</th>
                                         @hasrole('admin')
@@ -59,6 +59,14 @@
                                             <tr>
                                                 <td>{{$i}}</td>
                                                 <td><strong>{{$brand->brand_name}}</strong></td>
+                                                <td>
+                                                    @if($brand->brand_image)
+                                                        <img src="/upload/brand/{{ $brand->brand_image }}"
+                                                             style="width:100px;height:auto;">
+                                                    @else
+                                                        <span class="text-muted">Chưa có ảnh</span>
+                                                    @endif
+                                                </td>
                                                 <td>{!! $brand->brand_desc !!}</td>
 
                                                 @if ($brand->brand_status==1)

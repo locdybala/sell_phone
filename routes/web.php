@@ -24,6 +24,8 @@ use App\Http\Controllers\backend\GalleryController;
 use App\Http\Controllers\backend\ContactController;
 use App\Http\Controllers\backend\MailController;
 use App\Http\Controllers\backend\CustomerController;
+use App\Http\Controllers\backend\PartnerController;
+
 
 
 /*
@@ -84,9 +86,8 @@ Route::prefix('admin')->group(function () {
 
     Route::get('/', [LoginController::class, 'index'])->name('dashboard');
     Route::post('/', [LoginController::class, 'login'])->name('login');
-    Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard')->middleware('auth');
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
-
     Route::prefix('category')->group(function () {
         Route::get('/all_category', [CategoryController::class, 'index'])->name('all_category');
         Route::get('/add_category', [CategoryController::class, 'create'])->name('add_category');

@@ -46,22 +46,14 @@
                 </div>
             </div>
             <div class="row align-items-center justify-content-between">
-                @php
-                    $default_images = [
-                        'frontend/img/feature/feature_1.png',
-                        'frontend/img/feature/feature_2.png',
-                        'frontend/img/feature/feature_3.png',
-                        'frontend/img/feature/feature_4.png'
-                    ];
-                @endphp
+
                 @foreach($categories as $key => $ca)
                     <div class="col-lg-6 col-sm-6">
-                        <div class="single_feature_post_text">
+                        <div class="single_feature_post_text" style="height: 150px !important;">
                             <p>Chất lượng cao</p>
                             <h3>{{ $ca->category_name }}</h3>
-                            <a href="{{ route('detailCategory',['id'=>$ca->category_id]) }}" class="feature_btn">XEM
+                            <a style="margin-left:300px;" href="{{ route('detailCategory',['id'=>$ca->category_id]) }}" class="feature_btn">XEM
                                 NGAY <i class="fas fa-play"></i></a>
-                            <img src="{{ asset($default_images[$key]) }}" alt="{{ $ca->category_name }}">
                         </div>
                     </div>
                 @endforeach
@@ -108,7 +100,7 @@
                                                 <div class="single_product_text">
 
                                                     <h4>{{$product->product_name}}</h4>
-                                                    <h3>{{number_format($product->product_price)}}</h3>
+                                                    <h3>{{number_format($product->product_price)}} vnđ</h3>
                                                     @php
                                                         $customerId = Session::get('customer_id');
                                                     @endphp
@@ -141,7 +133,6 @@
                 <div class="row align-items-center justify-content-between">
                     <div class="col-lg-6 col-md-6">
                         <div class="offer_img">
-                            <img src="{{asset('frontend/img/offer_img.png')}}" alt="Khuyến mãi">
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6">
@@ -183,11 +174,11 @@
                         @foreach($bestSellers as $product)
                             <div class="single_product_item">
                                 <a href="{{ route('detailProduct',['id'=>$product->product_id]) }}">
-                                <img src="/upload/product/{{ $product->product_image }}" alt="">
-                                <div class="single_product_text">
-                                    <h4>{{$product->product_name}}</h4>
-                                    <h3>{{number_format($product->product_price)}}</h3>
-                                </div>
+                                    <img src="/upload/product/{{ $product->product_image }}" alt="">
+                                    <div class="single_product_text">
+                                        <h4>{{$product->product_name}}</h4>
+                                        <h3>{{number_format($product->product_price)}}</h3>
+                                    </div>
                                 </a>
                             </div>
                         @endforeach
@@ -199,20 +190,6 @@
 
     <!-- product_list part end-->
 
-    <!-- subscribe_area part start-->
-    <section class="subscribe_area section_padding">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-7">
-                    <div class="subscribe_area_text text-center">
-                        <h5>Đừng bỏ lỡ cơ hội!</h5>
-                        <h2>Khám phá những ưu đãi đặc biệt, Mua ngay để nhận thêm quà tặng hấp dẫn!</h2>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!--::subscribe_area part end::-->
 
     <!-- subscribe_area part start-->
@@ -220,35 +197,17 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-12">
-                    <div class="single_client_logo">
-                        <img src="{{asset('frontend/img/client_logo/client_logo_1.png')}}" alt="">
+                    <div class="section_tittle text-center mb-5">
+                        <h2>Thương hiệu nổi bật</h2>
                     </div>
-                    <div class="single_client_logo">
-                        <img src="{{asset('frontend/img/client_logo/client_logo_2.png')}}" alt="">
-                    </div>
-                    <div class="single_client_logo">
-                        <img src="{{asset('frontend/img/client_logo/client_logo_3.png')}}" alt="">
-                    </div>
-                    <div class="single_client_logo">
-                        <img src="{{asset('frontend/img/client_logo/client_logo_4.png')}}" alt="">
-                    </div>
-                    <div class="single_client_logo">
-                        <img src="{{asset('frontend/img/client_logo/client_logo_5.png')}}" alt="">
-                    </div>
-                    <div class="single_client_logo">
-                        <img src="{{asset('frontend/img/client_logo/client_logo_3.png')}}" alt="">
-                    </div>
-                    <div class="single_client_logo">
-                        <img src="{{asset('frontend/img/client_logo/client_logo_1.png')}}" alt="">
-                    </div>
-                    <div class="single_client_logo">
-                        <img src="{{asset('frontend/img/client_logo/client_logo_2.png')}}" alt="">
-                    </div>
-                    <div class="single_client_logo">
-                        <img src="{{asset('frontend/img/client_logo/client_logo_3.png')}}" alt="">
-                    </div>
-                    <div class="single_client_logo">
-                        <img src="{{asset('frontend/img/client_logo/client_logo_4.png')}}" alt="">
+                    <div class="client_logo_slider owl-carousel">
+                        @foreach($brand as $item)
+                            @if($item->brand_status == 1)
+                                <div class="single_client_logo d-flex align-items-center justify-content-center" style="min-height: 280px; background: #fff; margin: 0 15px; border-radius: 10px; box-shadow: 0 2px 15px rgba(0,0,0,0.05);">
+                                    <img src="/upload/brand/{{ $item->brand_image }}" alt="{{ $item->brand_name }}" style="width: 100%; max-width: 350px; height: auto; padding: 30px;">
+                                </div>
+                            @endif
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -304,6 +263,33 @@
                     });
                 }
             })
+
+            // Khởi tạo slider cho thương hiệu
+            $('.client_logo_slider').owlCarousel({
+                items: 2,
+                loop: true,
+                margin: 30,
+                autoplay: true,
+                autoplayTimeout: 4000,
+                autoplayHoverPause: true,
+                nav: true,
+                dots: false,
+                navText: ['<i class="fas fa-chevron-left"></i>', '<i class="fas fa-chevron-right"></i>'],
+                responsive: {
+                    0: {
+                        items: 1,
+                        margin: 0
+                    },
+                    768: {
+                        items: 2,
+                        margin: 20
+                    },
+                    992: {
+                        items: 2,
+                        margin: 30
+                    }
+                }
+            });
         });
 
         function add_wistlist(clicked_id) {

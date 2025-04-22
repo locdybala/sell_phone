@@ -1,129 +1,115 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập hệ thống</title>
+    <link rel="icon" href="{{ asset('backend/assets/images/favicon.ico') }}" type="image/x-icon">
 
-    <title>Đăng nhập</title>
-    <!-- HTML5 Shim and Respond.js IE11 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 11]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <!-- Meta -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="description" content=""/>
-    <meta name="keywords" content="">
-    <meta name="author" content="Phoenixcoded"/>
-    <!-- Favicon icon -->
-    <link rel="icon" href="{{asset('backend/assets/images/favicon.ico')}}" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
-          integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
-    <!-- vendor css -->
-    <link rel="stylesheet" href="{{asset('backend/assets/css/style.css')}}">
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
+    <!-- Toastr -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
 
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .login-container {
+            max-width: 400px;
+            margin: 60px auto;
+        }
+
+        .card {
+            border-radius: 1rem;
+        }
+
+        .form-control:focus {
+            box-shadow: none;
+            border-color: #4a90e2;
+        }
+    </style>
 </head>
 
 <body>
-<!-- Content -->
+    <div class="container login-container">
+        <div class="text-center mb-4">
+            <img src="{{ asset('backend/assets/images/logo.png') }}" class="img-fluid" style="height: 60px;"
+                alt="Logo">
+        </div>
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="text-center mb-4">Đăng nhập hệ thống</h5>
 
-<!-- [ auth-signin ] start -->
-<div class="auth-wrapper">
-    <div class="auth-content text-center">
-        <img src="{{asset('backend/assets/images/logo.png')}}" alt="" class="img-fluid mb-4">
-        <div class="card borderless">
-            <div class="row align-items-center ">
-                <div class="col-md-12">
-                    <div class="card-body">
-                        <form id="formAuthentication" class="mb-3" action="{{ route('login') }}" method="POST">
-                            @csrf
-                            <h4 class="mb-3 f-w-400">Đăng nhập</h4>
-                            <hr>
-                            <div class="form-group mb-3">
-                                <input
-                                    id="email" type="email"
-                                    class="form-control @error('email') is-invalid @enderror"
-                                    name="email" value="{{ old('email') }}" required autocomplete="email" autofocus
-                                />
-                                @error('email')
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="form-group mb-4">
-                                <input
-                                    type="password"
-                                    id="password"
-                                    class="form-control"
-                                    name="password"
-                                    placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                                    aria-describedby="password"
-                                />
-                                @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            @php
-                                $message=Session::get('message');
-                                if($message){
-                                    echo '<div class="alert alert-danger">
-                                              '.$message.'
-                                            </div>';
-                                    Session::put('message', null);
+                <form method="POST" action="{{ route('login') }}">
+                    @csrf
 
-                                                            }
-                            @endphp
-                            <div class="custom-control custom-checkbox text-left mb-4 mt-2">
-                                <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                <label class="custom-control-label" for="customCheck1">Lưu đăng nhập</label>
-                            </div>
-                            <button class="btn btn-block btn-primary mb-4" id="btnSubmit" type="submit">Đăng nhập
-                            </button>
-                            <hr>
-                            <p class="mb-2 text-muted">Quên mật khẩu <a href="{{ route('password.request') }}"
-                                                                        class="f-w-400">Lấy lại</a></p>
-                        </form>
+                    {{-- Email --}}
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Địa chỉ Email</label>
+                        <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
+                            name="email" value="{{ old('email') }}" required autofocus>
+                        @error('email')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
-                </div>
+
+                    {{-- Password --}}
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Mật khẩu</label>
+                        <input type="password" class="form-control @error('password') is-invalid @enderror"
+                            id="password" name="password" required>
+                        @error('password')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    {{-- Session message --}}
+                    @if (session('message'))
+                        <div class="alert alert-danger text-center">
+                            {{ session('message') }}
+                        </div>
+                    @endif
+
+                    {{-- Remember me --}}
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="remember">
+                        <label class="form-check-label" for="remember">Lưu đăng nhập</label>
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">Đăng nhập</button>
+                    </div>
+
+                    <div class="mt-3 text-center">
+                        <small class="text-muted">Quên mật khẩu? <a href="{{ route('password.request') }}">Lấy
+                                lại</a></small>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-</div>
-<!-- [ auth-signin ] end -->
 
-<!-- Required Js -->
-<script src="{{asset('backend/assets/js/vendor-all.min.js')}}"></script>
-<script src="{{asset('backend/assets/js/plugins/bootstrap.min.js')}}"></script>
-<script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
-        integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
-        crossOrigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="{{asset('backend/assets/js/pcoded.min.js')}}"></script>
+    <!-- Bootstrap JS + Toastr -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-<script type="text/javascript">
+    @if (session('success'))
+        <script>
+            toastr.success("{{ session('success') }}");
+        </script>
+    @endif
 
-    $("#btnSubmit").click(function () {
-        var email = $("#email").val();
-        var password = $("#password").val();
-
-        if (email == '') {
-            toastr["error"]("Không được để trống tài khoản");
-            return false;
-        } else if (password == '') {
-            toastr["error"]("Không được để trống mật khẩu");
-            return false;
-        }
-        return true;
-    });
-</script>
-
+    @if (session('error'))
+        <script>
+            toastr.error("{{ session('error') }}");
+        </script>
+    @endif
 
 </body>
 

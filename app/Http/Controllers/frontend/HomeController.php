@@ -74,7 +74,7 @@ class HomeController extends Controller
             ->withCount('product') // Lưu ý: 'products' theo tên function
             ->orderBy('category_id', 'desc')
             ->get();
-        $brand = Brand::where('brand_status', '1')->orderby('brand_id', 'desc')->get();
+        $brand = Brand::where('brand_status', '1')->withCount('product')->orderby('brand_id', 'desc')->get();
         $products = Product::where('product_status', '1')->where('category_id', $id)->orderby('product_id', 'desc')->paginate(8);
         $category_name = Category::find($id);
         $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();
@@ -93,7 +93,7 @@ class HomeController extends Controller
             ->withCount('product') // Lưu ý: 'products' theo tên function
             ->orderBy('category_id', 'desc')
             ->get();
-        $brand = Brand::where('brand_status', '1')->orderby('brand_id', 'desc')->get();
+        $brand = Brand::where('brand_status', '1')->withCount('product')->orderby('brand_id', 'desc')->get();
         $products = Product::where('product_status', '1')->where('brand_id', $id)->orderby('product_id', 'desc')->paginate(8);
 
         $categorypost = CategoryPost::where('cate_post_status', '1')->orderby('cate_post_id', 'desc')->get();

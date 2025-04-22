@@ -4,12 +4,12 @@
         <div class="row justify-content-around">
             <div class="col-sm-6 col-lg-3">
                 <div class="single_footer_part">
-                    <h4>Sản phẩm nổi bật</h4>
+                    <h4>Điện thoại nổi bật</h4>
                     <ul class="list-unstyled">
-                        <li><a href="#">Bàn ghế phòng khách</a></li>
-                        <li><a href="#">Tủ quần áo</a></li>
-                        <li><a href="#">Giường ngủ</a></li>
-                        <li><a href="#">Đồ trang trí</a></li>
+                        <li><a href="#">iPhone 15 Series</a></li>
+                        <li><a href="#">Samsung Galaxy S24</a></li>
+                        <li><a href="#">Xiaomi Redmi Note</a></li>
+                        <li><a href="#">Điện thoại giá rẻ</a></li>
                     </ul>
                 </div>
             </div>
@@ -41,7 +41,7 @@
             <div class="col-sm-6 col-lg-3">
                 <div class="single_footer_part">
                     <h4>Đăng ký nhận tin</h4>
-                    <p>Nhận thông tin khuyến mãi và sản phẩm mới nhất từ chúng tôi.</p>
+                    <p>Nhận thông tin khuyến mãi và sản phẩm mới nhất về điện thoại.</p>
                     <div id="mc_embed_signup">
                         <form target="_blank" action="#" method="get" class="subscribe_form relative mail_part">
                             <input type="email" name="email" id="newsletter-form-email" placeholder="Nhập email của bạn"
@@ -60,7 +60,7 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="copyright_text">
-                        <p>© <script>document.write(new Date().getFullYear());</script> Nội Thất Nhà Đẹp | Thiết kế bởi <a href="#">Đội ngũ của chúng tôi</a></p>
+                        <p>© <script>document.write(new Date().getFullYear());</script> Điện Thoại 24h | Thiết kế bởi <a href="#">Đội ngũ Dev Mobile</a></p>
                     </div>
                 </div>
                 <div class="col-lg-4">

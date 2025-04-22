@@ -25,6 +25,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
           integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <style>
+        .ck-editor__editable_inline {
+            min-height: 200px; /* hoặc 400px tùy bạn */
+        }
+    </style>
 </head>
 <body class="">
 <div class="loader-bg">
@@ -83,16 +88,16 @@
                         <li><a href="{{route('all_category')}}">Danh sách danh mục</a></li>
                     </ul>
                 </li>
-{{--                <li class="nav-item pcoded-hasmenu">--}}
-{{--                    <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span--}}
-{{--                            class="pcoded-mtext">Thương hiệu sản phẩm</span></a>--}}
-{{--                    <ul class="pcoded-submenu">--}}
-{{--                        @hasrole('admin')--}}
-{{--                        <li><a href="{{route('add_brand')}}">Thêm thương hiệu</a></li>--}}
-{{--                        @endhasrole--}}
-{{--                        <li><a href="{{route('all_brand')}}">Danh sách thương hiệu</a></li>--}}
-{{--                    </ul>--}}
-{{--                </li>--}}
+                <li class="nav-item pcoded-hasmenu">
+                    <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span
+                            class="pcoded-mtext">Thương hiệu sản phẩm</span></a>
+                    <ul class="pcoded-submenu">
+                        @hasrole('admin')
+                        <li><a href="{{route('add_brand')}}">Thêm thương hiệu</a></li>
+                        @endhasrole
+                        <li><a href="{{route('all_brand')}}">Danh sách thương hiệu</a></li>
+                    </ul>
+                </li>
                 <li class="nav-item pcoded-hasmenu">
                     <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-book"></i></span><span
                             class="pcoded-mtext">Quản lý sản phẩm</span></a>
@@ -252,7 +257,15 @@
       crossorigin="anonymous" referrerpolicy="no-referrer"/>
 <!-- Place this tag in your head or just before your close body tag. -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
-<script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/41.0.0/classic/ckeditor.js"></script>
+<script>
+    ClassicEditor
+        .create(document.querySelector('#ckeditor'))
+        .catch(error => {
+            console.error(error);
+        });
+</script>
+
 <!-- Required Js -->
 <script src="{{asset('backend/assets/js/vendor-all.min.js')}}"></script>
 <script src="{{asset('backend/assets/js/plugins/bootstrap.min.js')}}"></script>

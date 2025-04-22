@@ -27,7 +27,7 @@
                 <!-- [ stiped-table ] start -->
                 <div class="col-xl-12">
                     <div class="card">
-                        @include('backend.components.notification');
+                        @include('backend.components.notification')
                         <div class="card-header">
                             <h5>Danh sách slider</h5>
                             <div>
@@ -57,7 +57,7 @@
                                                 <td>{{$i}}</td>
                                                 <td><strong>{{$slider->slider_name}}</strong></td>
                                                 <td><img src="/upload/slider/{{ $slider->slider_image }}"
-                                                         style="width:150px;height:100px;" alt="">}
+                                                         style="width:150px;height:100px;" alt="">
                                                 </td>
                                                 @if ($slider->slider_status==1)
 

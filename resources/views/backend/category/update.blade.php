@@ -52,7 +52,7 @@
                                             <textarea
                                                 id="ckeditor"
                                                 class="form-control" name="description"
-                                                placeholder="Mô tả danh mục" required
+                                                placeholder="Mô tả danh mục"
                                             >{!!  $category->category_desc  !!}</textarea>
                                         </div>
                                     </div>
@@ -88,7 +88,6 @@
 
 @section('js')
     <script>
-        CKEDITOR.replace('ckeditor');
         $("#btnSubmit").click(function () {
             var name = $("#name").val();
 
