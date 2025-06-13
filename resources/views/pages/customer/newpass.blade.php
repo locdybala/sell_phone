@@ -46,7 +46,7 @@
                     <button type="submit" id="btnSubmit" class="btn btn-success">Lưu mật khẩu</button>
                 </div>
                 <div class="text-center mt-3">
-                    <a href="{{ route('login') }}" class="text-primary">Quay lại đăng nhập</a>
+                    <a href="{{ route('loginCustomer') }}" class="text-primary">Quay lại đăng nhập</a>
                 </div>
             </form>
         </div>

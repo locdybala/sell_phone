@@ -44,7 +44,7 @@
                             <button type="submit" id="btnSubmit"
                                     class="btn_3">Lấy lại mật khẩu
                             </button>
-                            <a class="lost_pass" href="{{route('login')}}">Đăng nhập</a>
+                            <a class="lost_pass" href="{{route('loginCustomer')}}">Đăng nhập</a>
                         </div>
                     </form>
                     <div class="col-lg-3"></div>
