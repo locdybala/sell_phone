@@ -17,7 +17,7 @@
     <meta name="keywords" content="">
     <meta name="author" content="Phoenixcoded"/>
     <!-- Favicon icon -->
-    <link rel="icon" href="{{asset('backend/assets/images/favicon.ico')}}" type="image/x-icon">
+    <link rel="icon" href="https://i.postimg.cc/rmM2PzDk/logo-removebg-preview.png" type="image/x-icon">
 
     <!-- vendor css -->
     <link rel="stylesheet" href="{{asset('backend/assets/css/style.css')}}">
@@ -208,7 +208,7 @@
         <a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
         <a href="#!" class="b-brand">
             <!-- ========   change your logo hear   ============ -->
-            <img src="{{asset('contact/logo.png')}}" alt="" class="logo">
+            <img style="width:width130px, height:height10;" src="https://i.postimg.cc/rmM2PzDk/logo-removebg-preview.png" alt="" class="logo">
             <img src="{{asset('backend/assets/images/logo-icon.png')}}" alt="" class="logo-thumb">
         </a>
         <a href="#!" class="mob-toggler">

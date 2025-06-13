@@ -5,8 +5,8 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Điện thoại</title>
-    <link rel="icon" href="{{asset('frontend/img/favicon.png')}}">
+    <title>PD Shop Mobile - Chuỗi cửa hàng điện tử lớn nhất Hà Nội</title>
+    <link rel="icon" href="https://i.postimg.cc/rmM2PzDk/logo-removebg-preview.png">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{asset('frontend/css/bootstrap.min.css')}}">
     <!-- animate CSS -->

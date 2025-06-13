@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng nhập hệ thống</title>
-    <link rel="icon" href="{{ asset('backend/assets/images/favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="https://i.postimg.cc/rmM2PzDk/logo-removebg-preview.png" type="image/x-icon">
 
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -38,7 +38,7 @@
 <body>
     <div class="container login-container">
         <div class="text-center mb-4">
-            <img src="{{ asset('backend/assets/images/logo.png') }}" class="img-fluid" style="height: 60px;"
+            <img src="https://i.postimg.cc/rmM2PzDk/logo-removebg-preview.png" class="img-fluid" style="height: 60px;"
                 alt="Logo">
         </div>
         <div class="card shadow-sm">

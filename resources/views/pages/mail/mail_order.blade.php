@@ -103,7 +103,7 @@
                         </tbody>
                     </table>
                 </div>
-                <p>Mọi chi tiết xin liên hệ số điện thoại : 0123456789</p>
+                <p>Mọi chi tiết xin liên hệ số điện thoại : 0388181970</p>
             </div>
         </div>
     </div>

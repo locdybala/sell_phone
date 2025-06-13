@@ -8,7 +8,7 @@
         <div class="row align-items-center">
             <div class="col-lg-12">
                 <nav class="navbar navbar-expand-lg navbar-light">
-                    <a class="navbar-brand" href="{{URL::to('/')}}"> <img style="width: 120px; height: 40px;" src="{{asset('upload/info/' . $contact->info_image)}}" alt="logo"> </a>
+                    <a class="navbar-brand" href="{{URL::to('/')}}"> <img style="width: 260px; height: 80px;" src="https://i.postimg.cc/rmM2PzDk/logo-removebg-preview.png" alt="logo"> </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
