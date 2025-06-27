@@ -21,7 +21,7 @@
                                 <h5 class="m-b-10">Thêm sản phẩm</h5>
                             </div>
                             <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{route('dashboard')}}"><i
+                                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"><i
                                             class="feather icon-home"></i></a></li>
                                 <li class="breadcrumb-item"><a href="#!">sản phẩm</a></li>
                                 <li class="breadcrumb-item"><a href="#!">Thêm sản phẩm</a></li>
@@ -39,30 +39,34 @@
                             <h5>Thêm mới sản phẩm</h5>
                         </div>
                         <div class="card-body">
-                            <form action="{{route('addProduct')}}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('addProduct') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <label class="floating-label" for="name">Tên sản phẩm <span class="required">(*)</span></label>
-                                            <input type="text" class="form-control" required id="name" name="name"
-                                                   placeholder="Nhập tên sản phẩm"/>
+                                            <label class="floating-label" for="name">Tên sản phẩm <span
+                                                    class="required">(*)</span></label>
+                                            <input type="text" class="form-control" required id="name"
+                                                name="name" placeholder="Nhập tên sản phẩm" />
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label class="floating-label" for="category_id">Danh mục sản phẩm <span class="required">(*)</span></label>
+                                            <label class="floating-label" for="category_id">Danh mục sản phẩm <span
+                                                    class="required">(*)</span></label>
                                             <select id="category_id" name="category_id" class="form-control">
                                                 <option>---Chọn danh mục---</option>
                                                 @foreach ($category as $category)
-                                                    <option value="{{ $category->category_id }}">{{ $category->category_name }}</option>
+                                                    <option value="{{ $category->category_id }}">
+                                                        {{ $category->category_name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label class="floating-label" for="brand_id">Thương hiệu sản phẩm <span class="required">(*)</span></label>
+                                            <label class="floating-label" for="brand_id">Thương hiệu sản phẩm <span
+                                                    class="required">(*)</span></label>
                                             <select id="brand_id" name="brand_id" class="form-control">
                                                 <option>---Chọn thương hiệu---</option>
                                                 @foreach ($brand as $brand)
@@ -73,56 +77,52 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label class="floating-label" for="price">Giá <span class="required">(*)</span></label>
+                                            <label class="floating-label" for="price">Giá <span
+                                                    class="required">(*)</span></label>
                                             <input type="number" class="form-control" id="price" name="price"
-                                                   placeholder="1.000.000 "/>
+                                                placeholder="1.000.000 " />
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label class="floating-label" for="product_quantity">Số lượng <span class="required">(*)</span></label>
-                                            <input type="text" class="form-control" id="product_quantity" name="product_quantity"
-                                                   placeholder="Nhập số lượng"/>
+                                            <label class="floating-label" for="product_quantity">Số lượng <span
+                                                    class="required">(*)</span></label>
+                                            <input type="text" class="form-control" id="product_quantity"
+                                                name="product_quantity" placeholder="Nhập số lượng" />
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label class="floating-label" for="name">Tag sản phẩm</label>
-                                            <input type="text" data-role="tagsinput" class="form-control" id="product_tags" name="product_tags"
-                                            />
+                                            <input type="text" data-role="tagsinput" class="form-control"
+                                                id="product_tags" name="product_tags" />
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <label class="floating-label" for="name">Ảnh <span class="required">(*)</span></label>
-                                            <input type="file" class="form-control" id="image" name="image"
-                                            />
+                                            <label class="floating-label" for="name">Ảnh <span
+                                                    class="required">(*)</span></label>
+                                            <input type="file" class="form-control" id="image" name="image" />
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <label class="floating-label" for="name">Nội dung <span class="required">(*)</span></label>
-                                            <textarea
-                                            id="product_content"
-                                            class="form-control" name="product_content"
-                                            placeholder="Nội dung sản phẩm"
-                                        ></textarea>
+                                            <label class="floating-label" for="name">Nội dung <span
+                                                    class="required">(*)</span></label>
+                                            <textarea id="product_content" class="form-control" name="product_content" placeholder="Nội dung sản phẩm"></textarea>
 
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label class="floating-label" for="description">Mô tả</label>
-                                            <textarea
-                                                id="ckeditor"
-                                                class="form-control" name="description"
-                                                placeholder="Mô tả sản phẩm"
-                                            ></textarea>
+                                            <textarea id="ckeditor" class="form-control" name="description" placeholder="Mô tả sản phẩm"></textarea>
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <label class="floating-label" for="status">Trạng thái <span class="required">(*)</span></label>
+                                            <label class="floating-label" for="status">Trạng thái <span
+                                                    class="required">(*)</span></label>
                                             <select id="status" name="status" class="form-control">
                                                 <option value="1">Hiển thị</option>
                                                 <option value="2">Ẩn</option>
@@ -151,39 +151,64 @@
 @section('js')
     <script>
         ClassicEditor
-        .create(document.querySelector('#product_content'))
-        .catch(error => {
-            console.error(error);
-        });
-        $("#btnSubmit").click(function () {
+            .create(document.querySelector('#product_content'))
+            .catch(error => {
+                console.error(error);
+            });
+        ClassicEditor
+            .create(document.querySelector('#product_content'))
+            .then(editor => { // Bắt lấy thể hiện của editor
+                window.productEditor =
+                editor; // Lưu trữ nó vào biến toàn cục (hoặc trong một phạm vi có thể truy cập được bởi hàm xử lý sự kiện click)
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
+        $("#btnSubmit").click(function() {
+            debugger; // Giữ lại để debug nếu cần
             var name = $("#name").val();
             var category_id = $("#category_id").val();
             var brand_id = $("#brand_id").val();
             var product_quantity = $("#product_quantity").val();
             var price = $("#price").val();
             var image = $("#image").val();
-            var product_content = $("#product_content").val();
-            if (name == '') {
+
+            // ĐÂY LÀ PHẦN THAY ĐỔI QUAN TRỌNG NHẤT:
+            var product_content = '';
+            if (window.productEditor) { // Kiểm tra xem thể hiện của editor có tồn tại không
+                product_content = window.productEditor.getData(); // Lấy dữ liệu từ ClassicEditor
+            } else {
+                // Dự phòng cho trường hợp editor chưa tải xong,
+                // mặc dù thông thường bạn sẽ mong đợi nó đã được tải.
+                product_content = $("#product_content").val();
+            }
+
+
+            if (name === '') { // Nên dùng so sánh nghiêm ngặt (===)
                 toastr["error"]("Tên sản phẩm không được bỏ trống");
                 return false;
-            } else if (category_id == '') {
+            } else if (category_id === '') {
                 toastr["error"]("Không được bỏ trống danh mục sản phẩm");
                 return false;
             }
-            // else if (brand_id == '') {
+            // else if (brand_id === '') {
             //     toastr["error"]("Không được bỏ trống thương hiệu sản phẩm");
             //     return false;
             // }
-            else if (product_quantity == '') {
+            else if (product_quantity === '') {
                 toastr["error"]("Không được bỏ trống số lượng sản phẩm");
                 return false;
-            } else if (price == '') {
+            } else if (price === '') {
                 toastr["error"]("Không được bỏ trống giá sản phẩm");
                 return false;
-            } else if (image == '') {
+            } else if (image === '') {
                 toastr["error"]("Không được bỏ trống ảnh sản phẩm");
                 return false;
-            } else if (product_content == '') {
+            }
+            // Kiểm tra nội dung sản phẩm sau khi đã lấy từ editor
+            else if (product_content === '' || product_content.trim() === '<p></p>' || product_content.trim() ===
+                '<p>&nbsp;</p>') { // Kiểm tra chuỗi rỗng HOẶC đoạn HTML rỗng (có thể có <p></p> hoặc <p>&nbsp;</p>)
                 toastr["error"]("Không được bỏ trống nội dung sản phẩm");
                 return false;
             }
