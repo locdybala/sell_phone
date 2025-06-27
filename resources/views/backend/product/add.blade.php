@@ -152,11 +152,6 @@
     <script>
         ClassicEditor
             .create(document.querySelector('#product_content'))
-            .catch(error => {
-                console.error(error);
-            });
-        ClassicEditor
-            .create(document.querySelector('#product_content'))
             .then(editor => { // Bắt lấy thể hiện của editor
                 window.productEditor =
                 editor; // Lưu trữ nó vào biến toàn cục (hoặc trong một phạm vi có thể truy cập được bởi hàm xử lý sự kiện click)
