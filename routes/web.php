@@ -79,15 +79,17 @@ Auth::routes();
 
 //Backend
 Route::prefix('admin')->group(function () {
-    Route::post('/filter-by-date', [AdminController::class, 'filter_by_date']);
-    Route::post('/days-order', [AdminController::class, 'days_order']);
-
-    Route::post('/dashboard-filter', [AdminController::class, 'dashboard_filter']);
-
+    // Routes không cần auth
     Route::get('/', [LoginController::class, 'index'])->name('dashboard');
     Route::post('/', [LoginController::class, 'login'])->name('login');
-    Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard')->middleware('auth');
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+    
+    // Routes cần auth
+    Route::middleware('auth')->group(function () {
+        Route::post('/filter-by-date', [AdminController::class, 'filter_by_date']);
+        Route::post('/days-order', [AdminController::class, 'days_order']);
+        Route::post('/dashboard-filter', [AdminController::class, 'dashboard_filter']);
+        Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
     Route::prefix('category')->group(function () {
         Route::get('/all_category', [CategoryController::class, 'index'])->name('all_category');
         Route::get('/add_category', [CategoryController::class, 'create'])->name('add_category');
@@ -180,13 +182,13 @@ Route::prefix('admin')->group(function () {
     });
 
     Route::prefix('order')->group(function () {
-        Route::get('/all_order', [OrderController::class, 'index'])->name('all_order')->middleware('auth');
-        Route::get('/view-order/{order_code}', [OrderController::class, 'view_order'])->name('view_order')->middleware('auth');
-        Route::get('/print-order/{order_code}', [OrderController::class, 'print_order'])->name('print_order')->middleware('auth');
-        Route::post('/cancel_order/{order_code}', [OrderController::class, 'cancel_order'])->name('cancel_order')->middleware('auth');
-        Route::get('/delete-order/{order_code}', [OrderController::class, 'delete_order'])->name('delete_order')->middleware('auth');
-        Route::post('/update-order-qty', [OrderController::class, 'update_order_qty'])->middleware('auth');
-        Route::post('/update-qty', [OrderController::class, 'update_qty'])->middleware('auth');
+        Route::get('/all_order', [OrderController::class, 'index'])->name('all_order');
+        Route::get('/view-order/{order_code}', [OrderController::class, 'view_order'])->name('view_order');
+        Route::get('/print-order/{order_code}', [OrderController::class, 'print_order'])->name('print_order');
+        Route::post('/cancel_order/{order_code}', [OrderController::class, 'cancel_order'])->name('cancel_order');
+        Route::get('/delete-order/{order_code}', [OrderController::class, 'delete_order'])->name('delete_order');
+        Route::post('/update-order-qty', [OrderController::class, 'update_order_qty']);
+        Route::post('/update-qty', [OrderController::class, 'update_qty']);
     });
 
     //Authencation
@@ -213,25 +215,25 @@ Route::prefix('admin')->group(function () {
 
 
     Route::prefix('category_post')->group(function () {
-        Route::get('/all_category_post', [CategoryPostController::class, 'index'])->name('all_category_post')->middleware('auth');
-        Route::get('/add_PostCategory', [CategoryPostController::class, 'create'])->name('add_PostCategory')->middleware('auth');
-        Route::get('/updatecategory_post/{id}', [CategoryPostController::class, 'edit'])->name('updatecategory_post')->middleware('auth');
-        Route::get('/unactive_category_post/{id}', [CategoryPostController::class, 'unactive_category'])->name('unactive_category_post')->middleware('auth');
-        Route::get('/active_category_post/{id}', [CategoryPostController::class, 'active_category'])->name('active_category_post')->middleware('auth');
-        Route::post('/addCategoryPost', [CategoryPostController::class, 'store'])->name('addCategoryPost')->middleware('auth');
-        Route::post('/editCategoryPost/{id}', [CategoryPostController::class, 'update'])->name('editCategoryPost')->middleware('auth');
-        Route::get('/deleteCategoryPost/{id}', [CategoryPostController::class, 'delete'])->name('deleteCategoryPost')->middleware('auth');
+        Route::get('/all_category_post', [CategoryPostController::class, 'index'])->name('all_category_post');
+        Route::get('/add_PostCategory', [CategoryPostController::class, 'create'])->name('add_PostCategory');
+        Route::get('/updatecategory_post/{id}', [CategoryPostController::class, 'edit'])->name('updatecategory_post');
+        Route::get('/unactive_category_post/{id}', [CategoryPostController::class, 'unactive_category'])->name('unactive_category_post');
+        Route::get('/active_category_post/{id}', [CategoryPostController::class, 'active_category'])->name('active_category_post');
+        Route::post('/addCategoryPost', [CategoryPostController::class, 'store'])->name('addCategoryPost');
+        Route::post('/editCategoryPost/{id}', [CategoryPostController::class, 'update'])->name('editCategoryPost');
+        Route::get('/deleteCategoryPost/{id}', [CategoryPostController::class, 'delete'])->name('deleteCategoryPost');
     });
 
     Route::prefix('post')->group(function () {
-        Route::get('/all_post', [PostController::class, 'index'])->name('all_post')->middleware('auth');
-        Route::get('/add_post', [PostController::class, 'create'])->name('add_post')->middleware('auth');
-        Route::get('/updatepost/{id}', [PostController::class, 'edit'])->name('updatepost')->middleware('auth');
-        Route::post('/addPost', [PostController::class, 'store'])->name('addPost')->middleware('auth');
-        Route::get('/unactive_post/{id}', [PostController::class, 'unactive_post'])->name('unactive_post')->middleware('auth');
-        Route::get('/active_post/{id}', [PostController::class, 'active_post'])->name('active_post')->middleware('auth');
-        Route::post('/updatePost/{id}', [PostController::class, 'update'])->name('update_Post')->middleware('auth');
-        Route::get('/deletePost/{id}', [PostController::class, 'delete'])->name('deletePost')->middleware('auth');
+        Route::get('/all_post', [PostController::class, 'index'])->name('all_post');
+        Route::get('/add_post', [PostController::class, 'create'])->name('add_post');
+        Route::get('/updatepost/{id}', [PostController::class, 'edit'])->name('updatepost');
+        Route::post('/addPost', [PostController::class, 'store'])->name('addPost');
+        Route::get('/unactive_post/{id}', [PostController::class, 'unactive_post'])->name('unactive_post');
+        Route::get('/active_post/{id}', [PostController::class, 'active_post'])->name('active_post');
+        Route::post('/updatePost/{id}', [PostController::class, 'update'])->name('update_Post');
+        Route::get('/deletePost/{id}', [PostController::class, 'delete'])->name('deletePost');
     });
 
     Route::prefix('customer')->group(function () {
@@ -254,6 +256,7 @@ Route::prefix('admin')->group(function () {
         Route::post('/addPages', [PagesController::class, 'store'])->name('addPages');
         Route::post('/updatePages/{id}', [PagesController::class, 'update'])->name('update_pages');
         Route::get('/deletePages/{id}', [PagesController::class, 'delete'])->name('deletePages');
+    });
     });
 });
 
