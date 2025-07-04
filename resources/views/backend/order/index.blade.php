@@ -84,15 +84,13 @@
                                                            href="{{route('view_order',['order_code'=> $order->order_code])}}"
                                                         ><i class="fa fa-pencil"></i></a
                                                         >
-                                                        <form method="POST" action="">
-                                                            @csrf
-                                                            @method('delete')
+                                                        @if ($order->order_status==1)
                                                             <a onclick="return confirm('Bạn có muốn xóa đơn hàng này không?')"
-                                                               href="{{URL::to('/delete-order/'.$order->order_code)}}"
+                                                               href="{{route('delete_order', ['order_code' => $order->order_code])}}"
                                                                class="btn btn-sm btn-danger ml-2"><i
                                                                     class="fa fa-trash">
                                                                 </i></a>
-                                                        </form>
+                                                        @endif
                                                     </div>
                                                 </td>
                                             </tr>
